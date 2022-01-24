@@ -345,7 +345,8 @@ var LIBRARY_OBJECT = (function() {
         var email = $('#id_email').val();
         $.ajax({
             type: 'POST',
-            url: "/apps/nasaaccess2/run/",
+            // url: "/apps/nasaaccess2/run/",
+            url: "run/",
             data: {
                 'startDate': start,
                 'endDate': end,

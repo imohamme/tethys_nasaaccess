@@ -31,7 +31,7 @@ class nasaaccess(TethysAppBase):
             ),
             UrlMap(
                 name='download_files',
-                url='nasaaccess/run',
+                url='run/',
                 controller='nasaaccess.ajax_controllers.run_nasaaccess'
             ),
             UrlMap(

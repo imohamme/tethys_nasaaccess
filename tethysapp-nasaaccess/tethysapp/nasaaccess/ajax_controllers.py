@@ -73,6 +73,8 @@ def upload_tiffiles(request):
             form.save(commit=True)
             perm_file_path = os.path.join(data_path, 'DEMfiles', id)
             dem_path_user = os.path.join(nasaaccess.get_user_workspace(request.user).path, 'DEMfiles')
+            print(perm_file_path)
+            print(dem_path_user)
             if os.path.isfile(perm_file_path) or os.path.isfile(dem_path_user):
                 logging.info('file already exists')
             else:

@@ -10,15 +10,20 @@ logging.basicConfig(filename=nasaaccess_log,level=logging.INFO)
 class Shapefiles(models.Model):
     shapefile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'shapefiles'),max_length=500)
 
+    class Meta:
+        app_label = 'nasaaccess'
+
 # Model for the Upload DEM files form
 class DEMfiles(models.Model):
     DEMfile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'DEMfiles'),max_length=500)
-
+    class Meta:
+        app_label = 'nasaaccess'
 # Model for data access form
 class accessCode(models.Model):
     access_code = models.CharField(max_length=6)
 
-
+    class Meta:
+        app_label = 'nasaaccess'
 def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace):
     #identify where each of the input files are located in the server
     shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')

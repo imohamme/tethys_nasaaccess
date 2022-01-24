@@ -8,7 +8,15 @@ requirements:
     channels:
       - conda-forge
     packages:
-
+      - shapely
+      - rasterio
+      - netcdf4
+      - pandas
+      - geopandas
+      - georaster
+      - xarray
+      - ncurses
+      - requests
   pip:
 
 post:
