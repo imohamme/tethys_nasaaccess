@@ -3,6 +3,7 @@ from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.core.files import File
 from .forms import UploadShpForm, UploadDEMForm
 from .config import *
+from .modelDjango import *
 from .model import *
 from .app import nasaaccess
 
