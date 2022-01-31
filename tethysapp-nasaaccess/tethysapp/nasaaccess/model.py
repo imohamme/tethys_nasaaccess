@@ -2,28 +2,59 @@ from django.db import models
 import os, random, string, subprocess, requests, shutil, logging, zipfile
 from .config import *
 from tethys_sdk.services import get_spatial_dataset_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
 
 logging.basicConfig(filename=nasaaccess_log,level=logging.INFO)
 
+Base = declarative_base()
 
-# Model for the Upload Shapefiles form
-class Shapefiles(models.Model):
-    shapefile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'shapefiles'),max_length=500)
+class Shapefiles(Base):
+    __tablename__ = 'shapefiles'
+    
+    id = Column(Integer, primary_key=True)  # Record number.
+    shapefile = Column(String(1000))
 
-    class Meta:
-        app_label = 'nasaaccess'
+  
+    def __init__(self, shapefile):
+        self.shapefile= os.path.join(data_path, 'temp', 'shapefiles')
 
-# Model for the Upload DEM files form
-class DEMfiles(models.Model):
-    DEMfile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'DEMfiles'),max_length=500)
-    class Meta:
-        app_label = 'nasaaccess'
-# Model for data access form
-class accessCode(models.Model):
-    access_code = models.CharField(max_length=6)
+class DEMfiles(Base):
+    __tablename__ = 'nasaaccess_demfiles'
+    
+    id = Column(Integer, primary_key=True)  # Record number.
+    DEMfile = Column(String(1000))
 
-    class Meta:
-        app_label = 'nasaaccess'
+  
+    def __init__(self, shapefile):
+        self.shapefile= os.path.join(data_path, 'temp', 'DEMfiles')
+
+class accessCode(Base):
+    __tablename__ = 'accesscode'
+    
+    id = Column(Integer, primary_key=True)  # Record number.
+    accessCode = Column(String(1000))
+
+
+
+# # Model for the Upload Shapefiles form
+# class Shapefiles(models.Model):
+#     shapefile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'shapefiles'),max_length=500)
+
+#     class Meta:
+#         app_label = 'nasaaccess'
+
+# # Model for the Upload DEM files form
+# class DEMfiles(models.Model):
+#     DEMfile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'DEMfiles'),max_length=500)
+#     class Meta:
+#         app_label = 'nasaaccess'
+# # Model for data access form
+# class accessCode(models.Model):
+#     access_code = models.CharField(max_length=6)
+
+#     class Meta:
+#         app_label = 'nasaaccess'
 def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace):
     #identify where each of the input files are located in the server
     shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
