@@ -1,7 +1,5 @@
 from django.forms import ModelForm
-from .model import Shapefiles, DEMfiles, accessCode
-
-
+from .modelDjango import Shapefiles, DEMfiles, accessCode
 
 class UploadShpForm(ModelForm):
     class Meta:
