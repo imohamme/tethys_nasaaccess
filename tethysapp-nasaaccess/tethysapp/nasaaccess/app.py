@@ -1,5 +1,6 @@
 from tethys_sdk.base import TethysAppBase, url_map_maker
 
+from tethys_sdk.app_settings import PersistentStoreDatabaseSetting, SpatialDatasetServiceSetting
 
 class nasaaccess(TethysAppBase):
     """
@@ -52,3 +53,30 @@ class nasaaccess(TethysAppBase):
         )
 
         return url_maps
+
+    #### Persistant storage ###
+    def persistent_store_settings(self):
+        ps_settings = (
+            PersistentStoreDatabaseSetting(
+                name='catalog_db',
+                description='forms database',
+                initializer='nasaaccess.init_stores.init_db',
+                required=True
+            ),
+        )
+        return ps_settings
+
+    def spatial_dataset_service_settings(self):
+        """
+        Example spatial_dataset_service_settings method.
+        """
+        sds_settings = (
+            SpatialDatasetServiceSetting(
+                name='ADPC',
+                description='GeoServer service for the shapefiles and DEMS files.',
+                engine=SpatialDatasetServiceSetting.GEOSERVER,
+                required=True,
+            ),
+        )
+
+        return sds_settings
