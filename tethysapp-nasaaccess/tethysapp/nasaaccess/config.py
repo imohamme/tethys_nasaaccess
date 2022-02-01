@@ -8,8 +8,8 @@ nasaaccess_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subproce
 
 nasaaccess_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
 
-geoserver = {'rest_url':'http://localhost:8080/geoserver/rest/',
-             'wms_url':'http://localhost:8080/geoserver/wms/',
+geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
+             'wms_url':'http://localhost:8081/geoserver/wms/',
              'user':'admin',
              'password':'geoserver',
              'workspace':'nasaaccess',

@@ -46,7 +46,8 @@ var LIBRARY_OBJECT = (function() {
         nasaaccess,
         validateQuery,
         clear_selection,
-        getCookie;
+        getCookie,
+        uploadShapefile;
 
 
 
@@ -383,6 +384,37 @@ var LIBRARY_OBJECT = (function() {
         }
     }
 
+    uploadShapefile = function () {
+        let files = $('#shapefile-upload')[0].files;
+        if (files.length !== 4) {
+          alert('The files you selected were rejected. Upload exactly 4 files ending in shp, shx, prj and dbf.');
+          return
+        }
+        let data = new FormData();
+        Object.keys(files).forEach(function (file) {
+          data.append('files', files[file]);
+        });
+        console.log(data);
+        console.log(files);
+        $.ajax({
+          url: 'upload_shp/',
+          type: 'POST',
+          data: data,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          success: function (result) {
+              $("#loading").hide();
+            console.log(result.response);        
+          },
+          error: function (error) {
+            console.log(error);
+            $("#loading").hide();
+          }
+        });
+      }
+
+
 
     /************************************************************************
      *                        DEFINE PUBLIC INTERFACE
@@ -445,6 +477,7 @@ var LIBRARY_OBJECT = (function() {
             console.log('Add DEM')
             $("#dem-modal").modal('show');
         })
+        $("#shp_submit").click(uploadShapefile)
 
 
     });

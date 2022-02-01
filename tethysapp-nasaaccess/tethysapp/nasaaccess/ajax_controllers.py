@@ -1,4 +1,4 @@
-import os, datetime, logging
+import os, datetime, logging, glob
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.core.files import File
 from .forms import UploadShpForm, UploadDEMForm
@@ -36,31 +36,63 @@ def upload_shapefiles(request):
     """
     Controller to upload new shapefiles to app server and publish to geoserver
     """
+    files = request.FILES.getlist('files')
+    
+    #create new dir or check dir for shapefiles
+    shp_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','shapefiles')
+    if not os.path.exists(shp_path):
+        os.makedirs(shp_path)
+        os.chmod(shp_path, 0o777)
 
-    if request.method == 'POST':
-        form = UploadShpForm(request.POST, request.FILES)
-        id = request.FILES['shapefile'].name.split('.')[0] # Get name of the watershed from the shapefile name
-        if form.is_valid():
-            form.save()  # Save the shapefile to the nasaaccess data file path
-            perm_file_path = os.path.join(data_path, 'shapefiles', id)
-            user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path, 'shapefiles')
-            shp_path_user = os.path.join(user_workspace, id)
-            if os.path.isfile(perm_file_path) or os.path.isfile(shp_path_user):
-                logging.info('file already exists')
-            else:
-                logging.info('saving shapefile to server')
-                if not os.path.exists(user_workspace):
-                    os.makedirs(user_workspace)
-                    os.chmod(user_workspace, 0o777)
-                    os.makedirs(shp_path_user)
-                    os.chmod(shp_path_user, 0o777)
-                if not os.path.exists(shp_path_user):
-                    os.makedirs(shp_path_user)
-                    os.chmod(shp_path_user, 0o777)
-                upload_shapefile(id, shp_path_user) # Run upload_shapefile function to upload file to the geoserver
-            return HttpResponseRedirect('../') # Return to Home page
-    else:
-        return HttpResponseRedirect('../') # Return to Home page
+    #Loop to create files in a directory with the name of the first file.
+    for n, shp_file in enumerate(files):
+        shp_path_directory = os.path.join(shp_path, shp_file.name.split('.')[0])
+        shp_path_directory_file = os.path.join(shp_path_directory, shp_file.name)
+
+        if not os.path.exists(shp_path_directory):
+            os.makedirs(shp_path_directory)
+            os.chmod(shp_path_directory, 0o777)
+        if os.path.isfile(shp_path_directory_file):
+            logging.info('file already exists')
+        else:
+            with open(shp_path_directory_file, 'wb') as dst:
+                for chunk in files[n].chunks():
+                    dst.write(chunk)
+
+    # filepath = glob.glob(os.path.join(shp_path_directory, '*.shp'))[0]
+    # shp_path_directory_file = os.path.join(shp_path_directory, shp_file.name)
+
+    filename = os.path.splitext(os.path.basename(shp_path_directory))[0].split('.')[0]
+    print(shp_path_directory)
+    print(filename)
+    # path_to_shp = os.path.join(shp_path, filename)
+    upload_shapefile(filename,shp_path_directory)
+    return JsonResponse({"response":f'The file {filename} was uploaded'})
+
+    # if request.method == 'POST':
+    #     form = UploadShpForm(request.POST, request.FILES)
+    #     id = request.FILES['shapefile'].name.split('.')[0] # Get name of the watershed from the shapefile name
+    #     if form.is_valid():
+    #         form.save()  # Save the shapefile to the nasaaccess data file path
+    #         perm_file_path = os.path.join(data_path, 'shapefiles', id)
+    #         user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path, 'shapefiles')
+    #         shp_path_user = os.path.join(user_workspace, id)
+    #         if os.path.isfile(perm_file_path) or os.path.isfile(shp_path_user):
+    #             logging.info('file already exists')
+    #         else:
+    #             logging.info('saving shapefile to server')
+    #             if not os.path.exists(user_workspace):
+    #                 os.makedirs(user_workspace)
+    #                 os.chmod(user_workspace, 0o777)
+    #                 os.makedirs(shp_path_user)
+    #                 os.chmod(shp_path_user, 0o777)
+    #             if not os.path.exists(shp_path_user):
+    #                 os.makedirs(shp_path_user)
+    #                 os.chmod(shp_path_user, 0o777)
+    #             upload_shapefile(id, shp_path_user) # Run upload_shapefile function to upload file to the geoserver
+    #         return HttpResponseRedirect('../') # Return to Home page
+    # else:
+    #     return HttpResponseRedirect('../') # Return to Home page
 
 
 def upload_tiffiles(request):

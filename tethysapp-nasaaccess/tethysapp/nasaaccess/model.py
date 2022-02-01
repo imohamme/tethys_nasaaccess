@@ -1,9 +1,12 @@
+import shutil
+
 from django.db import models
 import os, random, string, subprocess, requests, shutil, logging, zipfile
 from .config import *
 from tethys_sdk.services import get_spatial_dataset_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
+from .app import nasaaccess as app
 
 logging.basicConfig(filename=nasaaccess_log,level=logging.INFO)
 
@@ -55,6 +58,9 @@ class accessCode(Base):
 
 #     class Meta:
 #         app_label = 'nasaaccess'
+
+
+
 def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace):
     #identify where each of the input files are located in the server
     shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
@@ -99,10 +105,13 @@ def upload_shapefile(id, shp_path):
     '''
 
     # Create a string with the path to the zip archive
-    zip_archive = os.path.join(data_path, 'temp', 'shapefiles', id + '.zip')
-    zip_ref = zipfile.ZipFile(zip_archive, 'r')
-    zip_ref.extractall(shp_path)
-    zip_ref.close()
+    # zip_archive = os.path.join(data_path, 'temp', 'shapefiles', id + '.zip')
+    # zip_ref = zipfile.ZipFile(zip_archive, 'r')
+    # zip_ref.extractall(shp_path)
+    # zip_ref.close()
+    # zip_archive = os.path.join(shp_path, id + '.zip')
+    # if not os.path.exists(zip_archive):
+    #     zipFiles(id, shp_path)
 
     prj_path = os.path.join(shp_path, id + '.prj')
     f = open(prj_path)
@@ -113,13 +122,18 @@ def upload_shapefile(id, shp_path):
             print('This shapefile is in a projected coordinate system. nasaaccess will only work on shapefiles in a geographic coordinate system')
 
     if validate == 0:
-        geoserver_engine = get_spatial_dataset_engine(name='ADPC')
-        response = geoserver_engine.get_layer(id, debug=True)
-
+        print("here")
+        # geoserver_engine = get_spatial_dataset_engine(name='ADPC')
+        geoserver_engine = app.get_spatial_dataset_service('ADPC', as_engine = True)
+        print(geoserver_engine)
+        # response = geoserver_engine.get_layer(id, debug=True)
+        response = geoserver_engine.get_layer(id)
+        print(response)
         WORKSPACE = geoserver['workspace']
         GEOSERVER_URI = geoserver['URI']
 
         if response['success'] == False:
+            print("Here2")
             print('Shapefile was not found on geoserver. Uploading it now from app workspace')
 
             # Create the workspace if it does not already exist
@@ -132,12 +146,14 @@ def upload_shapefile(id, shp_path):
             # Upload shapefile to the workspaces
             store = id
             store_id = WORKSPACE + ':' + store
+            print(shp_path)
             geoserver_engine.create_shapefile_resource(
                 store_id=store_id,
-                shapefile_zip=zip_archive,
+                # shapefile_zip=zip_archive,
+                shapefile_base=os.path.join(shp_path, id),
                 overwrite=True
             )
-    os.remove(zip_archive)
+    # os.remove(zip_archive)
 
 
 def upload_dem(id, dem_path):
