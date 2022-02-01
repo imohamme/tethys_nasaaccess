@@ -4,7 +4,7 @@ import os, datetime
 from .forms import UploadShpForm, UploadDEMForm, accessCodeForm
 from .config import *
 from .app import nasaaccess
-
+# from tethys_sdk.workspaces import user_workspace
 
 def home(request):
     """
@@ -14,29 +14,44 @@ def home(request):
     # Get available Shapefiles and DEM files from app workspace and use them as options in drop down menus
     shapefile_path = os.path.join(data_path, 'shapefiles')
     dem_path = os.path.join(data_path, 'DEMfiles')
-    user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
+    if(nasaaccess.get_user_workspace(request.user).path.split('/anonymous_user')):
+        user_workspace_path = nasaaccess.get_user_workspace(request.user).path.split('/anonymous_user')[0]
+    
+    if(nasaaccess.get_user_workspace(request.user).path.split('/admin')):
+        user_workspace_path = nasaaccess.get_user_workspace(request.user).path.split('/admin')[0]
+    # user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
 
+    # user_workspace_path = os.path.join(user_workspace.path)
+
+
+    print(user_workspace_path)
     shp_options = []
     shp_files_sys = os.listdir(shapefile_path)
-    for f in shp_files_sys:
-        name = f.split(".")[0]
-        if name not in shp_options:
-            shp_options.append((name,name))
-    if os.path.exists(os.path.join(user_workspace, 'shapefiles')):
-        shp_files_user = os.listdir(os.path.join(user_workspace, 'shapefiles'))
+    # for f in shp_files_sys:
+    #     name = f.split(".")[0]
+    #     if name not in shp_options:
+    #         shp_options.append((name,name))
+    # if os.path.exists(os.path.join(user_workspace, 'shapefiles')):
+    if os.path.exists(os.path.join(user_workspace_path, 'shapefiles')):
+
+        shp_files_user = os.listdir(os.path.join(user_workspace_path, 'shapefiles'))
         for f in shp_files_user:
             name = f.split(".")[0]
             if name not in shp_options:
                 shp_options.append((name,name))
 
     dem_options = []
-    dem_files_sys = os.listdir(dem_path)
-    for f in dem_files_sys:
-        name = f.split(".")[0]
-        if name not in dem_options:
-            dem_options.append((name, name))
-    if os.path.exists(os.path.join(user_workspace, 'DEMfiles')):
-        dem_files_user = os.listdir(os.path.join(user_workspace, 'DEMfiles'))
+    # dem_files_sys = os.listdir(dem_path)
+    # for f in dem_files_sys:
+    #     name = f.split(".")[0]
+    #     if name not in dem_options:
+    #         dem_options.append((name, name))
+    # if os.path.exists(os.path.join(user_workspace, 'DEMfiles')):
+    if os.path.exists(os.path.join(user_workspace_path, 'DEMfiles')):
+
+        # dem_files_user = os.listdir(os.path.join(user_workspace, 'DEMfiles'))
+        dem_files_user = os.listdir(os.path.join(user_workspace_path, 'DEMfiles'))
+
         for f in dem_files_user:
             name = f.split(".")[0]
             if name not in dem_options:

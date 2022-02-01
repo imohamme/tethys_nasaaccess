@@ -24,7 +24,7 @@ var LIBRARY_OBJECT = (function() {
         public_interface,			// Object returned by the module
         variable_data,
         wms_workspace,
-        geoserver_url = 'http://localhost:8080/geoserver/wms',
+        geoserver_url = 'http://localhost:8081/geoserver/wms',
         gs_workspace = 'nasaaccess',
         wms_url,
         wms_layer,
