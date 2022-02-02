@@ -1,6 +1,6 @@
 from tethys_sdk.base import TethysAppBase, url_map_maker
 
-from tethys_sdk.app_settings import PersistentStoreDatabaseSetting, SpatialDatasetServiceSetting
+from tethys_sdk.app_settings import PersistentStoreDatabaseSetting, SpatialDatasetServiceSetting,CustomSetting
 
 class nasaaccess(TethysAppBase):
     """
@@ -53,6 +53,52 @@ class nasaaccess(TethysAppBase):
         )
 
         return url_maps
+   
+    ## custom settings ##
+    def custom_settings(self):
+        """
+        Example custom_settings method.
+        """
+        custom_settings = (
+            CustomSetting(
+                name='data_path',
+                type=CustomSetting.TYPE_STRING,
+                description='Data Directory for Downloads',
+                required=True
+            ),
+            CustomSetting(
+                name='nasaaccess_py3',
+                type=CustomSetting.TYPE_STRING,
+                description='Python 3 interpreter',
+                required=True
+            ),
+            CustomSetting(
+                name='nasaaccess_script',
+                type=CustomSetting.TYPE_STRING,
+                description='Path to the nasaaccess script file',
+                required=True
+            ),
+            CustomSetting(
+                name='nasaaccess_log',
+                type=CustomSetting.TYPE_STRING,
+                description='Path to the nasaaccess log file',
+                required=True
+            ),
+            CustomSetting(
+                name='geoserver_workspace',
+                type=CustomSetting.TYPE_STRING,
+                description='Geoserver Workspace',
+                required=True
+            ),
+            CustomSetting(
+                name='geoserver_URI',
+                type=CustomSetting.TYPE_STRING,
+                description='Geoserver URI',
+                required=True
+            ),
+        )
+
+        return custom_settings
 
     #### Persistant storage ###
     def persistent_store_settings(self):
