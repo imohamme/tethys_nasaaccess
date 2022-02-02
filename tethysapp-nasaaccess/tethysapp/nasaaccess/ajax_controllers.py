@@ -1,9 +1,9 @@
 import os, datetime, logging, glob
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.core.files import File
-from .forms import UploadShpForm, UploadDEMForm
+# from .forms import UploadShpForm, UploadDEMForm
 from .config import *
-from .modelDjango import *
+# from .modelDjango import *
 from .model import *
 from .app import nasaaccess
 
@@ -67,7 +67,7 @@ def upload_shapefiles(request):
     print(filename)
     # path_to_shp = os.path.join(shp_path, filename)
     upload_shapefile(filename,shp_path_directory)
-    return JsonResponse({"response":f'The file {filename} was uploaded'})
+    return JsonResponse({"file":f'{filename}'})
 
     # if request.method == 'POST':
     #     form = UploadShpForm(request.POST, request.FILES)
@@ -99,26 +99,57 @@ def upload_tiffiles(request):
     """
     Controller to upload new DEM files
     """
-    if request.method == 'POST':
-        form = UploadDEMForm(request.POST, request.FILES)
-        id = request.FILES['DEMfile'].name
-        if form.is_valid():
-            form.save(commit=True)
-            perm_file_path = os.path.join(data_path, 'DEMfiles', id)
-            dem_path_user = os.path.join(nasaaccess.get_user_workspace(request.user).path, 'DEMfiles')
-            print(perm_file_path)
-            print(dem_path_user)
-            if os.path.isfile(perm_file_path) or os.path.isfile(dem_path_user):
-                logging.info('file already exists')
-            else:
-                logging.info('saving dem to server')
-                if not os.path.exists(dem_path_user):
-                    os.makedirs(dem_path_user)
-                    os.chmod(dem_path_user, 0o777)
-                upload_dem(id, dem_path_user)
-            return HttpResponseRedirect('../')
-    else:
-        return HttpResponseRedirect('../')
+    files = request.FILES.getlist('files')
+    print(files)
+    #create new dir or check dir for shapefiles
+    dem_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','DEMfiles')
+    if not os.path.exists(dem_path):
+        os.makedirs(dem_path)
+        os.chmod(dem_path, 0o777)
+
+    #Loop to create files in a directory with the name of the first file.
+    for n, dem_file in enumerate(files):
+        dem_path_directory = os.path.join(dem_path, dem_file.name.split('.')[0])
+        dem_path_directory_file = os.path.join(dem_path_directory, dem_file.name)
+
+        if not os.path.exists(dem_path_directory):
+            os.makedirs(dem_path_directory)
+            os.chmod(dem_path_directory, 0o777)
+        if os.path.isfile(dem_path_directory_file):
+            logging.info('file already exists')
+        else:
+            with open(dem_path_directory_file, 'wb') as dst:
+                for chunk in files[n].chunks():
+                    dst.write(chunk)
+
+    filename = os.path.splitext(os.path.basename(dem_path_directory))[0].split('.')[0]
+
+    # path_to_shp = os.path.join(shp_path, filename)
+    print(filename)
+    print(dem_path_directory)
+    upload_dem(filename,dem_path_directory)
+    return JsonResponse({"file":f'{filename}'})
+
+    # if request.method == 'POST':
+    #     form = UploadDEMForm(request.POST, request.FILES)
+    #     id = request.FILES['DEMfile'].name
+    #     if form.is_valid():
+    #         form.save(commit=True)
+    #         perm_file_path = os.path.join(data_path, 'DEMfiles', id)
+    #         dem_path_user = os.path.join(nasaaccess.get_user_workspace(request.user).path, 'DEMfiles')
+    #         print(perm_file_path)
+    #         print(dem_path_user)
+    #         if os.path.isfile(perm_file_path) or os.path.isfile(dem_path_user):
+    #             logging.info('file already exists')
+    #         else:
+    #             logging.info('saving dem to server')
+    #             if not os.path.exists(dem_path_user):
+    #                 os.makedirs(dem_path_user)
+    #                 os.chmod(dem_path_user, 0o777)
+    #             upload_dem(id, dem_path_user)
+    #         return HttpResponseRedirect('../')
+    # else:
+    #     return HttpResponseRedirect('../')
 
 
 def download_data(request):

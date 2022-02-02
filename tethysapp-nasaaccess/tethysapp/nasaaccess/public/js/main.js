@@ -47,7 +47,8 @@ var LIBRARY_OBJECT = (function() {
         validateQuery,
         clear_selection,
         getCookie,
-        uploadShapefile;
+        uploadShapefile,
+        uploadDEM;
 
 
 
@@ -181,6 +182,17 @@ var LIBRARY_OBJECT = (function() {
     add_basins = function(){
 //      Get the selected value from the select watershed drop down
         var layer = $('#select_watershed').val();
+        var options = $('#select_watershed option');
+
+        var values = $.map(options ,function(option) {
+            if(option.value !== ""){
+                return option.value;
+            }
+        });
+        if(values.length < 2){
+            layer = values[0];
+        }
+
         var layerParams
         var layer_xml
         var bbox
@@ -265,6 +277,18 @@ var LIBRARY_OBJECT = (function() {
     add_dem = function(){
 //      Get the selected value from the select watershed drop down
         var layer = $('#select_dem').val();
+        var options = $('#select_dem option');
+
+        var values = $.map(options ,function(option) {
+            if(option.value !== ""){
+                return option.value;
+            }
+        });
+        if(values.length < 2){
+            layer = values[0];
+        }
+
+
         var store_id = gs_workspace + ':' + layer
         var style = 'DEM' // Corresponds to a custom SLD style in geoserver
 
@@ -404,8 +428,13 @@ var LIBRARY_OBJECT = (function() {
           processData: false,
           contentType: false,
           success: function (result) {
-              $("#loading").hide();
-            console.log(result.response);        
+            $("#loading").hide();
+            let shpSelect = document.getElementById('select_watershed');
+            shpSelect.options[shpSelect.options.length] = new Option(`${result.file}`, `${result.file}`);
+            console.log(result.response);    
+            map.removeLayer(basin_layer);
+            map.removeLayer(dem_layer);
+            add_basins();    
           },
           error: function (error) {
             console.log(error);
@@ -413,6 +442,39 @@ var LIBRARY_OBJECT = (function() {
           }
         });
       }
+
+      uploadDEM = function () {
+        let files = $('#dem-upload')[0].files;
+
+        let data = new FormData();
+        Object.keys(files).forEach(function (file) {
+          data.append('files', files[file]);
+        });
+        console.log(data);
+        console.log(files);
+        $.ajax({
+          url: 'upload_dem/',
+          type: 'POST',
+          data: data,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          success: function (result) {
+            $("#loading").hide();
+            let demSelect = document.getElementById('select_dem');
+            demSelect.options[demSelect.options.length] = new Option(`${result.file}`, `${result.file}`);
+            console.log(result.response);
+            map.removeLayer(basin_layer);
+            map.removeLayer(dem_layer);
+            add_dem();       
+          },
+          error: function (error) {
+            console.log(error);
+            $("#loading").hide();
+          }
+        });
+      }
+
 
 
 
@@ -478,6 +540,8 @@ var LIBRARY_OBJECT = (function() {
             $("#dem-modal").modal('show');
         })
         $("#shp_submit").click(uploadShapefile)
+        $("#dem_submit").click(uploadDEM)
+
 
 
     });

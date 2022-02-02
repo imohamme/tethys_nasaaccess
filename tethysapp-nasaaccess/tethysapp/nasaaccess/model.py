@@ -1,5 +1,3 @@
-import shutil
-
 from django.db import models
 import os, random, string, subprocess, requests, shutil, logging, zipfile
 from .config import *
@@ -7,10 +5,12 @@ from tethys_sdk.services import get_spatial_dataset_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from .app import nasaaccess as app
+import shutil
 
 logging.basicConfig(filename=nasaaccess_log,level=logging.INFO)
 
 Base = declarative_base()
+Persistent_Store_Name = 'catalog_db'
 
 class Shapefiles(Base):
     __tablename__ = 'shapefiles'
@@ -20,17 +20,17 @@ class Shapefiles(Base):
 
   
     def __init__(self, shapefile):
-        self.shapefile= os.path.join(data_path, 'temp', 'shapefiles')
+        self.shapefile= shapefile
 
 class DEMfiles(Base):
-    __tablename__ = 'nasaaccess_demfiles'
+    __tablename__ = 'demfiles'
     
     id = Column(Integer, primary_key=True)  # Record number.
     DEMfile = Column(String(1000))
 
   
-    def __init__(self, shapefile):
-        self.shapefile= os.path.join(data_path, 'temp', 'DEMfiles')
+    def __init__(self, demfile):
+        self.DEMfile= demfile
 
 class accessCode(Base):
     __tablename__ = 'accesscode'
@@ -133,7 +133,6 @@ def upload_shapefile(id, shp_path):
         GEOSERVER_URI = geoserver['URI']
 
         if response['success'] == False:
-            print("Here2")
             print('Shapefile was not found on geoserver. Uploading it now from app workspace')
 
             # Create the workspace if it does not already exist
@@ -153,6 +152,19 @@ def upload_shapefile(id, shp_path):
                 shapefile_base=os.path.join(shp_path, id),
                 overwrite=True
             )
+            ## Save to database
+            SessionMaker = app.get_persistent_store_database(
+                Persistent_Store_Name, as_sessionmaker=True)
+            session = SessionMaker()
+            shapefile_geoserver=Shapefiles(shapefile=id)
+            session.add(shapefile_geoserver)
+            session.commit()
+            session.close()
+        
+
+        ##Delete files
+        shutil.rmtree(shp_path)
+
     # os.remove(zip_archive)
 
 
@@ -162,9 +174,10 @@ def upload_dem(id, dem_path):
     upload dem to user workspace and geoserver
     '''
 
-    shutil.copy2(os.path.join(data_path, 'temp', 'DEMfiles', id), dem_path)
+    # shutil.copy2(os.path.join(data_path, 'temp', 'DEMfiles', id), dem_path)
+    geoserver_engine = app.get_spatial_dataset_service('ADPC', as_engine = True)
 
-    geoserver_engine = get_spatial_dataset_engine(name='ADPC')
+    # geoserver_engine = get_spatial_dataset_engine(name='ADPC')
     response = geoserver_engine.get_layer(id, debug=True)
 
     WORKSPACE = geoserver['workspace']
@@ -179,8 +192,7 @@ def upload_dem(id, dem_path):
             workspaces = response['result']
             if WORKSPACE not in workspaces:
                 geoserver_engine.create_workspace(workspace_id=WORKSPACE, uri=GEOSERVER_URI)
-
-        file_path = os.path.join(dem_path, id)
+        file_path = os.path.join(dem_path, id + '.tif')
         storename = id
         headers = {'Content-type': 'image/tiff', }
         user = geoserver['user']
@@ -191,4 +203,13 @@ def upload_dem(id, dem_path):
                                                                                  WORKSPACE, storename)
 
         requests.put(request_url, verify=False, headers=headers, data=data, auth=(user, password))
-    os.remove(os.path.join(data_path, 'temp', 'DEMfiles', id))
+        ## Save to database
+        SessionMaker = app.get_persistent_store_database(
+            Persistent_Store_Name, as_sessionmaker=True)
+        session = SessionMaker()
+        dem_geoserver=DEMfiles(demfile=id)
+        session.add(dem_geoserver)
+        session.commit()
+        session.close()
+    # os.remove(os.path.join(data_path, 'temp', 'DEMfiles', id))
+    shutil.rmtree(dem_path)

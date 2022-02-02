@@ -253,9 +253,12 @@
             <div class="alert alert-info" id="data-req"> <strong>Data Requirements:</strong> Must be a TIFF file in a geographic projection (e.g. WGS84)</div>
             <form class="form" method = "post" enctype="multipart/form-data" action="upload_dem/">
                 {% csrf_token %}
-                {{ demform }}
+                <!-- {{ demform }} -->
+                <input type="file" class="btn local-file-upload" id="dem-upload" >
                 <br>
-                <input id="dem_submit" class="btn btn-success" type="submit" value="Upload New DEM">
+                <button type="button" id="dem_submit" class="btn btn-success"> Upload New DEM</button>
+
+                <!-- <input id="dem_submit" class="btn btn-success" type="submit" value="Upload New DEM"> -->
                 <div class="flex-container-row"><img id="loading" class="view-file hidden" src="/static/nasaaccess/images/loader.gif" style="margin: auto"/></div>
             </form>
         </div>
