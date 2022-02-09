@@ -21,7 +21,4 @@ requirements:
       - r-essentials
       - r-devtools
 
-  pip:
-    - lxml
-
 post:
