@@ -64,37 +64,37 @@ class nasaaccess(TethysAppBase):
                 name='data_path',
                 type=CustomSetting.TYPE_STRING,
                 description='Data Directory for Downloads',
-                required=True
+                required=False
             ),
             CustomSetting(
                 name='nasaaccess_py3',
                 type=CustomSetting.TYPE_STRING,
                 description='Python 3 interpreter',
-                required=True
+                required=False
             ),
             CustomSetting(
                 name='nasaaccess_script',
                 type=CustomSetting.TYPE_STRING,
                 description='Path to the nasaaccess script file',
-                required=True
+                required=False
             ),
             CustomSetting(
                 name='nasaaccess_log',
                 type=CustomSetting.TYPE_STRING,
                 description='Path to the nasaaccess log file',
-                required=True
+                required=False
             ),
             CustomSetting(
                 name='geoserver_workspace',
                 type=CustomSetting.TYPE_STRING,
                 description='Geoserver Workspace',
-                required=True
+                required=False
             ),
             CustomSetting(
                 name='geoserver_URI',
                 type=CustomSetting.TYPE_STRING,
                 description='Geoserver URI',
-                required=True
+                required=False
             ),
         )
 

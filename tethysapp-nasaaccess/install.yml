@@ -17,6 +17,11 @@ requirements:
       - xarray
       - ncurses
       - requests
+      - r-base
+      - r-essentials
+      - r-devtools
+
   pip:
+    - lxml
 
 post:

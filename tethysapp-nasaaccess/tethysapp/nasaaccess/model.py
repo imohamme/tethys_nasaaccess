@@ -59,8 +59,6 @@ class accessCode(Base):
 #     class Meta:
 #         app_label = 'nasaaccess'
 
-
-
 def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace):
     #identify where each of the input files are located in the server
     shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
@@ -68,31 +66,50 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace)
     shp_path = ''
     if os.path.isfile(shp_path_sys):
         shp_path = shp_path_sys
-    elif os.path.isfile(shp_path_user):
+    if os.path.isfile(shp_path_user):
         shp_path = shp_path_user
-    print(shp_path)
-    dem_path_sys = os.path.join(data_path, 'DEMfiles', dem + '.tif')
-    dem_path_user = os.path.join(user_workspace, 'DEMfiles', dem + '.tif')
+    dem_path_sys = os.path.join(data_path, 'DEMfiles', dem, dem + '.tif')
+    dem_path_user = os.path.join(user_workspace, 'DEMfiles',dem, dem + '.tif')
     dem_path = ''
     if os.path.isfile(dem_path_sys):
         dem_path = dem_path_sys
-    elif os.path.isfile(shp_path_user):
+    if os.path.isfile(dem_path_user):
         dem_path = dem_path_user
-    print(dem_path)
     #create a new folder to store the user's requested data
     unique_id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+    
     unique_path = os.path.join(data_path, 'outputs', unique_id)
+    if not os.path.exists(unique_path):
+        os.makedirs(unique_path)
+        os.chmod(unique_path, 0o777)
+        unique_path = os.path.join(unique_path, 'nasaaccess_data')
+
+        os.makedirs(unique_path)
+        os.chmod(unique_path, 0o777)
     #create a temporary directory to store all intermediate data while nasaaccess functions run
     tempdir = os.path.join(data_path, 'temp', 'earthdata', unique_id)
 
     functions = ','.join(functions)
+    print(nasaaccess_R)
+    print(R_script)
+    print(email)
+    print(functions)
+    print(unique_id)
+    print(shp_path)
+    print(dem_path)
+    print(unique_path)
+    print(tempdir)
+    print(start)
+    print(end)
+    
     logging.info(
         "Trying to run {0} functions for {1} watershed from {2} until {3}".format(functions, watershed, start, end))
     try:
         #pass user's inputs and file paths to the nasaaccess python function that will run detached from the app
-        run = subprocess.call([nasaaccess_py3, nasaaccess_script, email, functions, unique_id,
-                                shp_path, dem_path, unique_path, tempdir, start, end])
-
+        # run = subprocess.call([nasaaccess_py3, nasaaccess_script, email, functions, unique_id,
+        #                         shp_path, dem_path, unique_path, tempdir, start, end])
+        run = subprocess.Popen([nasaaccess_R, R_script, email, functions, unique_id,
+                                shp_path, dem_path, unique_path, tempdir+'/', start, end])
         return "nasaaccess is running"
     except Exception as e:
         logging.info(str(e))
@@ -112,7 +129,9 @@ def upload_shapefile(id, shp_path):
     # zip_archive = os.path.join(shp_path, id + '.zip')
     # if not os.path.exists(zip_archive):
     #     zipFiles(id, shp_path)
-
+    SessionMaker = app.get_persistent_store_database(
+        Persistent_Store_Name, as_sessionmaker=True)
+    session = SessionMaker()
     prj_path = os.path.join(shp_path, id + '.prj')
     f = open(prj_path)
     validate = 0
@@ -152,18 +171,17 @@ def upload_shapefile(id, shp_path):
                 shapefile_base=os.path.join(shp_path, id),
                 overwrite=True
             )
-            ## Save to database
-            SessionMaker = app.get_persistent_store_database(
-                Persistent_Store_Name, as_sessionmaker=True)
-            session = SessionMaker()
-            shapefile_geoserver=Shapefiles(shapefile=id)
-            session.add(shapefile_geoserver)
-            session.commit()
-            session.close()
-        
+    ## Save to database
+    if session.query(Shapefiles).filter(Shapefiles.shapefile == id).first() is None:
+
+        shapefile_geoserver=Shapefiles(shapefile=id)
+        session.add(shapefile_geoserver)
+        session.commit()
+        session.close()
+
 
         ##Delete files
-        shutil.rmtree(shp_path)
+        # shutil.rmtree(shp_path)
 
     # os.remove(zip_archive)
 
@@ -173,7 +191,9 @@ def upload_dem(id, dem_path):
     '''
     upload dem to user workspace and geoserver
     '''
-
+    SessionMaker = app.get_persistent_store_database(
+        Persistent_Store_Name, as_sessionmaker=True)
+    session = SessionMaker()
     # shutil.copy2(os.path.join(data_path, 'temp', 'DEMfiles', id), dem_path)
     geoserver_engine = app.get_spatial_dataset_service('ADPC', as_engine = True)
 
@@ -203,13 +223,12 @@ def upload_dem(id, dem_path):
                                                                                  WORKSPACE, storename)
 
         requests.put(request_url, verify=False, headers=headers, data=data, auth=(user, password))
-        ## Save to database
-        SessionMaker = app.get_persistent_store_database(
-            Persistent_Store_Name, as_sessionmaker=True)
-        session = SessionMaker()
+    ## Save to database
+    if session.query(DEMfiles).filter(DEMfiles.DEMfile == id).first() is None:
+
         dem_geoserver=DEMfiles(demfile=id)
         session.add(dem_geoserver)
         session.commit()
         session.close()
     # os.remove(os.path.join(data_path, 'temp', 'DEMfiles', id))
-    shutil.rmtree(dem_path)
+    # shutil.rmtree(dem_path)

@@ -1,6 +1,8 @@
 import os, datetime, logging, glob
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse,FileResponse
 from django.core.files import File
+from wsgiref.util import FileWrapper
+
 # from .forms import UploadShpForm, UploadDEMForm
 from .config import *
 # from .modelDjango import *
@@ -39,7 +41,12 @@ def upload_shapefiles(request):
     files = request.FILES.getlist('files')
     
     #create new dir or check dir for shapefiles
-    shp_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','shapefiles')
+    user_workspace_path = nasaaccess.get_user_workspace(request.user).path
+
+    shp_path = os.path.join(user_workspace_path,'shapefiles')
+    # shp_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','shapefiles')
+
+
     if not os.path.exists(shp_path):
         os.makedirs(shp_path)
         os.chmod(shp_path, 0o777)
@@ -102,7 +109,10 @@ def upload_tiffiles(request):
     files = request.FILES.getlist('files')
     print(files)
     #create new dir or check dir for shapefiles
-    dem_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','DEMfiles')
+    user_workspace_path = nasaaccess.get_user_workspace(request.user).path
+
+    dem_path = os.path.join(user_workspace_path,'DEMfiles')
+    # dem_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','DEMfiles')
     if not os.path.exists(dem_path):
         os.makedirs(dem_path)
         os.chmod(dem_path, 0o777)
@@ -176,10 +186,27 @@ def download_data(request):
 
         #open the zip file
         path_to_file = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data.zip')
-        f = open(path_to_file, 'r')
-        myfile = File(f)
+        # f = open(path_to_file, 'r')
+        # myfile = File(f)
 
         #download the zip file using the browser's download dialogue box
-        response = HttpResponse(myfile, content_type='application/zip')
-        response['Content-Disposition'] = 'attachment; filename=nasaaccess_data.zip'
-        return response
+        # response = HttpResponse(myfile, content_type='application/zip')
+        # response['Content-Disposition'] = 'attachment; filename=nasaaccess_data.zip'
+        # return response
+        # zip_file = open(path_to_file, 'rb')
+
+        # return FileResponse(zip_file, as_attachment=True)
+        if os.path.exists(path_to_file):
+            print("jola")
+            with open(path_to_file, 'rb') as zip_file:
+                    response = HttpResponse(FileWrapper(zip_file), content_type='application/zip')
+                    response['Content-Disposition'] = 'attachment; filename="foo.zip"'
+                    return response
+        try:
+            zip_file = open(path_to_file, 'rb')
+            response = HttpResponse(zip_file, content_type='application/zip')
+            response['Content-Disposition'] = 'attachment; filename=nasaaccess_data.zip'
+            return response
+        except Exception as e:
+            print(e)
+        return HttpResponse()
