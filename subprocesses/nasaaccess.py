@@ -15,7 +15,7 @@ from rasterio import features
 from shapely.geometry import box
 
 # logging.basicConfig(filename='/Users/imohamme/Documents/Web_NASAaccess/subprocesses/nasaaccess.log',level=logging.INFO)
-logging.basicConfig(filename='home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log',level=logging.INFO)
+# logging.basicConfig(filename='home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log',level=logging.INFO)
 
 def _rasterize_geom(geom, myshape, affinetrans, all_touched):
     indata = [(geom, 1)]
