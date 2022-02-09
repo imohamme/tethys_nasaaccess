@@ -172,10 +172,14 @@
                 NASAaccess query.</p>
             <form class="form" method="post" enctype="multipart/form-data" action="download/">
                 {% csrf_token %}
-                {{ accesscodeform }}
+                <!-- {{ accesscodeform }} -->
+                <label for="access_code">Access Code: </label>
+                <input type="text" id="access_code_input" name="access_code">
                 <br>
                 <br>
-                <input class="btn btn-success" type="submit" value="Download">
+                <button id= "submit_access_code" type="button" class="btn btn-success" data-dismiss="modal">Download</button>
+
+                <!-- <input class="btn btn-success" type="submit" value="Download"> -->
             </form>
 
         </div>

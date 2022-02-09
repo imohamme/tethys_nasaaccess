@@ -48,7 +48,8 @@ var LIBRARY_OBJECT = (function() {
         clear_selection,
         getCookie,
         uploadShapefile,
-        uploadDEM;
+        uploadDEM,
+        submitAccessCode;
 
 
 
@@ -431,6 +432,11 @@ var LIBRARY_OBJECT = (function() {
             $("#loading").hide();
             let shpSelect = document.getElementById('select_watershed');
             shpSelect.options[shpSelect.options.length] = new Option(`${result.file}`, `${result.file}`);
+            // $('#select_watershed').val(result.file);
+            // $(`select[name^="${select_watershed}"] option:selected`).attr("selected",null);
+
+            // $(`select[name^="${select_watershed}"] option[value="${result.file}"]`).attr("selected","selected");
+
             console.log(result.response);    
             map.removeLayer(basin_layer);
             map.removeLayer(dem_layer);
@@ -463,6 +469,7 @@ var LIBRARY_OBJECT = (function() {
             $("#loading").hide();
             let demSelect = document.getElementById('select_dem');
             demSelect.options[demSelect.options.length] = new Option(`${result.file}`, `${result.file}`);
+            // $('#select_dem').val(result.file);
             console.log(result.response);
             map.removeLayer(basin_layer);
             map.removeLayer(dem_layer);
@@ -473,6 +480,61 @@ var LIBRARY_OBJECT = (function() {
             $("#loading").hide();
           }
         });
+      }
+      submitAccessCode = function(){
+          let data = {
+            access_code: $('#access_code_input').val()
+          }
+          $.ajax({
+            url: 'download/',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            xhrFields: {
+                responseType: 'blob' // to avoid binary data being mangled on charset conversion
+            },
+            success: function(blob, status, xhr) {
+                // check for a filename
+                var filename = "";
+                var disposition = xhr.getResponseHeader('Content-Disposition');
+                if (disposition && disposition.indexOf('attachment') !== -1) {
+                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                    var matches = filenameRegex.exec(disposition);
+                    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                }
+        
+                if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                    // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+                    window.navigator.msSaveBlob(blob, filename);
+                } else {
+                    var URL = window.URL || window.webkitURL;
+                    var downloadUrl = URL.createObjectURL(blob);
+        
+                    if (filename) {
+                        // use HTML5 a[download] attribute to specify filename
+                        var a = document.createElement("a");
+                        // safari doesn't support this yet
+                        if (typeof a.download === 'undefined') {
+                            window.location.href = downloadUrl;
+                        } else {
+                            a.href = downloadUrl;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                        }
+                    } else {
+                        window.location.href = downloadUrl;
+                    }
+        
+                    setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+                }
+            },
+            error: function (error) {
+              console.log(error);
+            //   $("#loading").hide();
+            }
+          });
+          
       }
 
 
@@ -541,6 +603,8 @@ var LIBRARY_OBJECT = (function() {
         })
         $("#shp_submit").click(uploadShapefile)
         $("#dem_submit").click(uploadDEM)
+        $("#submit_access_code").click(submitAccessCode)
+
 
 
 
