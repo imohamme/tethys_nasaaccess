@@ -1,6 +1,6 @@
 args = commandArgs(trailingOnly=TRUE)
 library(devtools)
-install_github('nasa/NASAaccess',force=TRUE)
+# install_github('nasa/NASAaccess',force=TRUE)
 library(NASAaccess)
 
 a <- strsplit(args[2],",")
