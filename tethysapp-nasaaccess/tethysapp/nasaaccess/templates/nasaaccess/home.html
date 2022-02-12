@@ -32,14 +32,198 @@
 {% endblock %}
 
 {% block app_navigation_items %}
+<div class="flex flex-col">
+      <div class="my-3">
+        <div class="flex justify-center">
+          <p><strong>Boundaries</strong></p>
+        </div>
+          <div class = "my-3 h-12 flex justify-between items-center">
+              <div>
+                <p>
+                  <strong>
+                    Watershed
+                  </strong>
+                </p>
+              </div>
+              <div class="bg-cyan-900 text-zinc-50 flex justify-center items-center h-12 w-12 rounded-lg" id="addShp">
+                <span class="glyphicon glyphicon-upload"></span>
+              </div>
+          </div>
+          {% gizmo select_watershed %}
 
+          <div class = "my-3 h-12 flex justify-between items-center">
+            <div>
+              <p>
+                <strong>
+                  DEM
+                </strong>
+              </p>
+            </div>
+            <div class="bg-cyan-900 text-zinc-50 flex justify-center items-center h-12 w-12 rounded-lg" id="addDem">
+              <span class="glyphicon glyphicon-upload"></span>
+            </div>
+        </div>
+          {% gizmo select_dem %}
+      </div>
+
+      <div class="my-3">
+        <div class="flex justify-center my-3">
+          <p><strong>Select Date Range</strong></p>
+        </div>
+        {% gizmo start_pick %}
+        {% gizmo end_pick %}
+      </div>
+
+      <div>
+        <div class="flex justify-center my-3">
+          <p><strong>Available Functions</strong></p>
+        </div>
+
+        <div>
+          <!-- GLDASpolycentroid -->
+          <div class="flex justify-between items-center my-3">
+            <p> <strong> GLDASpolycentroid </strong> </p> 
+            <!-- <input class="chk w-6 h-6" type="checkbox" value="GLDASpolycentroid"> -->
+            <label 
+              for="GLDASpolycentroid_input"
+              class="flex items-center cursor-pointer"
+            >
+              <!-- toggle -->
+              <div class="relative">
+                <!-- input -->
+                <input id="GLDASpolycentroid_input" type="checkbox" class="sr-only chk" value="GLDASpolycentroid" />
+                <!-- line -->
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <!-- dot -->
+                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <!-- label -->
+              <div class="ml-3 text-gray-700 font-medium">
+              </div>
+            </label>
+          </div>
+          <!-- GLDASwat -->
+          <div class="flex justify-between items-center my-3">
+            <p><strong>GLDASwat</strong></p> 
+            <!-- <input class="chk w-6 h-6" type="checkbox" value="GLDASpolycentroid"> -->
+            <label 
+              for="GLDASwat_input"
+              class="flex items-center cursor-pointer"
+            >
+              <!-- toggle -->
+              <div class="relative">
+                <!-- input -->
+                <input id="GLDASwat_input" type="checkbox" class="sr-only chk" value="GLDASwat" />
+                <!-- line -->
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <!-- dot -->
+                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <!-- label -->
+              <div class="ml-3 text-gray-700 font-medium">
+              </div>
+            </label>
+          </div>
+          <!-- GPMpolyCentroid -->
+          <div class="flex justify-between items-center my-3">
+            <p> <strong>GPMpolyCentroid</strong> </p> 
+            <label 
+              for="GPMpolyCentroid_input"
+              class="flex items-center cursor-pointer"
+            >
+              <!-- toggle -->
+              <div class="relative">
+                <!-- input -->
+                <input id="GPMpolyCentroid_input" type="checkbox" class="sr-only chk" value="GPMpolyCentroid" />
+                <!-- line -->
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <!-- dot -->
+                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <!-- label -->
+              <div class="ml-3 text-gray-700 font-medium">
+              </div>
+            </label>
+          </div>
+          <!-- GPMswat -->
+          <div class="flex justify-between items-center my-3 has-tooltip">
+            <span class='tooltip rounded shadow-lg p-1 bg-gray-100 text-red-500 -mt-8'>Some Nice Tooltip Text</span>
+
+            <p> <strong>GPMswat</strong></p> 
+            <label 
+              for="GPMswat_input"
+              class="flex items-center cursor-pointer"
+            >
+              <!-- toggle -->
+              <div class="relative">
+                <!-- input -->
+                <input id="GPMswat_input" type="checkbox" class="sr-only chk" value="GPMswat" />
+                <!-- line -->
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <!-- dot -->
+                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <!-- label -->
+              <div class="ml-3 text-gray-700 font-medium">
+              </div>
+            </label>
+          </div>
+
+        </div>
+      </div>
+      <div class="flex items-center">
+        <button class="bg-cyan-900 text-zinc-50 flex justify-center items-center h-14 w-12 rounded-lg m-1.5" id="nasaaccess">Run nasaaccess</button>
+        <button class="bg-green-900	text-zinc-50 flex justify-center items-center h-14 w-12 rounded-lg m-1.5" id="download_data">Download Data</button>
+      </div>
+
+      <!-- <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Function</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input class="chk" type="checkbox" value="GLDASpolyCentroid"></td>
+              <td>GLDASpolycentroid</td>
+              <td>Create daily air temperature time-series files at the centroid of each polygon within the selected boundary. Generated from
+                  NASA GLDAS remote sensing products.</td>
+            </tr>
+            <tr>
+              <td><input class="chk" type="checkbox" value="GLDASwat"></td>
+              <td>GLDASwat</td>
+              <td>Create SWAT-compatible daily air temperature daily time-series files evenly distributed (on a grid) over the selected boundary. Generated from
+                  NASA GLDAS remote sensing products.</td>
+            </tr>
+            <tr>
+              <td><input class="chk" type="checkbox" value="GPMpolyCentroid"></td>
+              <td>GPMpolycentroid</td>
+              <td>Create daily rainfall time-series files at the centroid of each polygon within the selected boundary. Generated from
+                  NASA GPM remote sensing products.</td>
+            </tr>
+            <tr>
+              <td><input class="chk" type="checkbox" value="GPMswat"></td>
+              <td>GPMswat</td>
+              <td>Create daily rainfall time-series files evenly distributed (on a grid) over the selected boundary. Generated from
+                  NASA GPM remote sensing products.</td>
+            </tr>
+          </tbody>
+      </table> -->
+  
+</div>
 {% endblock %}
 
-{% block app_content_override %}
+{% block app_content %}
+  <div class="flex justify-center flex-col h-screen">
+    <div id="map" class="map h-full w-full"></div>
+  </div>
+  
+    <!-- <section> -->
 
-    <section>
         <!--<div class="alert alert-warning" id="not-avail"> <strong>UNDER DEVELOPMENT:</strong> GPM and GLDAS Poly Centroid functionality will be available soon</div>-->
-        <div class="alert alert-success hidden" id="job_init"><strong>SUCCESS!</strong> Your request has been submitted. An email will be sent to you when the data is ready to download.</div>
+        <!-- <div class="alert alert-success hidden" id="job_init"><strong>SUCCESS!</strong> Your request has been submitted. An email will be sent to you when the data is ready to download.</div>
         <div class="form-container">
             <div class="form">
                 <div class="file-select">
@@ -112,9 +296,9 @@
             <br>
             <br>
             <button class="btn btn-lg btn-success" id="download_data">Download Data</button>
-        </div>
+        </div> -->
 
-    </section>
+    <!-- </section> -->
 {% endblock %}
 
 {# Use the after_app_content block for modals #}

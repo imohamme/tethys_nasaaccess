@@ -136,7 +136,7 @@ var LIBRARY_OBJECT = (function() {
         var view = new ol.View({
             center: [0, 0],
             projection: projection,
-            zoom: 2
+            zoom: 3
         });
         wms_source = new ol.source.ImageWMS();
 
