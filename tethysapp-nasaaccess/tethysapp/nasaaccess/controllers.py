@@ -83,24 +83,26 @@ def home(request):
     minView = 'days'
 
     start_pick = DatePicker(name='start_pick',
+                            display_text="Start",
                             autoclose=True,
                             format=format,
                             min_view_mode=minView,
                             start_date=start,
                             end_date=end,
                             start_view=startView,
-                            today_button=False,
-                            initial='Start Date')
+                            today_button=False)
+                            
 
     end_pick = DatePicker(name='end_pick',
+                          display_text="End",
                           autoclose=True,
                           format=format,
                           min_view_mode=minView,
                           start_date=start,
                           end_date=end,
                           start_view=startView,
-                          today_button=False,
-                          initial='End Date'
+                          today_button=False
+                        #   initial='End Date'
                           )
 
 
