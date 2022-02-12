@@ -83,7 +83,6 @@
           <!-- GLDASpolycentroid -->
           <div class="flex justify-between items-center my-3 py-4">
             <p> <strong> GLDASpolycentroid </strong> </p> 
-            <!-- <input class="chk w-6 h-6" type="checkbox" value="GLDASpolycentroid"> -->
             <label 
               for="GLDASpolycentroid_input"
               class="flex items-center cursor-pointer"
@@ -105,7 +104,6 @@
           <!-- GLDASwat -->
           <div class="flex justify-between items-center my-3 py-4">
             <p><strong>GLDASwat</strong></p> 
-            <!-- <input class="chk w-6 h-6" type="checkbox" value="GLDASpolycentroid"> -->
             <label 
               for="GLDASwat_input"
               class="flex items-center cursor-pointer"
@@ -219,86 +217,6 @@
   <div class="flex justify-center flex-col h-screen">
     <div id="map" class="map h-full w-full"></div>
   </div>
-  
-    <!-- <section> -->
-
-        <!--<div class="alert alert-warning" id="not-avail"> <strong>UNDER DEVELOPMENT:</strong> GPM and GLDAS Poly Centroid functionality will be available soon</div>-->
-        <!-- <div class="alert alert-success hidden" id="job_init"><strong>SUCCESS!</strong> Your request has been submitted. An email will be sent to you when the data is ready to download.</div>
-        <div class="form-container">
-            <div class="form">
-                <div class="file-select">
-                    <h6><strong>Select Watershed Boundary</strong></h6>
-                    {% gizmo select_watershed %}
-                    <div id="addShp" class="btn-group" role="group">
-                      <a class="btn btn-info" role="button" id="addShp-btn">
-                        <span class="glyphicon glyphicon-upload"></span>&nbsp;&nbsp;Upload New Watershed </a>
-                    </div>
-                    <br>
-                    <br>
-                    <h6><strong>Select DEM</strong></h6>
-                    {% gizmo select_dem %}
-                    <div id="addDem" class="btn-group" role="group">
-                      <a class="btn btn-info" role="button" id="addDem-btn">
-                        <span class="glyphicon glyphicon-upload"></span>&nbsp;&nbsp;Upload New DEM </a>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <h6><strong>Select Date Range</strong></h6>
-                <div class="input-group input-daterange">
-                    {% gizmo start_pick %}
-                <div class="input-group-addon">to</div>
-                    {% gizmo end_pick %}
-                </div>
-                <h6><strong>Select Functions</strong></h6>
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Function</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><input class="chk" type="checkbox" value="GLDASpolyCentroid"></td>
-                        <td>GLDASpolycentroid</td>
-                        <td>Create daily air temperature time-series files at the centroid of each polygon within the selected boundary. Generated from
-                            NASA GLDAS remote sensing products.</td>
-                      </tr>
-                      <tr>
-                        <td><input class="chk" type="checkbox" value="GLDASwat"></td>
-                        <td>GLDASwat</td>
-                        <td>Create SWAT-compatible daily air temperature daily time-series files evenly distributed (on a grid) over the selected boundary. Generated from
-                            NASA GLDAS remote sensing products.</td>
-                      </tr>
-                      <tr>
-                        <td><input class="chk" type="checkbox" value="GPMpolyCentroid"></td>
-                        <td>GPMpolycentroid</td>
-                        <td>Create daily rainfall time-series files at the centroid of each polygon within the selected boundary. Generated from
-                            NASA GPM remote sensing products.</td>
-                      </tr>
-                      <tr>
-                        <td><input class="chk" type="checkbox" value="GPMswat"></td>
-                        <td>GPMswat</td>
-                        <td>Create daily rainfall time-series files evenly distributed (on a grid) over the selected boundary. Generated from
-                            NASA GPM remote sensing products.</td>
-                      </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div id="right">
-            <div id="map" class="map"></div>
-            <br>
-            <br>
-            <button class="btn btn-lg bt-block btn-primary" id="nasaaccess">Run nasaaccess</button>
-            <br>
-            <br>
-            <button class="btn btn-lg btn-success" id="download_data">Download Data</button>
-        </div> -->
-
-    <!-- </section> -->
 {% endblock %}
 
 {# Use the after_app_content block for modals #}
@@ -356,10 +274,11 @@
                 NASAaccess query.</p>
             <form class="form" method="post" enctype="multipart/form-data" action="download/">
                 {% csrf_token %}
-                <label for="access_code">Access Code: </label>
-                <input type="text" id="access_code_input" name="access_code" class="border-green-500">
-                <br>
-                <button id= "submit_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-3 rounded-lg" data-dismiss="modal">Download</button>
+                <div class="flex justify-start items-center space-x-4 mt-2">
+                  <label for="access_code">Access Code: </label>
+                  <input type="text" id="access_code_input" name="access_code" class="border border-green-500 rounded-lg">
+                  <button id= "submit_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-dismiss="modal">Download</button>
+                </div>
             </form>
 
         </div>
@@ -382,11 +301,17 @@
             <p>Depending on the watershed size and the date range you selected,
                 the nasaaccess process may take some time.
                 Please provide your email here and we will contact you with a
-                6 digit access code for downloading your data when the process is complete.</p>
-            <label for="id_email">Email Address:</label>
-            <input id="id_email" type="email" placeholder="Email" size="30" required<input>
-            <p>Your email will only remain in our database until your access code has been sent out.
-                The access code you receive will then be valid for 3 days.</p>
+                6 digit access code for downloading your data when the process is complete.
+            </p>
+            <div class="my-4">
+              <label for="id_email">Email Address:</label>
+              <input id="id_email" type="email" placeholder="Email" size="30" required  class="border border-green-500 rounded-lg">
+            </div>
+           
+            <p>
+              Your email will only remain in our database until your access code has been sent out.
+              The access code you receive will then be valid for 3 days.
+              </p>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" id="submit_form">Submit</button>
@@ -406,13 +331,11 @@
         </div>
         <div class="modal-body">
             <div class="alert alert-info" id="data-req"> <strong>Data Requirements:</strong> Must be a polygon shapefile or json file in a geographic projection (e.g. WGS84)</div>
-            <!-- <form class="form" method="post" enctype="multipart/form-data" action="upload_shp/"> -->
             <form class="form" method="post" enctype="multipart/form-data" >
 
                 {% csrf_token %}
                 <input type="file" class="btn local-file-upload" id="shapefile-upload" accept=".shp,.prj,.shx,.dbf," multiple>
                 <br>
-                <!-- <input id="shp_submit" class="btn btn-success" type="submit" value="Upload new Shapefile"> -->
                 <button type="button" id="shp_submit" class="bg-green-900 text-zinc-50  p-3 rounded-lg"> Submit Shapefile</button>
 
                 <div class="flex-container-row"><img id="loading" class="view-file hidden" src="/static/nasaaccess/images/loader.gif" style="margin: auto"/></div>
@@ -437,12 +360,10 @@
             <div class="alert alert-info" id="data-req"> <strong>Data Requirements:</strong> Must be a TIFF file in a geographic projection (e.g. WGS84)</div>
             <form class="form" method = "post" enctype="multipart/form-data" action="upload_dem/">
                 {% csrf_token %}
-                <!-- {{ demform }} -->
                 <input type="file" class="btn local-file-upload" id="dem-upload" >
                 <br>
                 <button type="button" id="dem_submit" class="bg-green-900 text-zinc-50 p-3 rounded-lg"> Upload New DEM</button>
 
-                <!-- <input id="dem_submit" class="btn btn-success" type="submit" value="Upload New DEM"> -->
                 <div class="flex-container-row"><img id="loading" class="view-file hidden" src="/static/nasaaccess/images/loader.gif" style="margin: auto"/></div>
             </form>
         </div>
