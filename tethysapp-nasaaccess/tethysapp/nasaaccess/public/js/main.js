@@ -53,7 +53,6 @@ var LIBRARY_OBJECT = (function() {
 
 
 
-
     /************************************************************************
      *                    PRIVATE FUNCTION IMPLEMENTATIONS
      *************************************************************************/
@@ -539,7 +538,6 @@ var LIBRARY_OBJECT = (function() {
 
 
 
-
     /************************************************************************
      *                        DEFINE PUBLIC INTERFACE
      *************************************************************************/
@@ -605,8 +603,39 @@ var LIBRARY_OBJECT = (function() {
         $("#dem_submit").click(uploadDEM)
         $("#submit_access_code").click(submitAccessCode)
 
+        $("#NEXT_GDPPswat_input").change(function(){
+            if(this.checked){
+                $("#NEXT_GDPPswat_id_block").removeClass("h-0");
+                $("#NEXT_GDPPswat_id_block").addClass("max-h-fit");
+                $("#NEXT_GDPPswat_id_block").removeClass("overflow-hidden");
+                $("#NEXT_GDPPswat_id_block").addClass("ease-in");
+                $("#NEXT_GDPPswat_id_block").addClass("duration-700");
+            }
+            else{
+                $("#NEXT_GDPPswat_id_block").removeClass("max-h-fit");
+                $("#NEXT_GDPPswat_id_block").addClass("h-0");
+                $("#NEXT_GDPPswat_id_block").addClass("overflow-hidden");
+                $("#NEXT_GDPPswat_id_block").removeClass("ease-in");
+                $("#NEXT_GDPPswat_id_block").removeClass("duration-700");
+            }
+        });
 
-
+        $("#NEX_GDPP_CMIP6_input").change(function(){
+            if(this.checked){
+                $("#NEX_GDPP_CMIP6_id_block").removeClass("h-0");
+                $("#NEX_GDPP_CMIP6_id_block").addClass("max-h-fit");
+                $("#NEX_GDPP_CMIP6_id_block").removeClass("overflow-hidden");
+                $("#NEX_GDPP_CMIP6_id_block").addClass("ease-in");
+                $("#NEX_GDPP_CMIP6_id_block").addClass("duration-700");
+            }
+            else{
+                $("#NEX_GDPP_CMIP6_id_block").removeClass("max-h-fit");
+                $("#NEX_GDPP_CMIP6_id_block").addClass("h-0");
+                $("#NEX_GDPP_CMIP6_id_block").addClass("overflow-hidden");
+                $("#NEX_GDPP_CMIP6_id_block").removeClass("ease-in");
+                $("#NEX_GDPP_CMIP6_id_block").removeClass("duration-700");
+            }
+        });
 
     });
 
