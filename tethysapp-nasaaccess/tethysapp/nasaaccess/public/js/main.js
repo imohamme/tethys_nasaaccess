@@ -362,9 +362,18 @@ var LIBRARY_OBJECT = (function() {
         var start = $('#start_pick').val();
         var end = $('#end_pick').val();
         var functions = [];
+        var NEXT_GDPPswat_inputs = [];
+        var NEX_GDPP_CMIP6_inputs = []; 
+
         $('.chk:checked').each(function() {
              functions.push( $( this ).val());
         });
+        if(functions.includes("NEXT_GDPPswat")){
+            NEXT_GDPPswat_inputs = [$("#NEXT_GDPPswat_model_select").val(),$("#NEXT_GDPPswat_type_select").val(),$("#NEXT_GDPPswat_slice_select").val()];
+        }
+        if(functions.includes("NEX_GDPP_CMIP6")){
+            NEX_GDPP_CMIP6_inputs = [$("#NEX_GDPP_CMIP6_model_select").val(),$("#NEX_GDPP_CMIP6_type_select").val(),$("#NEX_GDPP_CMIP6_slice_select").val()];
+        }
         var watershed = $('#select_watershed').val();
         var dem = $('#select_dem').val();
         var email = $('#id_email').val();
@@ -378,7 +387,9 @@ var LIBRARY_OBJECT = (function() {
                 'functions': functions,
                 'watershed': watershed,
                 'dem': dem,
-                'email': email
+                'email': email,
+                'nexgdpp':NEXT_GDPPswat_inputs,
+                'nextgdppcmip':NEX_GDPP_CMIP6_inputs
             },
         }).done(function(data) {
             console.log(data)

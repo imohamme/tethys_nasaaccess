@@ -59,7 +59,7 @@ class accessCode(Base):
 #     class Meta:
 #         app_label = 'nasaaccess'
 
-def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace):
+def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace,nexgdpp,nextgdppcmip):
     #identify where each of the input files are located in the server
     shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
     shp_path_user = os.path.join(user_workspace, 'shapefiles', watershed, watershed + '.shp')
@@ -90,10 +90,18 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace)
     tempdir = os.path.join(data_path, 'temp', 'earthdata', unique_id)
 
     functions = ','.join(functions)
+    separator=","
+    separator2=","
+
+    nexgdpp_str=separator.join(nexgdpp)
+    nextgdppcmip_str=separator2.join(nextgdppcmip)
+
     print(nasaaccess_R)
     print(R_script)
     print(email)
     print(functions)
+    print(nexgdpp_str)
+    print(nextgdppcmip_str)
     print(unique_id)
     print(shp_path)
     print(dem_path)
@@ -109,7 +117,7 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace)
         # run = subprocess.call([nasaaccess_py3, nasaaccess_script, email, functions, unique_id,
         #                         shp_path, dem_path, unique_path, tempdir, start, end])
         run = subprocess.Popen([nasaaccess_R, R_script, email, functions, unique_id,
-                                shp_path, dem_path, unique_path, tempdir+'/', start, end])
+                                shp_path, dem_path, unique_path, tempdir+'/', start, end,nexgdpp_str,nextgdppcmip_str])
         return "nasaaccess is running"
     except Exception as e:
         logging.info(str(e))

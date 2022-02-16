@@ -23,12 +23,17 @@ def run_nasaaccess(request):
         end = request.POST.get(str('endDate'))
         d_end = str(datetime.datetime.strptime(end, '%b %d, %Y').strftime('%Y-%m-%d'))
         functions = request.POST.getlist('functions[]')
+        nexgdpp=request.POST.getlist('nexgdpp[]')
+        nextgdppcmip=request.POST.getlist('nextgdppcmip[]')
+
+
+        
         watershed = request.POST.get('watershed')
         dem = request.POST.get('dem')
         email = request.POST.get('email')
         user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
         os.chmod(user_workspace, 0o777)
-        result = nasaaccess_run(email, functions, watershed, dem, d_start, d_end, user_workspace)
+        result = nasaaccess_run(email, functions, watershed, dem, d_start, d_end, user_workspace,nexgdpp,nextgdppcmip)
         return JsonResponse({'Result': str(result)})
     except Exception as e:
         return JsonResponse({'Error': str(e)})

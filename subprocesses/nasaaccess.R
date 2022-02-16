@@ -6,6 +6,8 @@ library(NASAaccess)
 a <- strsplit(args[2],",")
 
 nexgdpp <- strsplit(args[10],",")
+nextgdppcmip <- strsplit(args[11],",")
+
 
 
 
@@ -52,19 +54,32 @@ if(x == "GLDASwat"){
 		  end = args[9]
 		)
 }
-# if(x == "NEXgdpp"){
+if(x == "NEXT_GDPPswat"){
 
-# 	NEX_GDPPswat(
-# 		  Dir =paste(args[7],"/NEXGDPP/",sep=""),
-# 		  watershed = args[4],
-# 		  DEM = args[5],
-# 		  start = nexgdpp[[1]][4],
-# 		  end = nexgdpp[[1]][5],
-#                   model = nexgdpp[[1]][1],
-#                   type = nexgdpp[[1]][2],
-#                   slice = nexgdpp[[1]][3]
-# 		)
-# }
+	NEX_GDPPswat(
+		  Dir =paste(args[7],"/NEXGDPP/",sep=""),
+		  watershed = args[4],
+		  DEM = args[5],
+		  start = args[8],
+		  end = args[9],
+		  model = nexgdpp[[1]][1],
+		  type = nexgdpp[[1]][2],
+          slice = nexgdpp[[1]][3]
+		)
+}
+if(x == "NEX_GDPP_CMIP6"){
+
+	NEX_GDPP_CMIP6(
+		  Dir =paste(args[7],"/NEX_GDPP_CMIP6/",sep=""),
+		  watershed = args[4],
+		  DEM = args[5],
+		  start = args[8],
+		  end = args[9],
+		  model = nextgdppcmip[[1]][1],
+		  type = nextgdppcmip[[1]][2],
+          slice = nextgdppcmip[[1]][3]
+		)
+}
 }
 #install.packages("remotes")
 
