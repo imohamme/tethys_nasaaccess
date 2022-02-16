@@ -66,18 +66,12 @@
           {% gizmo select_dem %}
       </div>
 
-      <div class="my-3">
-        <div class="flex justify-center my-3">
-          <p><strong>Select Date Range</strong></p>
-        </div>
-        {% gizmo start_pick %}
-        {% gizmo end_pick %}
-      </div>
 
-      <div>
-        <div class="flex justify-center my-3">
-          <p><strong>Available Functions</strong></p>
-        </div>
+
+        <div>
+          <div class="flex justify-center my-3">
+            <p><strong>Available Functions</strong></p>
+           </div>
 
         <div>
           <!-- GLDASpolycentroid -->
@@ -166,8 +160,86 @@
               </div>
             </label>
           </div>
+          <!-- NEXT_GDPPswat -->
+          <div class="flex justify-between items-center my-3 py-4">
 
+            <p> <strong>NEXT_GDPPswat</strong></p> 
+            <label 
+              for="NEXT_GDPPswat_input"
+              class="flex items-center cursor-pointer"
+            >
+              <!-- toggle -->
+              <div class="relative">
+                <!-- input -->
+                <input id="NEXT_GDPPswat_input" type="checkbox" class="sr-only chk" value="NEXT_GDPPswat" />
+                <!-- line -->
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <!-- dot -->
+                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <!-- label -->
+              <div class="ml-3 text-gray-700 font-medium">
+              </div>
+            </label>
+          </div>
+          <div class="flex flex-col py-4 space-y-4">
+            <div class="inline-block relative">
+              <select name="model" id="model_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option value="inmcm4">inmcm4</option>
+                <option value="bcc-csm1-1">bcc-csm1-1</option>
+                <option value="MRI-CGCM3">MRI-CGCM3</option>
+                <option value="MPI-ESM-MR"> MPI-ESM-MR</option>
+                <option value="MPI-ESM-LR">MPI-ESM-LR</option>
+                <option value="MIROC5">MIROC5</option>
+                <option value="MIROC-ESM">MIROC-ESM</option>
+                <option value="MIROC-ESM-CHEM">MIROC-ESM-CHEM</option>
+                <option value="IPSL-CM5A-MR">IPSL-CM5A-MR</option>
+                <option value="IPSL-CM5A-LR">IPSL-CM5A-LR</option>
+                <option value="GFDL-ESM2M">GFDL-ESM2M</option>
+                <option value="GFDL-ESM2G">GFDL-ESM2G</option>
+                <option value="GFDL-CM3">GFDL-CM3</option>
+                <option value="CanESM2">CanESM2</option>
+                <option value="CSIRO-Mk3-6-0">CSIRO-Mk3-6-0</option>
+                <option value="CNRM-CM5">CNRM-CM5</option>
+                <option value="CESM1-BGC">CESM1-BGC</option>
+                <option value="CCSM4">CCSM4</option>
+                <option value="BNU-ESM">BNU-ESM</option>
+                <option value="ACCESS1-0">ACCESS1-0</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+            </div>
+            <div class="inline-block relative">
+              <select name="type" id="type_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option value="pr">pr</option>
+                <option value="tas">tas</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+            </div>
+
+            <div class="inline-block relative">
+              <select name="slice" id="slice_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option value="rcp45">rcp45</option>
+                <option value="rcp85">rcp85</option>
+                <option value="historical">historical</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+            </div>
+
+          </div>
         </div>
+      </div>
+      <div class="my-3">
+        <div class="flex justify-center my-3">
+          <p><strong>Select Date Range</strong></p>
+        </div>
+        {% gizmo start_pick %}
+        {% gizmo end_pick %}
       </div>
       <div class="flex items-center space-x-4">
         <button class="bg-cyan-900 text-zinc-50 flex justify-center items-center p-3 rounded-lg " id="nasaaccess">Run nasaaccess</button>
