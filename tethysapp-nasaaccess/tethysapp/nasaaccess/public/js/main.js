@@ -566,6 +566,10 @@ var LIBRARY_OBJECT = (function() {
 
     $(function() {
         init_all();
+        const start_5 = datepicker('#start_NEXT_GDPPswat', { id: 5 })
+        const end_5 = datepicker('#end_NEXT_GDPPswat', { id: 5 })
+        const start_6 = datepicker('#start_NEX_GDPP_CMIP6', { id: 6 })
+        const end_6 = datepicker('#end_NEX_GDPP_CMIP6', { id: 6 })
 //        $("#help-modal").modal('show');
         $('#loading').addClass('hidden')
 
