@@ -66,7 +66,39 @@
           {% gizmo select_dem %}
       </div>
 
+        <div>
+          <div class="flex justify-between items-center my-3 py-4">
+            <p><strong>Same Dates</strong></p> 
+            <label 
+              for="sameDates_input"
+              class="flex items-center cursor-pointer"
+            >
+              <!-- toggle -->
+              <div class="relative">
+                <!-- input -->
+                <input id="sameDates_input" type="checkbox" class="sr-only chk" value="sameDates" />
+                <!-- line -->
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                <!-- dot -->
+                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              <!-- label -->
+              <div class="ml-3 text-gray-700 font-medium">
+              </div>
+            </label>
+          </div>
+          <div id="sameDates_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+            <div class="flex flex-row space-x-4">
+              <p class="w-6/12">*Start date</p> 
+              <input type="text" id="start_pick" name="start_samedates" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="flex flex-row space-x-4">
+              <p class="w-6/12">*End date</p>
+              <input type="text" id="end_pick" name="end_samedates" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+            </div>
 
+          </div>
+        </div>
 
         <div>
           <div class="flex justify-center my-3">
@@ -185,7 +217,7 @@
             </div>
             <div id="NEXT_GDPPswat_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">Model</p>
+                <p class="w-6/12">*Model</p>
                 <div class="inline-block relative w-full">
                   <select name="NEXT_GDPPswat_model" id="NEXT_GDPPswat_model_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="inmcm4">inmcm4</option>
@@ -215,7 +247,7 @@
                 </div>
                </div>
                <div class="flex flex-row space-x-4">
-                  <p class="w-6/12">Type</p>
+                  <p class="w-6/12">*Type</p>
 
                   <div class="inline-block relative w-full">
                     <select name="NEXT_GDPPswat_type" id="NEXT_GDPPswat_type_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
@@ -229,7 +261,7 @@
                </div>
 
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">Slice</p>
+                <p class="w-6/12">*Slice</p>
                 <div class="inline-block relative w-full">
                   <select name="NEXT_GDPPswat_slice" id="NEXT_GDPPswat_slice_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="rcp45">rcp45</option>
@@ -242,11 +274,11 @@
                 </div>
               </div>
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">Start date</p> 
+                <p class="w-6/12">*Start date</p> 
                 <input type="text" id="start_NEXT_GDPPswat" name="start_NEXT_GDPPswat" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">End date</p>
+                <p class="w-6/12">*End date</p>
                 <input type="text" id="end_NEXT_GDPPswat" name="end_NEXT_GDPPswat" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
   
@@ -317,7 +349,7 @@
                 </div>
               </div>
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">Type</p>
+                <p class="w-6/12">*Type</p>
                 <div class="inline-block relative w-full">
                   <select name="NEX_GDPP_CMIP6_type" id="NEX_GDPP_CMIP6_type_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="pr">pr</option>
@@ -329,7 +361,7 @@
                 </div>
               </div>
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">Slice</p>
+                <p class="w-6/12">*Slice</p>
                 <div class="inline-block relative w-full">
                   <select name="NEX_GDPP_CMIP6_slice" id="NEX_GDPP_CMIP6_slice_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="ssp225">ssp225</option>
@@ -343,11 +375,11 @@
               </div>
 
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">Start date</p> 
+                <p class="w-6/12">*Start date</p> 
                 <input type="text" id="start_NEX_GDPP_CMIP6" name="start_NEX_GDPP_CMIP6" class="start w-full	rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
               <div class="flex flex-row space-x-4">
-                <p class="w-6/12">End date</p>
+                <p class="w-6/12">*End date</p>
                 <input type="text" id="end_NEX_GDPP_CMIP6" name="end_NEX_GDPP_CMIP6" class="end w-full	rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
 
@@ -357,13 +389,13 @@
           </div>
         </div>
       </div>
-      <div class="my-3">
+      <!-- <div class="my-3">
         <div class="flex justify-center my-3">
           <p><strong>Select Date Range</strong></p>
         </div>
         {% gizmo start_pick %}
         {% gizmo end_pick %}
-      </div>
+      </div> -->
       <div class="flex items-center space-x-4">
         <button class="bg-cyan-900 text-zinc-50 flex justify-center items-center p-3 rounded-lg " id="nasaaccess">Run nasaaccess</button>
         <button class="bg-green-900	text-zinc-50 flex justify-center items-center p-3 rounded-lg" id="download_data">Download Data</button>

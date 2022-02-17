@@ -566,10 +566,75 @@ var LIBRARY_OBJECT = (function() {
 
     $(function() {
         init_all();
-        const start_5 = datepicker('#start_NEXT_GDPPswat', { id: 5 })
-        const end_5 = datepicker('#end_NEXT_GDPPswat', { id: 5 })
-        const start_6 = datepicker('#start_NEX_GDPP_CMIP6', { id: 6 })
-        const end_6 = datepicker('#end_NEX_GDPP_CMIP6', { id: 6 })
+        const start_all_4 = datepicker('#start_pick', { id: 1,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+         })
+        const end_all_4 = datepicker('#end_pick', { id: 1,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
+
+
+
+        const start_5 = datepicker('#start_NEXT_GDPPswat', { id: 5,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+         })
+        const end_5 = datepicker('#end_NEXT_GDPPswat', { id: 5,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
+        const start_6 = datepicker('#start_NEX_GDPP_CMIP6', { id: 6,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
+        const end_6 = datepicker('#end_NEX_GDPP_CMIP6', { id: 6,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
 //        $("#help-modal").modal('show');
         $('#loading').addClass('hidden')
 
@@ -651,6 +716,25 @@ var LIBRARY_OBJECT = (function() {
                 $("#NEX_GDPP_CMIP6_id_block").removeClass("duration-700");
             }
         });
+        $("#sameDates_input").change(function(){
+            if(this.checked){
+                $("#sameDates_id_block").removeClass("h-0");
+                $("#sameDates_id_block").addClass("max-h-fit");
+                $("#sameDates_id_block").removeClass("overflow-hidden");
+                $("#sameDates_id_block").addClass("ease-in");
+                $("#sameDates_id_block").addClass("duration-700");
+            }
+            else{
+                $("#sameDates_id_block").removeClass("max-h-fit");
+                $("#sameDates_id_block").addClass("h-0");
+                $("#sameDates_id_block").addClass("overflow-hidden");
+                $("#sameDates_id_block").removeClass("ease-in");
+                $("#sameDates_id_block").removeClass("duration-700");
+            }
+        });
+
+
+        
 
     });
 
