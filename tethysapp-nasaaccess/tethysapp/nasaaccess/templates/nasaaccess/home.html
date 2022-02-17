@@ -35,13 +35,17 @@
 <div class="flex flex-col">
       <div class="my-3">
         <div class="flex justify-center">
-          <p><strong>Boundaries</strong></p>
+          <p>
+            <strong>
+              Boundaries
+            </strong>
+          </p>
         </div>
           <div class = "my-3 h-12 flex justify-between items-center">
               <div>
                 <p>
                   <strong>
-                    Watershed
+                    *Watershed
                   </strong>
                 </p>
               </div>
@@ -55,7 +59,7 @@
             <div>
               <p>
                 <strong>
-                  DEM
+                  *DEM
                 </strong>
               </p>
             </div>
@@ -66,9 +70,11 @@
           {% gizmo select_dem %}
       </div>
 
-        <div>
+        <div class="my-3">
+          <p>**Use same time range for the first 4 functions</p>
+
           <div class="flex justify-between items-center my-3 py-4">
-            <p><strong>Same Dates</strong></p> 
+            <p><strong>Use Same Time Range</strong></p> 
             <label 
               for="sameDates_input"
               class="flex items-center cursor-pointer"
@@ -104,94 +110,145 @@
           <div class="flex justify-center my-3">
             <p><strong>Available Functions</strong></p>
            </div>
+           <p>**Select at least one</p>
 
         <div>
           <!-- GLDASpolycentroid -->
-          <div class="flex justify-between items-center my-3 py-4">
-            <p> <strong> GLDASpolycentroid </strong> </p> 
-            <label 
-              for="GLDASpolycentroid_input"
-              class="flex items-center cursor-pointer"
-            >
-              <!-- toggle -->
-              <div class="relative">
-                <!-- input -->
-                <input id="GLDASpolycentroid_input" type="checkbox" class="sr-only chk" value="GLDASpolycentroid" />
-                <!-- line -->
-                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-                <!-- dot -->
-                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+          <div class="w-full mx-auto border-b my-5">
+            <div class="flex justify-between items-center my-3 py-4">
+              <p> <strong> GLDASpolycentroid </strong> </p> 
+              <label 
+                for="GLDASpolycentroid_input"
+                class="flex items-center cursor-pointer"
+              >
+                <!-- toggle -->
+                <div class="relative">
+                  <!-- input -->
+                  <input id="GLDASpolycentroid_input" type="checkbox" class="sr-only chk" value="GLDASpolycentroid" />
+                  <!-- line -->
+                  <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                  <!-- dot -->
+                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                </div>
+                <!-- label -->
+                <div class="ml-3 text-gray-700 font-medium">
+                </div>
+              </label>
+            </div>
+            <div id="GLDASpolycentroid_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*Start date</p> 
+                <input type="text" id="start_GLDASpolycentroid" name="start_GLDASpolycentroid" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
-              <!-- label -->
-              <div class="ml-3 text-gray-700 font-medium">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*End date</p>
+                <input type="text" id="end_GLDASpolycentroid" name="end_GLDASpolycentroid" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
-            </label>
+            </div>
           </div>
-          <!-- GLDASwat -->
-          <div class="flex justify-between items-center my-3 py-4">
-            <p><strong>GLDASwat</strong></p> 
-            <label 
-              for="GLDASwat_input"
-              class="flex items-center cursor-pointer"
-            >
-              <!-- toggle -->
-              <div class="relative">
-                <!-- input -->
-                <input id="GLDASwat_input" type="checkbox" class="sr-only chk" value="GLDASwat" />
-                <!-- line -->
-                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-                <!-- dot -->
-                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
-              </div>
-              <!-- label -->
-              <div class="ml-3 text-gray-700 font-medium">
-              </div>
-            </label>
-          </div>
-          <!-- GPMpolyCentroid -->
-          <div class="flex justify-between items-center my-3 py-4">
-            <p> <strong>GPMpolyCentroid</strong> </p> 
-            <label 
-              for="GPMpolyCentroid_input"
-              class="flex items-center cursor-pointer"
-            >
-              <!-- toggle -->
-              <div class="relative">
-                <!-- input -->
-                <input id="GPMpolyCentroid_input" type="checkbox" class="sr-only chk" value="GPMpolyCentroid" />
-                <!-- line -->
-                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-                <!-- dot -->
-                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
-              </div>
-              <!-- label -->
-              <div class="ml-3 text-gray-700 font-medium">
-              </div>
-            </label>
-          </div>
-          <!-- GPMswat -->
-          <div class="flex justify-between items-center my-3 has-tooltip py-4">
-            <span class='tooltip rounded shadow-lg p-1 bg-gray-100 text-red-500 mt-8'>Some Nice Tooltip Text</span>
 
-            <p> <strong>GPMswat</strong></p> 
-            <label 
-              for="GPMswat_input"
-              class="flex items-center cursor-pointer"
-            >
-              <!-- toggle -->
-              <div class="relative">
-                <!-- input -->
-                <input id="GPMswat_input" type="checkbox" class="sr-only chk" value="GPMswat" />
-                <!-- line -->
-                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-                <!-- dot -->
-                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+          <!-- GLDASwat -->
+          <div class="w-full mx-auto border-b my-5">
+            <div class="flex justify-between items-center my-3 py-4">
+              <p><strong>GLDASwat</strong></p> 
+              <label 
+                for="GLDASwat_input"
+                class="flex items-center cursor-pointer"
+              >
+                <!-- toggle -->
+                <div class="relative">
+                  <!-- input -->
+                  <input id="GLDASwat_input" type="checkbox" class="sr-only chk" value="GLDASwat" />
+                  <!-- line -->
+                  <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                  <!-- dot -->
+                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                </div>
+                <!-- label -->
+                <div class="ml-3 text-gray-700 font-medium">
+                </div>
+              </label>
+            </div>
+            <div id="GLDASwat_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*Start date</p> 
+                <input type="text" id="start_GLDASwat" name="start_GLDASwat" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
-              <!-- label -->
-              <div class="ml-3 text-gray-700 font-medium">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*End date</p>
+                <input type="text" id="end_GLDASwat" name="end_GLDASwat" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
-            </label>
+            </div>
           </div>
+
+          <!-- GPMpolyCentroid -->
+          <div class="w-full mx-auto border-b my-5">
+            <div class="flex justify-between items-center my-3 py-4">
+              <p> <strong>GPMpolyCentroid</strong> </p> 
+              <label 
+                for="GPMpolyCentroid_input"
+                class="flex items-center cursor-pointer"
+              >
+                <!-- toggle -->
+                <div class="relative">
+                  <!-- input -->
+                  <input id="GPMpolyCentroid_input" type="checkbox" class="sr-only chk" value="GPMpolyCentroid" />
+                  <!-- line -->
+                  <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                  <!-- dot -->
+                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                </div>
+                <!-- label -->
+                <div class="ml-3 text-gray-700 font-medium">
+                </div>
+              </label>
+            </div>
+            <div id="GPMpolyCentroid_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*Start date</p> 
+                <input type="text" id="start_GPMpolyCentroid" name="start_GPMpolyCentroid" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*End date</p>
+                <input type="text" id="end_GPMpolyCentroid" name="end_GPMpolyCentroid" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+            </div>
+          </div>
+
+          <!-- GPMswat -->
+          <div class="w-full mx-auto border-b my-5">
+            <div class="flex justify-between items-center my-3 py-4">
+              <p> <strong>GPMswat</strong></p> 
+              <label 
+                for="GPMswat_input"
+                class="flex items-center cursor-pointer"
+              >
+                <!-- toggle -->
+                <div class="relative">
+                  <!-- input -->
+                  <input id="GPMswat_input" type="checkbox" class="sr-only chk" value="GPMswat" />
+                  <!-- line -->
+                  <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                  <!-- dot -->
+                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                </div>
+                <!-- label -->
+                <div class="ml-3 text-gray-700 font-medium">
+                </div>
+              </label>
+            </div>
+            <div id="GPMswat_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*Start date</p> 
+                <input type="text" id="start_GPMswat" name="start_GPMswat" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*End date</p>
+                <input type="text" id="end_GPMswat" name="end_GPMswat" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+            </div>
+          </div>
+
           <!-- NEXT_GDPPswat -->
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
@@ -382,9 +439,6 @@
                 <p class="w-6/12">*End date</p>
                 <input type="text" id="end_NEX_GDPP_CMIP6" name="end_NEX_GDPP_CMIP6" class="end w-full	rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
-
-
-  
             </div>
           </div>
         </div>

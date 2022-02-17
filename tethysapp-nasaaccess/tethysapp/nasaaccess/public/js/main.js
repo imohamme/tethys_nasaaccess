@@ -566,7 +566,7 @@ var LIBRARY_OBJECT = (function() {
 
     $(function() {
         init_all();
-        const start_all_4 = datepicker('#start_pick', { id: 1,
+        const start_all_4 = datepicker('#start_pick', { id: 0,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -577,7 +577,53 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
          })
-        const end_all_4 = datepicker('#end_pick', { id: 1,
+        const end_all_4 = datepicker('#end_pick', { id: 0,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
+
+        const start_1 = datepicker('#start_GLDASpolycentroid', { id: 1,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+         })
+        const end_1 = datepicker('#end_GLDASpolycentroid', { id: 1,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
+
+        const start_2 = datepicker('#start_GLDASwat', { id: 2,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+         })
+        const end_2 = datepicker('#end_GLDASwat', { id: 2,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -590,6 +636,51 @@ var LIBRARY_OBJECT = (function() {
         })
 
 
+        const start_3 = datepicker('#start_GPMpolyCentroid', { id: 3,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+         })
+        const end_3 = datepicker('#end_GPMpolyCentroid', { id: 3,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
+
+        const start_4 = datepicker('#start_GPMswat', { id: 4,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+         })
+        const end_4 = datepicker('#end_GPMswat', { id: 4,
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            }).split("/").reverse().join("-");
+
+                input.value = value // => '1/1/2099'
+            }
+        })
 
         const start_5 = datepicker('#start_NEXT_GDPPswat', { id: 5,
             formatter: (input, date, instance) => {
@@ -683,6 +774,86 @@ var LIBRARY_OBJECT = (function() {
         $("#dem_submit").click(uploadDEM)
         $("#submit_access_code").click(submitAccessCode)
 
+        $("#GLDASpolycentroid_input").change(function(){
+            if(!$("#sameDates_input").is(":checked")){
+                if(this.checked){
+                    $("#GLDASpolycentroid_id_block").removeClass("h-0");
+                    $("#GLDASpolycentroid_id_block").addClass("max-h-fit");
+                    $("#GLDASpolycentroid_id_block").removeClass("overflow-hidden");
+                    $("#GLDASpolycentroid_id_block").addClass("ease-in");
+                    $("#GLDASpolycentroid_id_block").addClass("duration-700");
+                }
+                else{
+                    $("#GLDASpolycentroid_id_block").removeClass("max-h-fit");
+                    $("#GLDASpolycentroid_id_block").addClass("h-0");
+                    $("#GLDASpolycentroid_id_block").addClass("overflow-hidden");
+                    $("#GLDASpolycentroid_id_block").removeClass("ease-in");
+                    $("#GLDASpolycentroid_id_block").removeClass("duration-700");
+                }
+            }
+
+        });
+
+        $("#GLDASwat_input").change(function(){
+            if(!$("#sameDates_input").is(":checked")){
+                if(this.checked){
+                    $("#GLDASwat_id_block").removeClass("h-0");
+                    $("#GLDASwat_id_block").addClass("max-h-fit");
+                    $("#GLDASwat_id_block").removeClass("overflow-hidden");
+                    $("#GLDASwat_id_block").addClass("ease-in");
+                    $("#GLDASwat_id_block").addClass("duration-700");
+                }
+                else{
+                    $("#GLDASwat_id_block").removeClass("max-h-fit");
+                    $("#GLDASwat_id_block").addClass("h-0");
+                    $("#GLDASwat_id_block").addClass("overflow-hidden");
+                    $("#GLDASwat_id_block").removeClass("ease-in");
+                    $("#GLDASwat_id_block").removeClass("duration-700");
+                }
+            }
+
+        });
+
+        $("#GPMpolyCentroid_input").change(function(){
+            if(!$("#sameDates_input").is(":checked")){
+                if(this.checked){
+                    $("#GPMpolyCentroid_id_block").removeClass("h-0");
+                    $("#GPMpolyCentroid_id_block").addClass("max-h-fit");
+                    $("#GPMpolyCentroid_id_block").removeClass("overflow-hidden");
+                    $("#GPMpolyCentroid_id_block").addClass("ease-in");
+                    $("#GPMpolyCentroid_id_block").addClass("duration-700");
+                }
+                else{
+                    $("#GPMpolyCentroid_id_block").removeClass("max-h-fit");
+                    $("#GPMpolyCentroid_id_block").addClass("h-0");
+                    $("#GPMpolyCentroid_id_block").addClass("overflow-hidden");
+                    $("#GPMpolyCentroid_id_block").removeClass("ease-in");
+                    $("#GPMpolyCentroid_id_block").removeClass("duration-700");
+                }
+            }
+
+        });
+
+        $("#GPMswat_input").change(function(){
+            if(!$("#sameDates_input").is(":checked")){
+                if(this.checked){
+                    $("#GPMswat_id_block").removeClass("h-0");
+                    $("#GPMswat_id_block").addClass("max-h-fit");
+                    $("#GPMswat_id_block").removeClass("overflow-hidden");
+                    $("#GPMswat_id_block").addClass("ease-in");
+                    $("#GPMswat_id_block").addClass("duration-700");
+                }
+                else{
+                    $("#GPMswat_id_block").removeClass("max-h-fit");
+                    $("#GPMswat_id_block").addClass("h-0");
+                    $("#GPMswat_id_block").addClass("overflow-hidden");
+                    $("#GPMswat_id_block").removeClass("ease-in");
+                    $("#GPMswat_id_block").removeClass("duration-700");
+                }
+            }
+
+        });
+
         $("#NEXT_GDPPswat_input").change(function(){
             if(this.checked){
                 $("#NEXT_GDPPswat_id_block").removeClass("h-0");
@@ -723,6 +894,35 @@ var LIBRARY_OBJECT = (function() {
                 $("#sameDates_id_block").removeClass("overflow-hidden");
                 $("#sameDates_id_block").addClass("ease-in");
                 $("#sameDates_id_block").addClass("duration-700");
+                
+                //GPMswat_id_block
+                $("#GPMswat_id_block").removeClass("max-h-fit");
+                $("#GPMswat_id_block").addClass("h-0");
+                $("#GPMswat_id_block").addClass("overflow-hidden");
+                $("#GPMswat_id_block").removeClass("ease-in");
+                $("#GPMswat_id_block").removeClass("duration-700");
+                
+                //GPMpolyCentroid_id_block
+                $("#GPMpolyCentroid_id_block").removeClass("max-h-fit");
+                $("#GPMpolyCentroid_id_block").addClass("h-0");
+                $("#GPMpolyCentroid_id_block").addClass("overflow-hidden");
+                $("#GPMpolyCentroid_id_block").removeClass("ease-in");
+                $("#GPMpolyCentroid_id_block").removeClass("duration-700");
+               
+                //GLDASwat_id_block
+                $("#GLDASwat_id_block").removeClass("max-h-fit");
+                $("#GLDASwat_id_block").addClass("h-0");
+                $("#GLDASwat_id_block").addClass("overflow-hidden");
+                $("#GLDASwat_id_block").removeClass("ease-in");
+                $("#GLDASwat_id_block").removeClass("duration-700");
+                
+                //GLDASpolycentroid_id_block
+                $("#GLDASpolycentroid_id_block").removeClass("max-h-fit");
+                $("#GLDASpolycentroid_id_block").addClass("h-0");
+                $("#GLDASpolycentroid_id_block").addClass("overflow-hidden");
+                $("#GLDASpolycentroid_id_block").removeClass("ease-in");
+                $("#GLDASpolycentroid_id_block").removeClass("duration-700");
+                
             }
             else{
                 $("#sameDates_id_block").removeClass("max-h-fit");
@@ -730,6 +930,35 @@ var LIBRARY_OBJECT = (function() {
                 $("#sameDates_id_block").addClass("overflow-hidden");
                 $("#sameDates_id_block").removeClass("ease-in");
                 $("#sameDates_id_block").removeClass("duration-700");
+                if($("#GPMswat_input").is(":checked")){
+                    $("#GPMswat_id_block").removeClass("h-0");
+                    $("#GPMswat_id_block").addClass("max-h-fit");
+                    $("#GPMswat_id_block").removeClass("overflow-hidden");
+                    $("#GPMswat_id_block").addClass("ease-in");
+                    $("#GPMswat_id_block").addClass("duration-700");
+                }
+                if($("#GPMpolyCentroid_input").is(":checked")){
+                    $("#GPMpolyCentroid_id_block").removeClass("h-0");
+                    $("#GPMpolyCentroid_id_block").addClass("max-h-fit");
+                    $("#GPMpolyCentroid_id_block").removeClass("overflow-hidden");
+                    $("#GPMpolyCentroid_id_block").addClass("ease-in");
+                    $("#GPMpolyCentroid_id_block").addClass("duration-700");
+                }
+                if($("#GLDASwat_input").is(":checked")){
+                    $("#GLDASwat_id_block").removeClass("h-0");
+                    $("#GLDASwat_id_block").addClass("max-h-fit");
+                    $("#GLDASwat_id_block").removeClass("overflow-hidden");
+                    $("#GLDASwat_id_block").addClass("ease-in");
+                    $("#GLDASwat_id_block").addClass("duration-700");
+                }
+                if($("#GLDASpolycentroid_input").is(":checked")){
+                    $("#GLDASpolycentroid_id_block").removeClass("h-0");
+                    $("#GLDASpolycentroid_id_block").addClass("max-h-fit");
+                    $("#GLDASpolycentroid_id_block").removeClass("overflow-hidden");
+                    $("#GLDASpolycentroid_id_block").addClass("ease-in");
+                    $("#GLDASpolycentroid_id_block").addClass("duration-700");
+                }
+
             }
         });
 
