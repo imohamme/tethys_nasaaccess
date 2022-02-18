@@ -450,9 +450,11 @@
         {% gizmo start_pick %}
         {% gizmo end_pick %}
       </div> -->
-      <div class="flex items-center space-x-4">
-        <button class="bg-cyan-900 text-zinc-50 flex justify-center items-center p-3 rounded-lg " id="nasaaccess">Run nasaaccess</button>
+      <div class="flex items-center space-x-2">
         <button class="bg-green-900	text-zinc-50 flex justify-center items-center p-3 rounded-lg" id="download_data">Download Data</button>
+        <button class="bg-green-900	text-zinc-50 flex justify-center items-center p-3 rounded-lg" id="plot_data">Plot Data</button>
+        <button class="bg-cyan-900 text-zinc-50 flex justify-center items-center p-3 rounded-lg " id="nasaaccess">Run nasaaccess</button>
+
       </div>
 
       <!-- <table class="table table-striped">
@@ -496,7 +498,9 @@
 
 {% block app_content %}
   <div class="flex justify-center flex-col h-screen">
-    <div id="map" class="map h-full w-full"></div>
+    <div id="map" class="map h-4/6 w-full"></div>
+    <div id="graphs__panel" class="h-full w-full"> 
+    </div>
   </div>
 {% endblock %}
 
@@ -569,6 +573,37 @@
       </div>
     </div>
   </div>
+
+
+<!-- Plot Data Modal -->
+<div class="modal fade" id="plot-modal" tabindex="-1" role="dialog" aria-labelledby="plot-modal-label">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title" id="plot-modal-label">Plot Data</h5>
+      </div>
+      <div class="modal-body">
+          <p>If you have previously run the NASAaccess function, you should have received at 6-digit access code.</p>
+          <p>Please input your access code below and click the "Plot" button to plot the data from your
+              NASAaccess query.</p>
+          <form class="form" method="post" enctype="multipart/form-data" action="plot/">
+              {% csrf_token %}
+              <div class="flex justify-start items-center space-x-4 mt-2">
+                <label for="access_code">Access Code: </label>
+                <input type="text" id="access_code_input2" name="access_code" class="border border-green-500 rounded-lg">
+                <button id= "plot_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-dismiss="modal">Plot</button>
+              </div>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Contact Information Modal -->
   <div class="modal fade" id="cont-modal" tabindex="-1" role="dialog" aria-labelledby="cont-modal-label">

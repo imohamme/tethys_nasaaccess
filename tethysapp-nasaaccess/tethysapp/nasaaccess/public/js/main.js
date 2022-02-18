@@ -49,7 +49,10 @@ var LIBRARY_OBJECT = (function() {
         getCookie,
         uploadShapefile,
         uploadDEM,
-        submitAccessCode;
+        submitAccessCode,
+        create_graphs,
+        create_series_dict,
+        plotAccessCode;
 
 
 
@@ -357,6 +360,17 @@ var LIBRARY_OBJECT = (function() {
         init_events();
     };
 
+    create_series_dict = function(code){
+
+    }
+    create_graphs = function(data){
+        chart = Highcharts.stockChart('graphs__panel', {
+            rangeSelector: {
+                selected: 1
+            },
+            series: [data]
+       });
+    }
     nasaaccess = function() {
 //      Get the values from the nasaaccess form and pass them to the run_nasaaccess python controller
         var start = [];
@@ -564,7 +578,25 @@ var LIBRARY_OBJECT = (function() {
           
       }
 
-
+      plotAccessCode = function(){
+        let data = {
+          access_code: $('#access_code_input2').val()
+        }
+        $.ajax({
+          url: 'plot/',
+          type: 'POST',
+          data: data,
+          dataType: 'json',
+          success: function(data) {
+            console.log(data);
+          },
+          error: function (error) {
+            console.log(error);
+          //   $("#loading").hide();
+          }
+        });
+        
+    }
 
     /************************************************************************
      *                        DEFINE PUBLIC INTERFACE
@@ -582,6 +614,7 @@ var LIBRARY_OBJECT = (function() {
     // the DOM tree finishes loading
 
     $(function() {
+
         init_all();
         const start_all_4 = datepicker('#start_pick', { id: 0,
             formatter: (input, date, instance) => {
@@ -766,7 +799,9 @@ var LIBRARY_OBJECT = (function() {
         $('#download_data').click(function() {
             $("#download-modal").modal('show');
         });
-
+        $('#plot_data').click(function() {
+            $("#plot-modal").modal('show');
+        });
         $('#select_watershed').change(function() {
             map.removeLayer(basin_layer);
             add_basins();
@@ -790,6 +825,9 @@ var LIBRARY_OBJECT = (function() {
         $("#shp_submit").click(uploadShapefile)
         $("#dem_submit").click(uploadDEM)
         $("#submit_access_code").click(submitAccessCode)
+        $("#plot_access_code").click(plotAccessCode)
+
+        
 
         $("#GLDASpolycentroid_input").change(function(){
             if(!$("#sameDates_input").is(":checked")){
