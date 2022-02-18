@@ -88,7 +88,8 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace,
         os.chmod(unique_path, 0o777)
     #create a temporary directory to store all intermediate data while nasaaccess functions run
     tempdir = os.path.join(data_path, 'temp', 'earthdata', unique_id)
-
+    os.makedirs(tempdir)
+    os.chmod(tempdir, 0o777)
     functions = ','.join(functions)
     separator=","
     separator2=","

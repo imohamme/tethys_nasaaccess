@@ -361,12 +361,16 @@ var LIBRARY_OBJECT = (function() {
 //      Get the values from the nasaaccess form and pass them to the run_nasaaccess python controller
         var start = $('#start_pick').val();
         var end = $('#end_pick').val();
+        console.log(start);
+        console.log(end);
         var functions = [];
         var NEXT_GDPPswat_inputs = [];
         var NEX_GDPP_CMIP6_inputs = []; 
 
         $('.chk:checked').each(function() {
-             functions.push( $( this ).val());
+            if($( this ).val() != "sameDates"){
+                functions.push( $( this ).val());
+            }
         });
         if(functions.includes("NEXT_GDPPswat")){
             NEXT_GDPPswat_inputs = [$("#NEXT_GDPPswat_model_select").val(),$("#NEXT_GDPPswat_type_select").val(),$("#NEXT_GDPPswat_slice_select").val()];

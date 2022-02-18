@@ -18,10 +18,12 @@ def run_nasaaccess(request):
     """
     # Get selected parameters and pass them into nasaccess R scripts
     try:
-        start = request.POST.get('startDate')
-        d_start = str(datetime.datetime.strptime(start, '%b %d, %Y').strftime('%Y-%m-%d'))
-        end = request.POST.get(str('endDate'))
-        d_end = str(datetime.datetime.strptime(end, '%b %d, %Y').strftime('%Y-%m-%d'))
+        d_start = request.POST.get('startDate')
+        d_end = request.POST.get('endDate')
+        # start = request.POST.get('startDate')
+        # d_start = str(datetime.datetime.strptime(start, '%b %d, %Y').strftime('%Y-%m-%d'))
+        # end = request.POST.get(str('endDate'))
+        # d_end = str(datetime.datetime.strptime(end, '%b %d, %Y').strftime('%Y-%m-%d'))
         functions = request.POST.getlist('functions[]')
         nexgdpp=request.POST.getlist('nexgdpp[]')
         nextgdppcmip=request.POST.getlist('nextgdppcmip[]')
