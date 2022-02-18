@@ -93,9 +93,12 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace,
     functions = ','.join(functions)
     separator=","
     separator2=","
-
-    nexgdpp_str=separator.join(nexgdpp)
-    nextgdppcmip_str=separator2.join(nextgdppcmip)
+    separator3=','
+    separator4 = ','
+    nexgdpp_str= separator.join(nexgdpp)
+    nextgdppcmip_str= separator2.join(nextgdppcmip)
+    start_str = separator3.join(start)
+    end_str = separator4.join(end)
 
     print(nasaaccess_R)
     print(R_script)
@@ -118,7 +121,7 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace,
         # run = subprocess.call([nasaaccess_py3, nasaaccess_script, email, functions, unique_id,
         #                         shp_path, dem_path, unique_path, tempdir, start, end])
         run = subprocess.Popen([nasaaccess_R, R_script, email, functions, unique_id,
-                                shp_path, dem_path, unique_path, tempdir+'/', start, end,nexgdpp_str,nextgdppcmip_str])
+                                shp_path, dem_path, unique_path, tempdir+'/', start_str, end_str,nexgdpp_str,nextgdppcmip_str])
         return "nasaaccess is running"
     except Exception as e:
         logging.info(str(e))

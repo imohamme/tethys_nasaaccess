@@ -359,8 +359,21 @@ var LIBRARY_OBJECT = (function() {
 
     nasaaccess = function() {
 //      Get the values from the nasaaccess form and pass them to the run_nasaaccess python controller
-        var start = $('#start_pick').val();
-        var end = $('#end_pick').val();
+        var start = [];
+        var end = [];
+        
+        if(!$("#sameDates_input").is(":checked")){
+            start = [$('#start_GLDASpolycentroid').val(),$('#start_GLDASwat').val(),
+                $('#start_GPMpolyCentroid').val(),$('#start_GPMswat').val(),$('#start_NEXT_GDPPswat').val(),$('#start_NEX_GDPP_CMIP6').val()]
+            end = [$('#end_GLDASpolycentroid').val(),$('#end_GLDASwat').val(),
+            $('#end_GPMpolyCentroid').val(),$('#end_GPMswat').val(),$('#end_NEXT_GDPPswat').val(),$('#end_NEX_GDPP_CMIP6').val()]        
+        }
+        else{
+            start = [$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_NEXT_GDPPswat').val(),$('#start_NEX_GDPP_CMIP6').val()];
+            end = [$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_NEXT_GDPPswat').val(),$('#end_NEX_GDPP_CMIP6').val()];
+        }
+        // var start = $('#start_pick').val();
+        // var end = $('#end_pick').val();
         console.log(start);
         console.log(end);
         var functions = [];

@@ -38,7 +38,7 @@ table {
   width: 75%;
 }
 
-#start_pick {
+/* #start_pick {
   font-size: 16px;
   border-top-left-radius: 5px !important;
   border-bottom-left-radius: 5px !important;
@@ -48,7 +48,7 @@ table {
   font-size: 16px;
   border-top-right-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
-}
+} */
 
 .file-select .form-group {
   float: left;

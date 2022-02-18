@@ -5,6 +5,8 @@ library(NASAaccess)
 
 a <- strsplit(args[2],",")
 
+start_d <- strsplit(args[8],",")
+end_d <- strsplit(args[9],",")
 nexgdpp <- strsplit(args[10],",")
 nextgdppcmip <- strsplit(args[11],",")
 
@@ -20,8 +22,10 @@ if(x == "GLDASpolyCentroid"){
 		  Dir =paste(args[7],"/GLDASpolyCentroid/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
-		  start = args[8],
-		  end = args[9]
+		#   start = args[8],
+		#   end = args[9]
+		  start = start_d[[1]][1],
+		  end = end_d[[1]][1]
 		)
 }
 if(x == "GPMswat"){
@@ -30,8 +34,10 @@ if(x == "GPMswat"){
 		  Dir =paste(args[7],"/GPMswat/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
-		  start = args[8],
-		  end = args[9]
+		#   start = args[8],
+		#   end = args[9]
+		  start = start_d[[1]][2],
+		  end = end_d[[1]][2]
 		)
 }
 if(x == "GPMpolyCentroid"){
@@ -40,8 +46,10 @@ if(x == "GPMpolyCentroid"){
 		  Dir =paste(args[7],"/GPMpolyCentroid/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
-		  start = args[8],
-		  end = args[9]
+		#   start = args[8],
+		#   end = args[9]
+		  start = start_d[[1]][3],
+		  end = end_d[[1]][3]
 		)
 }
 if(x == "GLDASwat"){
@@ -50,8 +58,10 @@ if(x == "GLDASwat"){
 		  Dir =paste(args[7],"/GLDASwat/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
-		  start = args[8],
-		  end = args[9]
+		#   start = args[8],
+		#   end = args[9]
+		  start = start_d[[1]][4],
+		  end = end_d[[1]][4]
 		)
 }
 if(x == "NEXT_GDPPswat"){
@@ -60,8 +70,10 @@ if(x == "NEXT_GDPPswat"){
 		  Dir =paste(args[7],"/NEXGDPP/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
-		  start = args[8],
-		  end = args[9],
+		#   start = args[8],
+		#   end = args[9],
+		  start = start_d[[1]][5],
+		  end = end_d[[1]][5],
 		  model = nexgdpp[[1]][1],
 		  type = nexgdpp[[1]][2],
           slice = nexgdpp[[1]][3]
@@ -73,8 +85,10 @@ if(x == "NEX_GDPP_CMIP6"){
 		  Dir =paste(args[7],"/NEX_GDPP_CMIP6/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
-		  start = args[8],
-		  end = args[9],
+		#   start = args[8],
+		#   end = args[9],
+		  start = start_d[[1]][6],
+		  end = end_d[[1]][6],
 		  model = nextgdppcmip[[1]][1],
 		  type = nextgdppcmip[[1]][2],
           slice = nextgdppcmip[[1]][3]
