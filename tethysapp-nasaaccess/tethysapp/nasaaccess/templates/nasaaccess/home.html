@@ -497,9 +497,14 @@
 {% endblock %}
 
   {% block app_content %}
-    <div class="h-screen">
+    <div class="flex flex-col flex-1 h-full">
       <div id="map" class="flex-1 h-[48rem] w-full"></div>
-      <div id="graphs__panel" class="flex-1	relative h-full w-full border-emerald-500	border-4">
+      <div class="flex absolute w-full justify-end">
+        <table id="tableLegend" class="flex flex-col opacity-70 p-4 bg-slate-200 w-1/4 hidden"></table>
+
+      </div>
+
+      <div id="graphs__panel" class="flex-1 relative w-full pt-1.5">
         <canvas id="time__series"></canvas>
       </div>
     </div>

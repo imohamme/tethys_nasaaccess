@@ -35,7 +35,11 @@ var LIBRARY_OBJECT = (function() {
         subbasin_overlay_layers,
         geojson_list,
         colors_unique =  ["#FF0000", "#00FF00", "#000000","#00FFFF","#FF00FF"],
-        myChart;
+        myChart,
+        baseLayer,
+        view,
+        projection,
+        layer_points={};
 
     /************************************************************************
      *                    PRIVATE FUNCTION DECLARATIONS
@@ -57,7 +61,10 @@ var LIBRARY_OBJECT = (function() {
         plotAccessCode,
         map_layers,
         featureStyle,
-        getValues;
+        getValues,
+        getIconLegend,
+        removeLayersFunctions,
+        updateLegend;
 
 
 
@@ -131,8 +138,8 @@ var LIBRARY_OBJECT = (function() {
     init_map = function() {
 
 //      Set initial map projection, basemap, center, and zoom
-        var projection = ol.proj.get('EPSG:4326');
-        var baseLayer = new ol.layer.Tile({
+        projection = ol.proj.get('EPSG:4326');
+        baseLayer = new ol.layer.Tile({
             source: new ol.source.BingMaps({
                 key: '5TC0yID7CYaqv3nVQLKe~xWVt4aXWMJq2Ed72cO4xsA~ApdeyQwHyH_btMjQS1NJ7OHKY8BK-W-EMQMrIavoQUMYXeZIQOUURnKGBOC7UCt4',
                 imagerySet: 'AerialWithLabels', // Options 'Aerial', 'AerialWithLabels', 'Road',
@@ -140,7 +147,7 @@ var LIBRARY_OBJECT = (function() {
             title: 'baselayer'
         });
 
-        var view = new ol.View({
+        view = new ol.View({
             center: [0, 0],
             projection: projection,
             zoom: 3
@@ -583,6 +590,16 @@ var LIBRARY_OBJECT = (function() {
           
       }
 
+      removeLayersFunctions = function(){
+        Object.keys(layer_points).forEach(function(layer){
+            map.removeLayer(layer);
+        })
+      }
+      updateLegend = function(){
+        $("#tableLegend").removeClass("hidden");
+        $("#tableLegend").empty();
+      }
+
       plotAccessCode = function(){
         let data = {
           access_code: $('#access_code_input2').val()
@@ -597,6 +614,11 @@ var LIBRARY_OBJECT = (function() {
             var indice = 0;
 
             var func__names = Object.keys(data);
+            
+            updateLegend();
+            removeLayersFunctions();
+            
+
             func__names.forEach(func__name => {
                 var list__points = Object.keys(data[func__name]).map(function(key) {
                     return data[func__name][key]                
@@ -605,8 +627,32 @@ var LIBRARY_OBJECT = (function() {
                 console.log(layers_mapa[0]);
                 var vectorSource =  layers_mapa[1];
                 var vectorLayer = layers_mapa[0];
-                map.addLayer(vectorLayer);
-                indice += 1;
+                layer_points[func__name] = vectorLayer
+                map.addLayer(layer_points[func__name]);
+
+                let test_style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                      radius: 10,
+                      stroke: new ol.style.Stroke({
+                        color: "white",
+                      }),
+                      fill: new ol.style.Fill({
+                        color: colors_unique[indice],
+                      }),
+                    })
+                  });
+                  let rowHTML= `<tr id= ${func__name}-row-complete>
+                                 <th id="${func__name}-row-legend"></th>
+                                 <th>${func__name}</th>
+                               </tr>`
+                 if(!document.getElementById(`${func__name}-row-complete`)){
+                   $(rowHTML).appendTo('#tableLegend');
+                 }
+                 $(`#${func__name}-row-legend`).prepend($(getIconLegend(test_style)));
+                
+                 indice += 1;
+
+
             });
  
           },
@@ -666,40 +712,50 @@ var LIBRARY_OBJECT = (function() {
                             datasets = [val__rain];
                         }
                         const ctx = $('#time__series');
-                        if (myChart) {    myChart.update();  }
-                        myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
+                        if (myChart) {   
+                            myChart.data = {
                                 labels: data.labels,
                                 datasets: datasets
-                            },
-                            options: {
-
-                                responsive:true,
-                                maintainAspectRatio:false,
-                                plugins: {
-                                    legend: {
-                                        position:'bottom'
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: feature_single.func
-                                    },
-                                    zoom: {
-                                      zoom: {
-                                        wheel: {
-                                          enabled: true,
+                            };
+                            myChart.update();
+                            
+                        }
+                        else{
+                            myChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: data.labels,
+                                    datasets: datasets
+                                },
+                                options: {
+    
+                                    responsive:true,
+                                    maintainAspectRatio:false,
+                                    plugins: {
+                                        legend: {
+                                            position:'bottom'
                                         },
-                                        pinch: {
-                                          enabled: true
+                                        title: {
+                                            display: true,
+                                            text: feature_single.func
                                         },
-                                        mode: 'xy',
-                                      }
+                                        zoom: {
+                                          zoom: {
+                                            wheel: {
+                                              enabled: true,
+                                            },
+                                            pinch: {
+                                              enabled: true
+                                            },
+                                            mode: 'xy',
+                                          }
+                                        }
                                     }
+                                    
                                 }
-                                
-                            }
-                        });
+                            });
+                        }
+
 
                     },
                     error: function (error) {
@@ -824,6 +880,39 @@ var LIBRARY_OBJECT = (function() {
     
         return style2
     }
+    getIconLegend = function(style) {
+        try{
+          style = style.getImage();
+          var radius = style.getRadius();
+          var strokeWidth = style.getStroke().getWidth();
+          var dx = radius + strokeWidth;
+      
+          var svgElem = $('<svg/>')
+          .attr({
+            class: 'svgs_legend',
+            width: 11,
+            height: 11
+          });
+          $('<circle />')
+          .attr({
+            cx: 5,
+            cy: 5,
+            r: 5,
+            stroke: style.getStroke().getColor(),
+            'stroke-width': strokeWidth,
+            fill: style.getFill().getColor()
+          })
+          .appendTo(svgElem);
+      
+      
+          // Convert DOM object to string to overcome from some SVG manipulation related oddities
+          return $('<div>').append(svgElem).html();
+        }
+        catch(e){
+          console.log(e);
+        }
+      
+      }
 
     /************************************************************************
      *                        DEFINE PUBLIC INTERFACE

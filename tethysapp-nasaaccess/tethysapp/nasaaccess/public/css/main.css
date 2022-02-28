@@ -65,4 +65,10 @@ table {
   display: flex;
   height: 89vh;
   overflow-y: hidden;
+  padding: 0;
+}
+#tableLegend {
+  /* top: 3%;
+  right: 1%; */
+  word-break: break-all;
 }
