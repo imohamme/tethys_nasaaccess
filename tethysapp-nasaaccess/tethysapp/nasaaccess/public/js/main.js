@@ -33,7 +33,9 @@ var LIBRARY_OBJECT = (function() {
         dem_layer,
         featureOverlaySubbasin,
         subbasin_overlay_layers,
-        geojson_list;
+        geojson_list,
+        colors_unique =  ["#FF0000", "#00FF00", "#000000","#00FFFF","#FF00FF"],
+        myChart;
 
     /************************************************************************
      *                    PRIVATE FUNCTION DECLARATIONS
@@ -52,7 +54,10 @@ var LIBRARY_OBJECT = (function() {
         submitAccessCode,
         create_graphs,
         create_series_dict,
-        plotAccessCode;
+        plotAccessCode,
+        map_layers,
+        featureStyle,
+        getValues;
 
 
 
@@ -589,6 +594,23 @@ var LIBRARY_OBJECT = (function() {
           dataType: 'json',
           success: function(data) {
             console.log(data);
+            var indice = 0;
+
+            var func__names = Object.keys(data);
+            func__names.forEach(func__name => {
+                var list__points = Object.keys(data[func__name]).map(function(key) {
+                    return data[func__name][key]                
+                  });
+                var layers_mapa = map_layers(list__points,func__name,indice,$('#access_code_input2').val());
+                console.log(layers_mapa[0]);
+                var vectorSource =  layers_mapa[1];
+                var vectorLayer = layers_mapa[0];
+                map.addLayer(vectorLayer);
+                map.getView().fit(vectorSource.getExtent());
+                indice += 1;
+                // return 
+            });
+ 
           },
           error: function (error) {
             console.log(error);
@@ -596,6 +618,197 @@ var LIBRARY_OBJECT = (function() {
           }
         });
         
+    }
+    getValues = function(){
+        map.on('singleclick', function(evt) {
+            evt.stopPropagation();
+
+            var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature2, layer) {
+                return feature2;
+            });
+            if (feature){
+                let feature_single = feature.getProperties()['features'][0].getProperties();
+                console.log(feature_single);
+                let data_json = {
+                    id: feature_single.id,
+                    name: feature_single.name,
+                    func: feature_single.func,
+                    access_code: feature_single.access_code
+                }
+                $.ajax({
+                    url: 'getValues/',
+                    type: 'POST',
+                    data: data_json,
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        let datasets = []
+                        if(feature_single.func == 'GLDASpolyCentroid' || feature_single.func == 'GLDASwat'){
+                            let min_temp = {
+                                data: data.min_val,
+                                label: "Min Tempt",
+                                borderColor: "#8e5ea2",
+                                fill: false
+                            };
+                            let max_temp = {
+                                data: data.max_val,
+                                label: "Max Tempt",
+                                borderColor: "#3cba9f",
+                                fill: false
+                            };
+                            datasets = [min_temp, max_temp]
+
+                        }
+                        else{
+                            let val__rain = {
+                                data: data.min_val,
+                                label: "Precipitation",
+                                borderColor: "#8e5ea2",
+                                fill: false
+                            };
+                            datasets = [val__rain];
+                        }
+                        const ctx = $('#time__series');
+                        if (myChart) {    myChart.destroy();  }
+                        myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: data.labels,
+                                datasets: datasets
+                            },
+                            options: {
+                                title: {
+                                  display: true,
+                                  text: feature_single.func
+                                },
+                                responsive:true,
+                                maintainAspectRatio:false
+                                
+                            }
+                        });
+
+                    },
+                    error: function (error) {
+                      console.log(error);
+                    }
+                  });
+
+            }
+
+
+        })
+    }
+    map_layers = function(sites,func__name,indice,access_code){
+        try{
+          sites = sites.map(site => {
+              return {
+                  type: "Feature",
+                  geometry: {
+                      type: "Point",
+                      coordinates: ol.proj.transform(
+                          [
+                              parseFloat(site.LONG),
+                              parseFloat(site.LAT)
+                          ],
+                          "EPSG:4326",
+                          "EPSG:4326"
+                      )
+                  },
+                  properties: {
+                      func: func__name,
+                      id: site.ID,
+                      name: site.NAME,
+                      lon: parseFloat(site.LONG),
+                      lat: parseFloat(site.LAT),
+                      elevation: site.ELEVATION,
+                      access_code:access_code
+                  }
+              }
+          })
+      
+          let sitesGeoJSON = {
+              type: "FeatureCollection",
+              crs: {
+                  type: "name",
+                  properties: {
+                      name: "EPSG:4326"
+                  }
+              },
+              features: sites
+          }
+      
+          const vectorSource = new ol.source.Vector({
+              features: new ol.format.GeoJSON().readFeatures(
+                  sitesGeoJSON
+              )
+          })
+          var clusterSource = new ol.source.Cluster({
+             distance: parseInt(30, 10),
+             source: vectorSource,
+           });
+           var color_new = colors_unique[indice];
+
+          let style_custom = featureStyle(color_new)
+          var vectorLayer = new ol.layer.Vector({
+            source: clusterSource,
+            style: style_custom
+          });
+          return [vectorLayer,vectorSource]
+        }
+        catch(error){
+            console.log(error);
+        //   $.notify(
+        //       {
+        //           message: `Seems that there is no sites in the service`
+        //       },
+        //       {
+        //           type: "info",
+        //           allow_dismiss: true,
+        //           z_index: 20000,
+        //           delay: 5000,
+        //           animate: {
+        //             enter: 'animated fadeInRight',
+        //             exit: 'animated fadeOutRight'
+        //           },
+        //           onShow: function() {
+        //               this.css({'width':'auto','height':'auto'});
+        //           }
+        //       }
+        //   )
+        }
+      
+      
+      }
+      featureStyle = function (myColor) {
+        var styleCache = {};
+        var style2 =
+        function (feature) {
+          var size = feature.get('features').length;
+          var style = styleCache[size];
+          if (!style) {
+            style = new ol.style.Style({
+              image: new ol.style.Circle({
+                radius: 10,
+                stroke: new ol.style.Stroke({
+                  color: "white",
+                }),
+                fill: new ol.style.Fill({
+                  color: myColor,
+                }),
+              }),
+              text: new ol.style.Text({
+                text: size.toString(),
+                fill: new ol.style.Fill({
+                  color: '#fff',
+                }),
+              }),
+            });
+            styleCache[size] = style;
+          }
+          return style;
+        }
+    
+        return style2
     }
 
     /************************************************************************
@@ -616,6 +829,7 @@ var LIBRARY_OBJECT = (function() {
     $(function() {
 
         init_all();
+        getValues();
         const start_all_4 = datepicker('#start_pick', { id: 0,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument

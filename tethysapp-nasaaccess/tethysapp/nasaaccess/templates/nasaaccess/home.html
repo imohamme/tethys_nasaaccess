@@ -496,13 +496,19 @@
 </div>
 {% endblock %}
 
-{% block app_content %}
-  <div class="flex justify-center flex-col h-screen">
-    <div id="map" class="map h-4/6 w-full"></div>
-    <div id="graphs__panel" class="h-full w-full"> 
+  {% block app_content %}
+    <div class="h-screen">
+      <div id="map" class="flex-1 h-[48rem] w-full"></div>
+      <div id="graphs__panel" class="flex-1	relative h-full w-full border-emerald-500	border-4">
+        <canvas id="time__series"></canvas>
+      </div>
     </div>
-  </div>
-{% endblock %}
+
+  {% endblock %}
+
+
+
+
 
 {# Use the after_app_content block for modals #}
 {% block after_app_content %}

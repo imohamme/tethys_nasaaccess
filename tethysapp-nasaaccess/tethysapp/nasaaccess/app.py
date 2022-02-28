@@ -54,6 +54,11 @@ class nasaaccess(TethysAppBase):
                 name='plot',
                 url='nasaaccess/plot',
                 controller='nasaaccess.ajax_controllers.plot_data'
+            ),
+            UrlMap(
+                name='getValues',
+                url='nasaaccess/getValues',
+                controller='nasaaccess.ajax_controllers.getValues'
             )
         )
 

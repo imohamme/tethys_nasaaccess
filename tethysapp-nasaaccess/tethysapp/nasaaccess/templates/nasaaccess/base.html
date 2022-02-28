@@ -17,9 +17,12 @@
 {% endblock %}
 
 {% block app_content %}
+
+
 {% endblock %}
 
 {% block app_actions %}
+
 {% endblock %}
 
 {% block content_dependent_styles %}
@@ -40,6 +43,8 @@
 
 {% block scripts %}
   {{ block.super }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -52,9 +57,7 @@
       }
     }
   </script>
-    <script src="https://unpkg.com/js-datepicker"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-
+  <script src="https://unpkg.com/js-datepicker"></script>
   <script src="{% static 'nasaaccess/js/main.js' %}" type="text/javascript"></script>
 
 {% endblock %}
