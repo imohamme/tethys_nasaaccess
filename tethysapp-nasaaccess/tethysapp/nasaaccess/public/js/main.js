@@ -606,15 +606,12 @@ var LIBRARY_OBJECT = (function() {
                 var vectorSource =  layers_mapa[1];
                 var vectorLayer = layers_mapa[0];
                 map.addLayer(vectorLayer);
-                map.getView().fit(vectorSource.getExtent());
                 indice += 1;
-                // return 
             });
  
           },
           error: function (error) {
             console.log(error);
-          //   $("#loading").hide();
           }
         });
         
@@ -669,7 +666,7 @@ var LIBRARY_OBJECT = (function() {
                             datasets = [val__rain];
                         }
                         const ctx = $('#time__series');
-                        if (myChart) {    myChart.destroy();  }
+                        if (myChart) {    myChart.update();  }
                         myChart = new Chart(ctx, {
                             type: 'line',
                             data: {
@@ -677,12 +674,29 @@ var LIBRARY_OBJECT = (function() {
                                 datasets: datasets
                             },
                             options: {
-                                title: {
-                                  display: true,
-                                  text: feature_single.func
-                                },
+
                                 responsive:true,
-                                maintainAspectRatio:false
+                                maintainAspectRatio:false,
+                                plugins: {
+                                    legend: {
+                                        position:'bottom'
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: feature_single.func
+                                    },
+                                    zoom: {
+                                      zoom: {
+                                        wheel: {
+                                          enabled: true,
+                                        },
+                                        pinch: {
+                                          enabled: true
+                                        },
+                                        mode: 'xy',
+                                      }
+                                    }
+                                }
                                 
                             }
                         });

@@ -62,6 +62,7 @@ table {
   overflow-y: hidden;
 }
 #inner-app-content {
-  height: 100%;
+  display: flex;
+  height: 89vh;
   overflow-y: hidden;
 }
