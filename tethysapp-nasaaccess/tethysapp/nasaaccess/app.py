@@ -77,15 +77,15 @@ class nasaaccess(TethysAppBase):
                 required=False
             ),
             CustomSetting(
-                name='nasaaccess_py3',
+                name='nasaaccess_R',
                 type=CustomSetting.TYPE_STRING,
-                description='Python 3 interpreter',
+                description='R interpreter',
                 required=False
             ),
             CustomSetting(
                 name='nasaaccess_script',
                 type=CustomSetting.TYPE_STRING,
-                description='Path to the nasaaccess script file',
+                description='Path to the nasaaccess R script file',
                 required=False
             ),
             CustomSetting(
