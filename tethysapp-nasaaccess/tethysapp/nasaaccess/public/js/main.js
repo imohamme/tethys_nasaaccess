@@ -944,7 +944,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
          })
-        const end_all_4 = datepicker('#end_pick', { id: 0,
+        const end_all_4 = datepicker('#end_pick', { id: 1,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -956,7 +956,7 @@ var LIBRARY_OBJECT = (function() {
             }
         })
 
-        const start_1 = datepicker('#start_GLDASpolycentroid', { id: 1,
+        const start_1 = datepicker('#start_GLDASpolycentroid', { id: 2,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -967,7 +967,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
          })
-        const end_1 = datepicker('#end_GLDASpolycentroid', { id: 1,
+        const end_1 = datepicker('#end_GLDASpolycentroid', { id: 3,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -979,7 +979,7 @@ var LIBRARY_OBJECT = (function() {
             }
         })
 
-        const start_2 = datepicker('#start_GLDASwat', { id: 2,
+        const start_2 = datepicker('#start_GLDASwat', { id: 4,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -990,7 +990,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
          })
-        const end_2 = datepicker('#end_GLDASwat', { id: 2,
+        const end_2 = datepicker('#end_GLDASwat', { id: 5,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1003,7 +1003,7 @@ var LIBRARY_OBJECT = (function() {
         })
 
 
-        const start_3 = datepicker('#start_GPMpolyCentroid', { id: 3,
+        const start_3 = datepicker('#start_GPMpolyCentroid', { id: 6,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1014,7 +1014,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
          })
-        const end_3 = datepicker('#end_GPMpolyCentroid', { id: 3,
+        const end_3 = datepicker('#end_GPMpolyCentroid', { id: 7,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1026,7 +1026,7 @@ var LIBRARY_OBJECT = (function() {
             }
         })
 
-        const start_4 = datepicker('#start_GPMswat', { id: 4,
+        const start_4 = datepicker('#start_GPMswat', { id: 8,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1037,7 +1037,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
          })
-        const end_4 = datepicker('#end_GPMswat', { id: 4,
+        const end_4 = datepicker('#end_GPMswat', { id: 9,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1049,7 +1049,8 @@ var LIBRARY_OBJECT = (function() {
             }
         })
 
-        const start_5 = datepicker('#start_NEXT_GDPPswat', { id: 5,
+        const start_5 = datepicker('#start_NEXT_GDPPswat', { id: 10,
+            startDate: new Date(2006, 0, 1),
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1060,7 +1061,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
          })
-        const end_5 = datepicker('#end_NEXT_GDPPswat', { id: 5,
+        const end_5 = datepicker('#end_NEXT_GDPPswat', { id: 11,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1071,7 +1072,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
         })
-        const start_6 = datepicker('#start_NEX_GDPP_CMIP6', { id: 6,
+        const start_6 = datepicker('#start_NEX_GDPP_CMIP6', { id: 12,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1082,7 +1083,7 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
         })
-        const end_6 = datepicker('#end_NEX_GDPP_CMIP6', { id: 6,
+        const end_6 = datepicker('#end_NEX_GDPP_CMIP6', { id: 13,
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString("en-GB", { // you can use undefined as first argument
                                 year: "numeric",
@@ -1093,6 +1094,11 @@ var LIBRARY_OBJECT = (function() {
                 input.value = value // => '1/1/2099'
             }
         })
+
+        start_6.setDate(new Date(2015, 0,1),true);
+        end_6.setDate(new Date(),true);
+        start_5.setDate(new Date(2006, 0,1),true);
+        end_5.setDate(new Date(),true);
 //        $("#help-modal").modal('show');
         $('#loading').addClass('hidden')
 
@@ -1332,6 +1338,75 @@ var LIBRARY_OBJECT = (function() {
                 }
 
             }
+        });
+        $("#NEX_GDPP_CMIP6_slice_select").change(function(){
+
+            if($(this).val() == 'historical'){  
+                start_6.setMin();
+                start_6.setMax();
+
+                start_6.setDate(new Date(1950, 0, 1),true);
+                start_6.setMin(new Date(1950,0,1));
+                start_6.setMax(new Date(2014,11,31));
+
+
+                end_6.setMin();
+                end_6.setMax();
+
+                end_6.setDate(new Date(2014, 11, 31),true);
+                end_6.setMin(new Date(2014,11,31));
+
+            }
+            else{
+                start_6.setMin();
+                start_6.setMax();
+
+                start_6.setDate(new Date(2015, 0,1),true);
+                start_6.setMin(new Date(2015,0,1));
+
+                end_6.setMin();
+                end_6.setMax();
+
+                end_6.setDate(new Date(),true);
+                end_6.setMin(new Date());
+                
+            }
+
+        });
+        $("#NEXT_GDPPswat_slice_select").change(function(){
+
+            if($(this).val() == 'historical'){  
+                start_5.setMin();
+                start_6.setMax();
+
+                start_5.setDate(new Date(1950, 0, 1),true);
+                start_5.setMin(new Date(1950,0,1));
+                start_5.setMax(new Date(2005,11,31));
+
+
+                end_5.setMin();
+                end_5.setMax();
+
+                end_5.setDate(new Date(2005, 11, 31),true);
+                end_5.setMin(new Date(2005,11,31));
+
+            }
+            else{
+                start_5.setMin();
+                start_5.setMax();
+
+                start_5.setDate(new Date(2006, 0,1),true);
+
+                start_5.setMin(new Date(2006,0,1));
+
+                end_5.setMin();
+                end_5.setMax();
+
+                end_5.setDate(new Date(),true);
+                end_5.setMin(new Date());
+                
+            }
+
         });
 
 
