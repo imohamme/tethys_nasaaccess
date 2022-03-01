@@ -666,7 +666,6 @@ var LIBRARY_OBJECT = (function() {
 
 
             });
-            showPlot();
             let zoomLevel =  Math.min(...arrayZooms); 
             map.getView().setZoom(zoomLevel - 2);
 
@@ -771,6 +770,7 @@ var LIBRARY_OBJECT = (function() {
                                 }
                             });
                         }
+                        showPlot();
 
 
                     },

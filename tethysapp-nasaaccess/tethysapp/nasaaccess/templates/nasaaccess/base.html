@@ -12,6 +12,12 @@
 {# The name you provided in your app.py is accessible through the tethys_app.name context variable #}
 {% block app_title %}{{ tethys_app.name }}{% endblock %}
 
+{% block header_buttons %}
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Help">
+    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-euro"></span></a>
+  </div>
+{% endblock %}
+
 {% block app_navigation_items %}
 
 {% endblock %}
