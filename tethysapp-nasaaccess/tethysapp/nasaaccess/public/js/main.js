@@ -40,7 +40,6 @@ var LIBRARY_OBJECT = (function() {
         view,
         projection,
         layer_points={};
-
     /************************************************************************
      *                    PRIVATE FUNCTION DECLARATIONS
      *************************************************************************/
@@ -64,13 +63,21 @@ var LIBRARY_OBJECT = (function() {
         getValues,
         getIconLegend,
         removeLayersFunctions,
-        updateLegend;
+        updateLegend,
+        showPlot;
 
 
 
     /************************************************************************
      *                    PRIVATE FUNCTION IMPLEMENTATIONS
      *************************************************************************/
+     showPlot = function(){
+         $("#map").addClass("h-[48rem]");
+         $("#map").removeClass("h-full");
+         $("#graphs__panel").removeClass("hidden");
+         setTimeout(function(){ map.updateSize(); }, 200);
+
+     }
 
     //Get a CSRF cookie for request
     getCookie = function(name) {
@@ -610,15 +617,14 @@ var LIBRARY_OBJECT = (function() {
           data: data,
           dataType: 'json',
           success: function(data) {
+            updateLegend();
+            removeLayersFunctions();
             console.log(data);
             var indice = 0;
+            var arrayZooms = [];
 
             var func__names = Object.keys(data);
             
-            updateLegend();
-            removeLayersFunctions();
-            
-
             func__names.forEach(func__name => {
                 var list__points = Object.keys(data[func__name]).map(function(key) {
                     return data[func__name][key]                
@@ -629,6 +635,10 @@ var LIBRARY_OBJECT = (function() {
                 var vectorLayer = layers_mapa[0];
                 layer_points[func__name] = vectorLayer
                 map.addLayer(layer_points[func__name]);
+
+                map.getView().fit(vectorSource.getExtent());
+                arrayZooms.push(map.getView().getZoom());
+
 
                 let test_style = new ol.style.Style({
                     image: new ol.style.Circle({
@@ -650,10 +660,16 @@ var LIBRARY_OBJECT = (function() {
                  }
                  $(`#${func__name}-row-legend`).prepend($(getIconLegend(test_style)));
                 
+
+
                  indice += 1;
 
 
             });
+            showPlot();
+            let zoomLevel =  Math.min(...arrayZooms); 
+            map.getView().setZoom(zoomLevel - 2);
+
  
           },
           error: function (error) {
