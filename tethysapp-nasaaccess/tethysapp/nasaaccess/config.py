@@ -62,8 +62,9 @@ except Exception as e:
     print("Please specify the custom settings")
     geoserver_store = ''
 
+nasa_user = 'jonesj93'
 
-
+nasa_password = 'ED!1z0m5tgb'
 geoserver = {'user': geoserver_user,
              'password': geoserver_password,
              'workspace':geoserver_workspace,

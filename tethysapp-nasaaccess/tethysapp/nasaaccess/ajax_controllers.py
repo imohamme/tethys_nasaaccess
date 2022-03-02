@@ -22,22 +22,19 @@ def run_nasaaccess(request):
     try:
         d_start = request.POST.getlist('startDate[]')
         d_end = request.POST.getlist('endDate[]')
-        # start = request.POST.get('startDate')
-        # d_start = str(datetime.datetime.strptime(start, '%b %d, %Y').strftime('%Y-%m-%d'))
-        # end = request.POST.get(str('endDate'))
-        # d_end = str(datetime.datetime.strptime(end, '%b %d, %Y').strftime('%Y-%m-%d'))
         functions = request.POST.getlist('functions[]')
         nexgdpp=request.POST.getlist('nexgdpp[]')
         nextgdppcmip=request.POST.getlist('nextgdppcmip[]')
-
 
         
         watershed = request.POST.get('watershed')
         dem = request.POST.get('dem')
         email = request.POST.get('email')
-        user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
-        os.chmod(user_workspace, 0o777)
-        result = nasaaccess_run(email, functions, watershed, dem, d_start, d_end, user_workspace,nexgdpp,nextgdppcmip)
+        # user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
+        app_workspace_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'app_workspace')
+
+        os.chmod(app_workspace_path, 0o777)
+        result = nasaaccess_run(email, functions, watershed, dem, d_start, d_end, app_workspace_path,nexgdpp,nextgdppcmip)
         return JsonResponse({'Result': str(result)})
     except Exception as e:
         return JsonResponse({'Error': str(e)})
@@ -50,10 +47,8 @@ def upload_shapefiles(request):
     files = request.FILES.getlist('files')
     
     #create new dir or check dir for shapefiles
-    user_workspace_path = nasaaccess.get_user_workspace(request.user).path
-
-    shp_path = os.path.join(user_workspace_path,'shapefiles')
-    # shp_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','shapefiles')
+    app_workspace_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'app_workspace')
+    shp_path = os.path.join(app_workspace_path,'shapefiles')
 
 
     if not os.path.exists(shp_path):
@@ -75,41 +70,9 @@ def upload_shapefiles(request):
                 for chunk in files[n].chunks():
                     dst.write(chunk)
 
-    # filepath = glob.glob(os.path.join(shp_path_directory, '*.shp'))[0]
-    # shp_path_directory_file = os.path.join(shp_path_directory, shp_file.name)
-
     filename = os.path.splitext(os.path.basename(shp_path_directory))[0].split('.')[0]
-    print(shp_path_directory)
-    print(filename)
-    # path_to_shp = os.path.join(shp_path, filename)
     upload_shapefile(filename,shp_path_directory)
-    print("sucree")
     return JsonResponse({"file":f'{filename}'})
-
-    # if request.method == 'POST':
-    #     form = UploadShpForm(request.POST, request.FILES)
-    #     id = request.FILES['shapefile'].name.split('.')[0] # Get name of the watershed from the shapefile name
-    #     if form.is_valid():
-    #         form.save()  # Save the shapefile to the nasaaccess data file path
-    #         perm_file_path = os.path.join(data_path, 'shapefiles', id)
-    #         user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path, 'shapefiles')
-    #         shp_path_user = os.path.join(user_workspace, id)
-    #         if os.path.isfile(perm_file_path) or os.path.isfile(shp_path_user):
-    #             logging.info('file already exists')
-    #         else:
-    #             logging.info('saving shapefile to server')
-    #             if not os.path.exists(user_workspace):
-    #                 os.makedirs(user_workspace)
-    #                 os.chmod(user_workspace, 0o777)
-    #                 os.makedirs(shp_path_user)
-    #                 os.chmod(shp_path_user, 0o777)
-    #             if not os.path.exists(shp_path_user):
-    #                 os.makedirs(shp_path_user)
-    #                 os.chmod(shp_path_user, 0o777)
-    #             upload_shapefile(id, shp_path_user) # Run upload_shapefile function to upload file to the geoserver
-    #         return HttpResponseRedirect('../') # Return to Home page
-    # else:
-    #     return HttpResponseRedirect('../') # Return to Home page
 
 
 def upload_tiffiles(request):
@@ -119,10 +82,9 @@ def upload_tiffiles(request):
     files = request.FILES.getlist('files')
     print(files)
     #create new dir or check dir for shapefiles
-    user_workspace_path = nasaaccess.get_user_workspace(request.user).path
+    app_workspace_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'app_workspace')
 
-    dem_path = os.path.join(user_workspace_path,'DEMfiles')
-    # dem_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'user_workspaces','DEMfiles')
+    dem_path = os.path.join(app_workspace_path,'DEMfiles')
     if not os.path.exists(dem_path):
         os.makedirs(dem_path)
         os.chmod(dem_path, 0o777)
@@ -145,31 +107,9 @@ def upload_tiffiles(request):
     filename = os.path.splitext(os.path.basename(dem_path_directory))[0].split('.')[0]
 
     # path_to_shp = os.path.join(shp_path, filename)
-    print(filename)
-    print(dem_path_directory)
+
     upload_dem(filename,dem_path_directory)
     return JsonResponse({"file":f'{filename}'})
-
-    # if request.method == 'POST':
-    #     form = UploadDEMForm(request.POST, request.FILES)
-    #     id = request.FILES['DEMfile'].name
-    #     if form.is_valid():
-    #         form.save(commit=True)
-    #         perm_file_path = os.path.join(data_path, 'DEMfiles', id)
-    #         dem_path_user = os.path.join(nasaaccess.get_user_workspace(request.user).path, 'DEMfiles')
-    #         print(perm_file_path)
-    #         print(dem_path_user)
-    #         if os.path.isfile(perm_file_path) or os.path.isfile(dem_path_user):
-    #             logging.info('file already exists')
-    #         else:
-    #             logging.info('saving dem to server')
-    #             if not os.path.exists(dem_path_user):
-    #                 os.makedirs(dem_path_user)
-    #                 os.chmod(dem_path_user, 0o777)
-    #             upload_dem(id, dem_path_user)
-    #         return HttpResponseRedirect('../')
-    # else:
-    #     return HttpResponseRedirect('../')
 
 
 def download_data(request):
@@ -231,26 +171,40 @@ def getValues(request):
     unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data',access_code)
 
     if func_name == 'GLDASpolyCentroid':
+        pre_path = os.path.join(unique_path,'GLDASpolyCentroid')
         new_path = os.path.join(unique_path,'GLDASpolyCentroid','temp_Master.txt')
+   
     if func_name == 'GLDASwat':
+        pre_path = os.path.join(unique_path,'GLDASwat')
         new_path = os.path.join(unique_path,'GLDASwat','temp_Master.txt')
 
     if func_name == 'GPMpolyCentroid':
+        pre_path = os.path.join(unique_path,'GPMpolyCentroid')
+
         new_path = os.path.join(unique_path,'GPMpolyCentroid','precipitationMaster.txt')
 
     if func_name == 'GPMswat':
+        pre_path = os.path.join(unique_path,'GPMswat')
+
         new_path = os.path.join(unique_path,'GPMswat','precipitationMaster.txt')
 
-    if func_name == 'NEXT_GDPPswat':
-        new_path = os.path.join(unique_path,'NEXT_GDPPswat','temp_Master.txt')
+    if func_name == 'NEX_GDPPswat':
+        pre_path = os.path.join(unique_path,'NEXGDPP')
+        new_path = os.path.join(unique_path,'NEXGDPP','prGrid_Master.txt')
 
     if func_name == 'NEX_GDPP_CMIP6':
-        new_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','temp_Master.txt')
+        pre_path = os.path.join(unique_path,'NEX_GDPP_CMIP6')
+        
+        new_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','prGrid_Master.txt')
 
     if os.path.exists(new_path):
-        path_file = os.path.join(unique_path,f'{func_name}',f'{file}.txt')
+        path_file = os.path.join(pre_path,f'{file}.txt')
         mypd = pd.read_csv(path_file)
-        new_pd = mypd.reset_index()
+        if func_name == 'NEX_GDPPswat' or func_name == 'NEX_GDPP_CMIP6':
+            new_pd = mypd.reset_index(drop=True)
+        else:
+            new_pd = mypd.reset_index()
+
         print(func_name)
         print(new_pd)
 
@@ -407,8 +361,8 @@ def plot_data(request):
         gldasswat_path = os.path.join(unique_path,'GLDASwat','temp_Master.txt')
         gpmpolycentroid_path = os.path.join(unique_path,'GPMpolyCentroid','precipitationMaster.txt')
         gpmswat_path = os.path.join(unique_path,'GPMswat','precipitationMaster.txt')
-        nextgdpp_path = os.path.join(unique_path,'NEXT_GDPPswat','temp_Master.txt')
-        nexgdppcmip6_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','temp_Master.txt')
+        nextgdpp_path = os.path.join(unique_path,'NEXGDPP','prGrid_Master.txt')
+        nexgdppcmip6_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','prGrid_Master.txt')
 
         if os.path.exists(gldaspolycentroid_path):
             print('GLDASpolyCentroid')
@@ -430,5 +384,12 @@ def plot_data(request):
             data_master_1 = pd.read_csv(gpmswat_path)
             response_obj['GPMswat'] = data_master_1.to_dict('index')
 
-        
+        if os.path.exists(nextgdpp_path):
+            print('NEXGDPP')
+            data_master_1 = pd.read_csv(nextgdpp_path)
+            response_obj['NEX_GDPPswat'] = data_master_1.to_dict('index')
+        if os.path.exists(nexgdppcmip6_path):
+            print('NEX_GDPP_CMIP6')
+            data_master_1 = pd.read_csv(nexgdppcmip6_path)
+            response_obj['NEX_GDPP_CMIP6'] = data_master_1.to_dict('index')
     return JsonResponse(response_obj)

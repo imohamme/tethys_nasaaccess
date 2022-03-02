@@ -400,10 +400,51 @@ var LIBRARY_OBJECT = (function() {
                 $('#start_GPMpolyCentroid').val(),$('#start_GPMswat').val(),$('#start_NEXT_GDPPswat').val(),$('#start_NEX_GDPP_CMIP6').val()]
             end = [$('#end_GLDASpolycentroid').val(),$('#end_GLDASwat').val(),
             $('#end_GPMpolyCentroid').val(),$('#end_GPMswat').val(),$('#end_NEXT_GDPPswat').val(),$('#end_NEX_GDPP_CMIP6').val()]        
+            
+            if(!$("#NEX_GDPP_CMIP6_input").is(":checked") && !$("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_GLDASpolycentroid').val(),$('#start_GLDASwat').val(),
+                $('#start_GPMpolyCentroid').val(),$('#start_GPMswat').val(),"",""]
+                end = [$('#end_GLDASpolycentroid').val(),$('#end_GLDASwat').val(),
+                 $('#end_GPMpolyCentroid').val(),$('#end_GPMswat').val(),"",""]        
+            }
+            if($("#NEX_GDPP_CMIP6_input").is(":checked") && $("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_GLDASpolycentroid').val(),$('#start_GLDASwat').val(),
+                     $('#start_GPMpolyCentroid').val(),$('#start_GPMswat').val(),$('#start_NEXT_GDPPswat').val(),$('#start_NEX_GDPP_CMIP6').val()]
+                 end = [$('#end_GLDASpolycentroid').val(),$('#end_GLDASwat').val(),
+                     $('#end_GPMpolyCentroid').val(),$('#end_GPMswat').val(),$('#end_NEXT_GDPPswat').val(),$('#end_NEX_GDPP_CMIP6').val()]        
+            }
+            if(!$("#NEX_GDPP_CMIP6_input").is(":checked") && $("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_GLDASpolycentroid').val(),$('#start_GLDASwat').val(),
+                  $('#start_GPMpolyCentroid').val(),$('#start_GPMswat').val(),$('#start_NEXT_GDPPswat').val(),""]
+                 end = [$('#end_GLDASpolycentroid').val(),$('#end_GLDASwat').val(),
+                 $('#end_GPMpolyCentroid').val(),$('#end_GPMswat').val(),$('#end_NEXT_GDPPswat').val(),""] 
+            }
+            if($("#NEX_GDPP_CMIP6_input").is(":checked") && !$("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_GLDASpolycentroid').val(),$('#start_GLDASwat').val(),
+                     $('#start_GPMpolyCentroid').val(),$('#start_GPMswat').val(),"",$('#start_NEX_GDPP_CMIP6').val()]
+                 end = [$('#end_GLDASpolycentroid').val(),$('#end_GLDASwat').val(),
+                     $('#end_GPMpolyCentroid').val(),$('#end_GPMswat').val(),"",$('#end_NEX_GDPP_CMIP6').val()] 
+            }       
+        
+        
         }
         else{
-            start = [$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_NEXT_GDPPswat').val(),$('#start_NEX_GDPP_CMIP6').val()];
-            end = [$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_NEXT_GDPPswat').val(),$('#end_NEX_GDPP_CMIP6').val()];
+            if(!$("#NEX_GDPP_CMIP6_input").is(":checked") && !$("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),"",""];
+                end = [$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),"",""];
+            }
+            if($("#NEX_GDPP_CMIP6_input").is(":checked") && $("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_NEXT_GDPPswat').val(),$('#start_NEX_GDPP_CMIP6').val()];
+                end = [$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_NEXT_GDPPswat').val(),$('#end_NEX_GDPP_CMIP6').val()];
+            }
+            if(!$("#NEX_GDPP_CMIP6_input").is(":checked") && $("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_NEXT_GDPPswat').val(),""];
+                end = [$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_NEXT_GDPPswat').val(),""];
+            }
+            if($("#NEX_GDPP_CMIP6_input").is(":checked") && !$("#NEXT_GDPPswat_input").is(":checked")){
+                start = [$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),$('#start_pick').val(),"",$('#start_NEX_GDPP_CMIP6').val()];
+                end = [$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),$('#end_pick').val(),"",$('#end_NEX_GDPP_CMIP6').val()];
+            }
         }
         // var start = $('#start_pick').val();
         // var end = $('#end_pick').val();
@@ -599,7 +640,7 @@ var LIBRARY_OBJECT = (function() {
 
       removeLayersFunctions = function(){
         Object.keys(layer_points).forEach(function(layer){
-            map.removeLayer(layer);
+            map.removeLayer(layer_points[layer]);
         })
       }
       updateLegend = function(){
@@ -624,7 +665,7 @@ var LIBRARY_OBJECT = (function() {
             var arrayZooms = [];
 
             var func__names = Object.keys(data);
-            
+
             func__names.forEach(func__name => {
                 var list__points = Object.keys(data[func__name]).map(function(key) {
                     return data[func__name][key]                
@@ -693,6 +734,7 @@ var LIBRARY_OBJECT = (function() {
                     func: feature_single.func,
                     access_code: feature_single.access_code
                 }
+                console.log(feature_single.func);
                 $.ajax({
                     url: 'getValues/',
                     type: 'POST',
@@ -719,7 +761,7 @@ var LIBRARY_OBJECT = (function() {
                         }
                         else{
                             let val__rain = {
-                                data: data.min_val,
+                                data: data.val,
                                 label: "Precipitation",
                                 borderColor: "#8e5ea2",
                                 fill: false

@@ -12,51 +12,57 @@ logging.basicConfig(filename=nasaaccess_log,level=logging.INFO)
 Base = declarative_base()
 Persistent_Store_Name = 'catalog_db'
 
-# class Shapefiles(Base):
-#     __tablename__ = 'shapefiles'
+class Shapefiles(Base):
+    __tablename__ = 'shapefiles'
     
-#     id = Column(Integer, primary_key=True)  # Record number.
-#     shapefile = Column(String(1000))
+    id = Column(Integer, primary_key=True)  # Record number.
+    shapefile = Column(String(1000))
 
   
-#     def __init__(self, shapefile):
-#         self.shapefile= shapefile
+    def __init__(self, shapefile):
+        self.shapefile= shapefile
 
-# class DEMfiles(Base):
-#     __tablename__ = 'demfiles'
+class DEMfiles(Base):
+    __tablename__ = 'demfiles'
     
-#     id = Column(Integer, primary_key=True)  # Record number.
-#     DEMfile = Column(String(1000))
+    id = Column(Integer, primary_key=True)  # Record number.
+    DEMfile = Column(String(1000))
 
   
-#     def __init__(self, demfile):
-#         self.DEMfile= demfile
+    def __init__(self, demfile):
+        self.DEMfile= demfile
 
-# class accessCode(Base):
-#     __tablename__ = 'accesscode'
+class accessCode(Base):
+    __tablename__ = 'accesscode'
     
-#     id = Column(Integer, primary_key=True)  # Record number.
-#     accessCode = Column(String(1000))
+    id = Column(Integer, primary_key=True)  # Record number.
+    accessCode = Column(String(1000))
 
 
+def set_rc_vars():
+    old_dodsrcfile = os.environ.get('DAPRCFILE')
+    old_netrc = os.environ.get('NETRC')
+    os.environ['DAPRCFILE'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'app_workspace', '.dodsrc')
+    os.environ['NETRC'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'app_workspace', '.netrc')
+    return old_dodsrcfile, old_netrc
 
-
-def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace,nexgdpp,nextgdppcmip):
+def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,nexgdpp,nextgdppcmip):
+    set_rc_vars()
     #identify where each of the input files are located in the server
-    shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
-    shp_path_user = os.path.join(user_workspace, 'shapefiles', watershed, watershed + '.shp')
-    shp_path = ''
-    if os.path.isfile(shp_path_sys):
-        shp_path = shp_path_sys
-    if os.path.isfile(shp_path_user):
-        shp_path = shp_path_user
-    dem_path_sys = os.path.join(data_path, 'DEMfiles', dem, dem + '.tif')
-    dem_path_user = os.path.join(user_workspace, 'DEMfiles',dem, dem + '.tif')
-    dem_path = ''
-    if os.path.isfile(dem_path_sys):
-        dem_path = dem_path_sys
-    if os.path.isfile(dem_path_user):
-        dem_path = dem_path_user
+    # shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
+    shp_path = os.path.join(app_workspace, 'shapefiles', watershed, watershed + '.shp')
+    # shp_path = ''
+    # if os.path.isfile(shp_path_sys):
+        # shp_path = shp_path_sys
+    # if os.path.isfile(shp_path_user):
+        # shp_path = shp_path_user
+    # dem_path_sys = os.path.join(data_path, 'DEMfiles', dem, dem + '.tif')
+    dem_path = os.path.join(app_workspace, 'DEMfiles',dem, dem + '.tif')
+    # dem_path = ''
+    # if os.path.isfile(dem_path_sys):
+        # dem_path = dem_path_sys
+    # if os.path.isfile(dem_path_user):
+    #    dem_path = dem_path_user
     #create a new folder to store the user's requested data
     unique_id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
     
@@ -125,15 +131,12 @@ def upload_shapefile(id, shp_path):
 
     if validate == 0:
         print("here")
-        # geoserver_engine = get_spatial_dataset_engine(name='ADPC')
         geoserver_engine = app.get_spatial_dataset_service('ADPC', as_engine = True)
         print(geoserver_engine)
-        # response = geoserver_engine.get_layer(id, debug=True)
         response = geoserver_engine.get_layer(id)
         print(response)
         WORKSPACE = geoserver['workspace']
         GEOSERVER_URI = geoserver['URI']
-        STORE_SHAPEFILE = 'shapefiles_boundaries'
 
         if response['success'] == False:
             print('Shapefile was not found on geoserver. Uploading it now from app workspace')
@@ -154,14 +157,9 @@ def upload_shapefile(id, shp_path):
                 overwrite=True
             )
 
-            print("success")
-
-
-
         ##Delete files
         # shutil.rmtree(shp_path)
 
-    # os.remove(zip_archive)
 
 
 def upload_dem(id, dem_path):
@@ -198,3 +196,5 @@ def upload_dem(id, dem_path):
 
         requests.put(request_url, verify=False, headers=headers, data=data, auth=(USER, PASSWORD))
 
+        ##Delete Files
+        # shutil.rmtree(dem_path)

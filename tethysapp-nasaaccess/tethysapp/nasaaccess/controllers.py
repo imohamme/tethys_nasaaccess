@@ -8,7 +8,6 @@ from .app import nasaaccess
 from .config import *
 from geoserver.catalog import Catalog
 
-# from tethys_sdk.workspaces import user_workspace
 Persistent_Store_Name = 'catalog_db'
 
 
@@ -18,15 +17,7 @@ def home(request):
     """
 
     # Get available Shapefiles and DEM files from app workspace and use them as options in drop down menus
-    # shapefile_path = os.path.join(data_path, 'shapefiles')
-    # dem_path = os.path.join(data_path, 'DEMfiles')
-    # if(nasaaccess.get_user_workspace(request.user).path.split('/anonymous_user')):
-    #     user_workspace_path = nasaaccess.get_user_workspace(request.user).path.split('/anonymous_user')[0]
-    
-    # if(nasaaccess.get_user_workspace(request.user).path.split('/admin')):
-    #     user_workspace_path = nasaaccess.get_user_workspace(request.user).path.split('/admin')[0]
-    user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
-    # user_workspace_path = os.path.join(user_workspace.path)
+
     dem_options = []
     shp_options = []
     WORKSPACE = geoserver['workspace']
