@@ -12,52 +12,34 @@ logging.basicConfig(filename=nasaaccess_log,level=logging.INFO)
 Base = declarative_base()
 Persistent_Store_Name = 'catalog_db'
 
-class Shapefiles(Base):
-    __tablename__ = 'shapefiles'
+# class Shapefiles(Base):
+#     __tablename__ = 'shapefiles'
     
-    id = Column(Integer, primary_key=True)  # Record number.
-    shapefile = Column(String(1000))
+#     id = Column(Integer, primary_key=True)  # Record number.
+#     shapefile = Column(String(1000))
 
   
-    def __init__(self, shapefile):
-        self.shapefile= shapefile
+#     def __init__(self, shapefile):
+#         self.shapefile= shapefile
 
-class DEMfiles(Base):
-    __tablename__ = 'demfiles'
+# class DEMfiles(Base):
+#     __tablename__ = 'demfiles'
     
-    id = Column(Integer, primary_key=True)  # Record number.
-    DEMfile = Column(String(1000))
+#     id = Column(Integer, primary_key=True)  # Record number.
+#     DEMfile = Column(String(1000))
 
   
-    def __init__(self, demfile):
-        self.DEMfile= demfile
+#     def __init__(self, demfile):
+#         self.DEMfile= demfile
 
-class accessCode(Base):
-    __tablename__ = 'accesscode'
+# class accessCode(Base):
+#     __tablename__ = 'accesscode'
     
-    id = Column(Integer, primary_key=True)  # Record number.
-    accessCode = Column(String(1000))
+#     id = Column(Integer, primary_key=True)  # Record number.
+#     accessCode = Column(String(1000))
 
 
 
-# # Model for the Upload Shapefiles form
-# class Shapefiles(models.Model):
-#     shapefile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'shapefiles'),max_length=500)
-
-#     class Meta:
-#         app_label = 'nasaaccess'
-
-# # Model for the Upload DEM files form
-# class DEMfiles(models.Model):
-#     DEMfile = models.FileField(upload_to=os.path.join(data_path, 'temp', 'DEMfiles'),max_length=500)
-#     class Meta:
-#         app_label = 'nasaaccess'
-# # Model for data access form
-# class accessCode(models.Model):
-#     access_code = models.CharField(max_length=6)
-
-#     class Meta:
-#         app_label = 'nasaaccess'
 
 def nasaaccess_run(email, functions, watershed, dem, start, end, user_workspace,nexgdpp,nextgdppcmip):
     #identify where each of the input files are located in the server
@@ -133,17 +115,6 @@ def upload_shapefile(id, shp_path):
     Check to see if shapefile is on geoserver. If not, upload it.
     '''
 
-    # Create a string with the path to the zip archive
-    # zip_archive = os.path.join(data_path, 'temp', 'shapefiles', id + '.zip')
-    # zip_ref = zipfile.ZipFile(zip_archive, 'r')
-    # zip_ref.extractall(shp_path)
-    # zip_ref.close()
-    # zip_archive = os.path.join(shp_path, id + '.zip')
-    # if not os.path.exists(zip_archive):
-    #     zipFiles(id, shp_path)
-    SessionMaker = app.get_persistent_store_database(
-        Persistent_Store_Name, as_sessionmaker=True)
-    session = SessionMaker()
     prj_path = os.path.join(shp_path, id + '.prj')
     f = open(prj_path)
     validate = 0
@@ -162,6 +133,7 @@ def upload_shapefile(id, shp_path):
         print(response)
         WORKSPACE = geoserver['workspace']
         GEOSERVER_URI = geoserver['URI']
+        STORE_SHAPEFILE = 'shapefiles_boundaries'
 
         if response['success'] == False:
             print('Shapefile was not found on geoserver. Uploading it now from app workspace')
@@ -174,22 +146,16 @@ def upload_shapefile(id, shp_path):
                     geoserver_engine.create_workspace(workspace_id=WORKSPACE, uri=GEOSERVER_URI)
 
             # Upload shapefile to the workspaces
-            store = id
-            store_id = WORKSPACE + ':' + store
+            store_id = WORKSPACE + ':' + id
             print(shp_path)
             geoserver_engine.create_shapefile_resource(
                 store_id=store_id,
-                # shapefile_zip=zip_archive,
                 shapefile_base=os.path.join(shp_path, id),
                 overwrite=True
             )
-    ## Save to database
-    if session.query(Shapefiles).filter(Shapefiles.shapefile == id).first() is None:
 
-        shapefile_geoserver=Shapefiles(shapefile=id)
-        session.add(shapefile_geoserver)
-        session.commit()
-        session.close()
+            print("success")
+
 
 
         ##Delete files
@@ -203,18 +169,16 @@ def upload_dem(id, dem_path):
     '''
     upload dem to user workspace and geoserver
     '''
-    SessionMaker = app.get_persistent_store_database(
-        Persistent_Store_Name, as_sessionmaker=True)
-    session = SessionMaker()
-    # shutil.copy2(os.path.join(data_path, 'temp', 'DEMfiles', id), dem_path)
+
     geoserver_engine = app.get_spatial_dataset_service('ADPC', as_engine = True)
 
-    # geoserver_engine = get_spatial_dataset_engine(name='ADPC')
     response = geoserver_engine.get_layer(id, debug=True)
 
     WORKSPACE = geoserver['workspace']
     GEOSERVER_URI = geoserver['URI']
-
+    USER = geoserver['user']
+    PASSWORD = geoserver['password']
+    REST_URL = geoserver_engine.endpoint
     if response['success'] == False:
         print('DEM was not found on geoserver. Uploading it now from app workspace')
 
@@ -225,22 +189,12 @@ def upload_dem(id, dem_path):
             if WORKSPACE not in workspaces:
                 geoserver_engine.create_workspace(workspace_id=WORKSPACE, uri=GEOSERVER_URI)
         file_path = os.path.join(dem_path, id + '.tif')
-        storename = id
         headers = {'Content-type': 'image/tiff', }
-        user = geoserver['user']
-        password = geoserver['password']
+
         data = open(file_path, 'rb').read()
 
-        request_url = '{0}workspaces/{1}/coveragestores/{2}/file.geotiff'.format(geoserver['rest_url'],
-                                                                                 WORKSPACE, storename)
+        request_url = '{0}workspaces/{1}/coveragestores/{2}/file.geotiff'.format(REST_URL,
+                                                                                 WORKSPACE,id)
 
-        requests.put(request_url, verify=False, headers=headers, data=data, auth=(user, password))
-    ## Save to database
-    if session.query(DEMfiles).filter(DEMfiles.DEMfile == id).first() is None:
+        requests.put(request_url, verify=False, headers=headers, data=data, auth=(USER, PASSWORD))
 
-        dem_geoserver=DEMfiles(demfile=id)
-        session.add(dem_geoserver)
-        session.commit()
-        session.close()
-    # os.remove(os.path.join(data_path, 'temp', 'DEMfiles', id))
-    # shutil.rmtree(dem_path)

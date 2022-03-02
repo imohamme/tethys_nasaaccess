@@ -50,6 +50,24 @@ try:
 except Exception as e:
     print("Please specify the custom settings")
     geoserver_URI = ''
+
+try:
+    geoserver_user = app.get_custom_setting('geoserver_user')
+except Exception as e:
+    print("Please specify the custom settings")
+    geoserver_store = ''
+try:
+    geoserver_password = app.get_custom_setting('geoserver_password')
+except Exception as e:
+    print("Please specify the custom settings")
+    geoserver_store = ''
+
+
+
+geoserver = {'user': geoserver_user,
+             'password': geoserver_password,
+             'workspace':geoserver_workspace,
+             'URI': geoserver_URI} 
 # try:
 #     nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
 # except Exception as e:
@@ -71,12 +89,12 @@ except Exception as e:
 
 
 
-geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
-             'wms_url':'http://localhost:8081/geoserver/wms/',
-             'user':'admin',
-             'password':'geoserver',
-             'workspace':geoserver_workspace,
-             'URI': geoserver_URI}
+# geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
+#              'wms_url':'http://localhost:8081/geoserver/wms/',
+#              'user':'admin',
+#              'password':'geoserver',
+#              'workspace':geoserver_workspace,
+#              'URI': geoserver_URI}
 
 # nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
 

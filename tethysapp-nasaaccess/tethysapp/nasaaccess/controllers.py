@@ -4,7 +4,9 @@ import os, datetime
 # from .forms import UploadShpForm, UploadDEMForm, accessCodeForm
 from .config import *
 from .app import nasaaccess
-from .model import Base , DEMfiles, Shapefiles, accessCode
+# from .model import Base , DEMfiles, Shapefiles, accessCode
+from .config import *
+from geoserver.catalog import Catalog
 
 # from tethys_sdk.workspaces import user_workspace
 Persistent_Store_Name = 'catalog_db'
@@ -24,115 +26,49 @@ def home(request):
     # if(nasaaccess.get_user_workspace(request.user).path.split('/admin')):
     #     user_workspace_path = nasaaccess.get_user_workspace(request.user).path.split('/admin')[0]
     user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
-
     # user_workspace_path = os.path.join(user_workspace.path)
-    shp_options = []
-
-    SessionMaker = nasaaccess.get_persistent_store_database(
-        Persistent_Store_Name, as_sessionmaker=True)
-    session = SessionMaker()
-    shapefiles_ava = session.query(Shapefiles).all()
-    for shp_ava in shapefiles_ava:
-        shp_options.append((shp_ava.shapefile,shp_ava.shapefile))
-
-    print(shp_options)
-    # shp_files_sys = os.listdir(shapefile_path)
-    # for f in shp_files_sys:
-    #     name = f.split(".")[0]
-    #     if name not in shp_options:
-    #         shp_options.append((name,name))
-    # if os.path.exists(os.path.join(user_workspace, 'shapefiles')):
-    # if os.path.exists(os.path.join(user_workspace_path, 'shapefiles')):
-
-    #     shp_files_user = os.listdir(os.path.join(user_workspace_path, 'shapefiles'))
-    #     for f in shp_files_user:
-    #         name = f.split(".")[0]
-    #         if name not in shp_options:
-    #             shp_options.append((name,name))
-
     dem_options = []
-    dem_availables = session.query(DEMfiles).all()
-    for dem_ava in dem_availables:
-        dem_options.append((dem_ava.DEMfile,dem_ava.DEMfile))
-    # dem_files_sys = os.listdir(dem_path)
-    # for f in dem_files_sys:
-    #     name = f.split(".")[0]
-    #     if name not in dem_options:
-    #         dem_options.append((name, name))
-    # if os.path.exists(os.path.join(user_workspace, 'DEMfiles')):
-    # if os.path.exists(os.path.join(user_workspace_path, 'DEMfiles')):
+    shp_options = []
+    WORKSPACE = geoserver['workspace']
+    REST_URL = ''
+    try:
+        engine_geo =  nasaaccess.get_spatial_dataset_service('ADPC', as_engine = True)
+        REST_URL =  engine_geo.endpoint
+        layers__all = engine_geo.list_stores(WORKSPACE,True)
+        if layers__all['success'] == True:
+            for layer in layers__all['result']:
+                if layer['resource_type'] == 'dataStore':
+                    shp_options.append((layer['name'],layer['name']))
+                if layer['resource_type'] == 'coverageStore':
+                    dem_options.append((layer['name'],layer['name']))
 
-    #     # dem_files_user = os.listdir(os.path.join(user_workspace, 'DEMfiles'))
-    #     dem_files_user = os.listdir(os.path.join(user_workspace_path, 'DEMfiles'))
-
-    #     for f in dem_files_user:
-    #         name = f.split(".")[0]
-    #         if name not in dem_options:
-    #             dem_options.append((name, name))
-
-    # shpform = UploadShpForm()
-    # demform = UploadDEMForm()
-    # accesscodeform = accessCodeForm()
-
-
-    # Set date picker options
-    start = 'Jan 01, 2000'
-    end = datetime.datetime.now().strftime("%b %d, %Y")
-    format = 'M d, yyyy'
-    startView = 'decade'
-    minView = 'days'
-
-    start_pick = DatePicker(name='start_pick',
-                            display_text="Start",
-                            autoclose=True,
-                            format=format,
-                            min_view_mode=minView,
-                            start_date=start,
-                            end_date=end,
-                            start_view=startView,
-                            today_button=False)
-                            
-
-    end_pick = DatePicker(name='end_pick',
-                          display_text="End",
-                          autoclose=True,
-                          format=format,
-                          min_view_mode=minView,
-                          start_date=start,
-                          end_date=end,
-                          start_view=startView,
-                          today_button=False
-                        #   initial='End Date'
-                          )
-
+    except Exception as e:
+        print(e)
 
     select_watershed = SelectInput(display_text='',
-                              name='select_watershed',
-                              multiple=False,
-                              original=False,
-                              options=shp_options,
-                              select2_options={'placeholder': 'Select Boundary Shapefile',
-                                               'allowClear': False},
-                              )
+                            name='select_watershed',
+                            multiple=False,
+                            original=False,
+                            options=shp_options,
+                            select2_options={'placeholder': 'Select Boundary Shapefile',
+                                            'allowClear': False},
+                            )
 
     select_dem = SelectInput(display_text='',
-                                   name='select_dem',
-                                   multiple=False,
-                                   original=False,
-                                   options=dem_options,
-                                   select2_options={'placeholder': 'Select DEM',
+                                name='select_dem',
+                                multiple=False,
+                                original=False,
+                                options=dem_options,
+                                select2_options={'placeholder': 'Select DEM',
                                                     'allowClear': False},
-                                   )
-
-
+                                )
     context = {
-        'start_pick': start_pick,
-        'end_pick': end_pick,
-        # 'shpform': shpform,
-        # 'demform': demform,
-        # 'accesscodeform': accesscodeform,
         'select_watershed': select_watershed,
-        'select_dem': select_dem
+        'select_dem': select_dem,
+        'geoserver_url': REST_URL,
+        'geoserver_workspace': WORKSPACE
     }
+
+
 
     return render(request, 'nasaaccess/home.html', context)

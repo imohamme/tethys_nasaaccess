@@ -106,6 +106,18 @@ class nasaaccess(TethysAppBase):
                 description='Geoserver URI',
                 required=False
             ),
+            CustomSetting(
+                name='geoserver_user',
+                type=CustomSetting.TYPE_STRING,
+                description='Geoserver User',
+                required=False
+            ),
+            CustomSetting(
+                name='geoserver_password',
+                type=CustomSetting.TYPE_STRING,
+                description='Geoserver Password',
+                required=False
+            ),
         )
 
         return custom_settings

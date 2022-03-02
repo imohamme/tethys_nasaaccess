@@ -83,6 +83,7 @@ def upload_shapefiles(request):
     print(filename)
     # path_to_shp = os.path.join(shp_path, filename)
     upload_shapefile(filename,shp_path_directory)
+    print("sucree")
     return JsonResponse({"file":f'{filename}'})
 
     # if request.method == 'POST':
