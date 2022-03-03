@@ -49,6 +49,16 @@ class nasaaccess(TethysAppBase):
                 name='download',
                 url='nasaaccess/download',
                 controller='nasaaccess.ajax_controllers.download_data'
+            ),
+            UrlMap(
+                name='plot',
+                url='nasaaccess/plot',
+                controller='nasaaccess.ajax_controllers.plot_data'
+            ),
+            UrlMap(
+                name='getValues',
+                url='nasaaccess/getValues',
+                controller='nasaaccess.ajax_controllers.getValues'
             )
         )
 
@@ -67,15 +77,15 @@ class nasaaccess(TethysAppBase):
                 required=False
             ),
             CustomSetting(
-                name='nasaaccess_py3',
+                name='nasaaccess_R',
                 type=CustomSetting.TYPE_STRING,
-                description='Python 3 interpreter',
+                description='R interpreter',
                 required=False
             ),
             CustomSetting(
                 name='nasaaccess_script',
                 type=CustomSetting.TYPE_STRING,
-                description='Path to the nasaaccess script file',
+                description='Path to the nasaaccess R script file',
                 required=False
             ),
             CustomSetting(
@@ -94,6 +104,18 @@ class nasaaccess(TethysAppBase):
                 name='geoserver_URI',
                 type=CustomSetting.TYPE_STRING,
                 description='Geoserver URI',
+                required=False
+            ),
+            CustomSetting(
+                name='geoserver_user',
+                type=CustomSetting.TYPE_STRING,
+                description='Geoserver User',
+                required=False
+            ),
+            CustomSetting(
+                name='geoserver_password',
+                type=CustomSetting.TYPE_STRING,
+                description='Geoserver Password',
                 required=False
             ),
         )

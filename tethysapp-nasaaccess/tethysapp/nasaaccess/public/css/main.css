@@ -1,88 +1,74 @@
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
 section {
-    width: 100%;
-    margin-top: 50px;
-    padding: 5px;
+  width: 100%;
+  margin-top: 50px;
+  padding: 5px;
 }
 
 .form-container {
-    float: left;
-    width: 60%;
-    height: calc(50%-50px);
-    padding: 10px;
-    margin: auto;
+  float: left;
+  width: 60%;
+  height: calc(50%-50px);
+  padding: 10px;
+  margin: auto;
 }
 
 #right {
-    float: right;
-    width: 40%;
+  float: right;
+  width: 40%;
 }
 
 .form {
-    position: relative;
-    margin: auto;
+  position: relative;
+  margin: auto;
 }
 
 table {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #000000;
-    border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+  border-radius: 5px;
 }
-
 
 .input-daterange {
-    margin-left: 0;
-    width: 75%
+  margin-left: 0;
+  width: 75%;
 }
 
-#start_pick {
-    font-size: 16px;
-    border-top-left-radius: 5px !important;
-    border-bottom-left-radius: 5px !important;
-}
-
-#end_pick {
-    font-size: 16px;
-    border-top-right-radius: 5px !important;
-    border-bottom-right-radius: 5px !important;
-}
-
-.file-select .form-group{
-    float: left;
-    width: 60%;
-}
-
-#addShp {
-    float: right;
-    width: 35%;
-}
-
-#addDem {
-    float: right;
-    width: 35%;
-}
-
-.map {
-    height: 400px !important;
-    width: 100% !important;
-    padding: 5px !important;
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
-    float: right;
+.file-select .form-group {
+  float: left;
+  width: 60%;
 }
 
 #id_access_code {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 #nasaaccess {
-    width: 100%;
+  width: 100%;
 }
 
 #download_data {
-    width: 100%;
+  width: 100%;
 }
 
 .alert-warning {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
+}
+#app-content-wrapper {
+  overflow-y: hidden;
+}
+#inner-app-content {
+  display: flex;
+  height: 89vh;
+  overflow-y: hidden;
+  padding: 0;
+}
+#tableLegend {
+  /* top: 3%;
+  right: 1%; */
+  word-break: break-all;
 }

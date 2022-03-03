@@ -2,15 +2,15 @@ from .app import nasaaccess as app
 import os
 
 
-data_path = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/nasaaccess_data/')
+# data_path = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/nasaaccess_data/')
 
-nasaaccess_py3 = os.path.join('/home/gio/anaconda3/envs/tethys/bin/python3')
+# nasaaccess_py3 = os.path.join('/home/gio/anaconda3/envs/tethys/bin/python3')
 
-nasaaccess_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.py')
+# nasaaccess_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.py')
 
-nasaaccess_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
-geoserver_workspace = 'nasaaccess'
-geoserver_URI = 'nasaaccess'
+# nasaaccess_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
+# geoserver_workspace = 'nasaaccess'
+# geoserver_URI = 'nasaaccess'
 
 # geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
 #              'wms_url':'http://localhost:8081/geoserver/wms/',
@@ -26,15 +26,15 @@ except Exception as e:
     data_path = ''
 
 try:
-    nasaaccess_py3 = app.get_custom_setting('nasaaccess_py3')
+    nasaaccess_R = app.get_custom_setting('nasaaccess_R')
 except Exception as e:
     print("Please specify the custom settings")
-    nasaaccess_py3 = ''
+    nasaaccess_R = ''
 try:
-    nasaaccess_script = app.get_custom_setting('nasaaccess_script')
+    R_script = app.get_custom_setting('nasaaccess_script')
 except Exception as e:
     print("Please specify the custom settings")
-    nasaaccess_script = ''
+    R_script = ''
 try:
     nasaaccess_log = app.get_custom_setting('nasaaccess_log')
 except Exception as e:
@@ -50,30 +50,52 @@ try:
 except Exception as e:
     print("Please specify the custom settings")
     geoserver_URI = ''
+
 try:
-    nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
+    geoserver_user = app.get_custom_setting('geoserver_user')
 except Exception as e:
     print("Please specify the custom settings")
-    nasaaccess_R = ''
+    geoserver_store = ''
 try:
-    R_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.R')
+    geoserver_password = app.get_custom_setting('geoserver_password')
 except Exception as e:
     print("Please specify the custom settings")
-    R_script = ''
-try:
-    R_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
-except Exception as e:
-    print("Please specify the custom settings")
-    R_log = ''    
+    geoserver_store = ''
 
+nasa_user = 'jonesj93'
 
-
-geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
-             'wms_url':'http://localhost:8081/geoserver/wms/',
-             'user':'admin',
-             'password':'geoserver',
+nasa_password = 'ED!1z0m5tgb'
+geoserver = {'user': geoserver_user,
+             'password': geoserver_password,
              'workspace':geoserver_workspace,
-             'URI': geoserver_URI}
+             'URI': geoserver_URI} 
+# try:
+#     nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
+# except Exception as e:
+#     print("Please specify the custom settings")
+#     nasaaccess_R = ''
+# try:
+#     # R_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.R')
+#     R_script = app.get_custom_setting('R_script')
+
+# except Exception as e:
+#     print("Please specify the custom settings")
+#     R_script = ''
+
+# try:
+#     R_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
+# except Exception as e:
+#     print("Please specify the custom settings")
+#     R_log = ''    
+
+
+
+# geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
+#              'wms_url':'http://localhost:8081/geoserver/wms/',
+#              'user':'admin',
+#              'password':'geoserver',
+#              'workspace':geoserver_workspace,
+#              'URI': geoserver_URI}
 
 # nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
 
