@@ -75,9 +75,9 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,n
         os.makedirs(unique_path)
         os.chmod(unique_path, 0o777)
     #create a temporary directory to store all intermediate data while nasaaccess functions run
-    tempdir = os.path.join(data_path, 'temp', 'earthdata', unique_id)
-    os.makedirs(tempdir)
-    os.chmod(tempdir, 0o777)
+    # tempdir = os.path.join(data_path, 'temp', 'earthdata', unique_id)
+    # os.makedirs(tempdir)
+    # os.chmod(tempdir, 0o777)
     functions = ','.join(functions)
     separator=","
     separator2=","
@@ -109,7 +109,7 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,n
         # run = subprocess.call([nasaaccess_py3, nasaaccess_script, email, functions, unique_id,
         #                         shp_path, dem_path, unique_path, tempdir, start, end])
         run = subprocess.Popen([nasaaccess_R, R_script, email, functions, unique_id,
-                                shp_path, dem_path, unique_path, tempdir+'/', start_str, end_str,nexgdpp_str,nextgdppcmip_str])
+                                shp_path, dem_path, unique_path + '/', start_str, end_str,nexgdpp_str,nextgdppcmip_str])
         return "nasaaccess is running"
     except Exception as e:
         logging.info(str(e))

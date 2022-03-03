@@ -5,10 +5,10 @@ library(NASAaccess)
 
 a <- strsplit(args[2],",")
 
-start_d <- strsplit(args[8],",")
-end_d <- strsplit(args[9],",")
-nexgdpp <- strsplit(args[10],",")
-nextgdppcmip <- strsplit(args[11],",")
+start_d <- strsplit(args[7],",")
+end_d <- strsplit(args[8],",")
+nexgdpp <- strsplit(args[9],",")
+nextgdppcmip <- strsplit(args[10],",")
 
 
 
@@ -19,7 +19,7 @@ for(x in a[[1]]){
 if(x == "GLDASpolyCentroid"){
 
 	GLDASpolyCentroid(
-		  Dir =paste(args[7],"/GLDASpolyCentroid/",sep=""),
+		  Dir =paste(args[6],"/GLDASpolyCentroid/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
 		#   start = args[8],
@@ -31,7 +31,7 @@ if(x == "GLDASpolyCentroid"){
 if(x == "GPMswat"){
 
 	GPMswat(
-		  Dir =paste(args[7],"/GPMswat/",sep=""),
+		  Dir =paste(args[6],"/GPMswat/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
 		#   start = args[8],
@@ -43,7 +43,7 @@ if(x == "GPMswat"){
 if(x == "GPMpolyCentroid"){
 
 	GPMpolyCentroid(
-		  Dir =paste(args[7],"/GPMpolyCentroid/",sep=""),
+		  Dir =paste(args[6],"/GPMpolyCentroid/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
 		#   start = args[8],
@@ -55,7 +55,7 @@ if(x == "GPMpolyCentroid"){
 if(x == "GLDASwat"){
 
 	GLDASwat(
-		  Dir =paste(args[7],"/GLDASwat/",sep=""),
+		  Dir =paste(args[6],"/GLDASwat/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
 		#   start = args[8],
@@ -67,7 +67,7 @@ if(x == "GLDASwat"){
 if(x == "NEXT_GDPPswat"){
 
 	NEX_GDPPswat(
-		  Dir =paste(args[7],"/NEXGDPP/",sep=""),
+		  Dir =paste(args[6],"/NEXGDPP/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
 		#   start = args[8],
@@ -82,7 +82,7 @@ if(x == "NEXT_GDPPswat"){
 if(x == "NEX_GDPP_CMIP6"){
 
 	NEX_GDPP_CMIP6(
-		  Dir =paste(args[7],"/NEX_GDPP_CMIP6/",sep=""),
+		  Dir =paste(args[6],"/NEX_GDPP_CMIP6/",sep=""),
 		  watershed = args[4],
 		  DEM = args[5],
 		#   start = args[8],
@@ -97,9 +97,9 @@ if(x == "NEX_GDPP_CMIP6"){
 }
 #install.packages("remotes")
 
-file.copy(from=args[7], to=args[6],
-          overwrite = TRUE, recursive = TRUE, 
-          copy.mode = TRUE)
+# file.copy(from=args[7], to=args[6],
+#           overwrite = TRUE, recursive = TRUE, 
+#           copy.mode = TRUE)
 
 library(remotes)
 remotes::install_github("datawookie/emayili")
