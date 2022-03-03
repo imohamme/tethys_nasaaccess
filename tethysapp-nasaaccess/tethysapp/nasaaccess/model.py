@@ -46,8 +46,19 @@ def set_rc_vars():
     os.environ['NETRC'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'workspaces', 'app_workspace', '.netrc')
     return old_dodsrcfile, old_netrc
 
+def reset_rc_vars(old_dodsrcfile, old_netrc):
+    if old_dodsrcfile is not None:
+        os.environ['DAPRCFILE'] = old_dodsrcfile
+    else:
+        os.environ.pop('DAPRCFILE')
+    if old_netrc is not None:
+        os.environ['NETRC'] = old_netrc
+    else:
+        os.environ.pop('NETRC')
+
 def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,nexgdpp,nextgdppcmip):
-    set_rc_vars()
+    old_dodsrcfile, old_netrc = set_rc_vars()
+
     #identify where each of the input files are located in the server
     # shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
     shp_path = os.path.join(app_workspace, 'shapefiles', watershed, watershed + '.shp')
@@ -110,10 +121,12 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,n
         #                         shp_path, dem_path, unique_path, tempdir, start, end])
         run = subprocess.Popen([nasaaccess_R, R_script, email, functions, unique_id,
                                 shp_path, dem_path, unique_path + '/', start_str, end_str,nexgdpp_str,nextgdppcmip_str])
+        reset_rc_vars(old_dodsrcfile, old_netrc)
         return "nasaaccess is running"
     except Exception as e:
         logging.info(str(e))
         return str(e)
+
 
 def upload_shapefile(id, shp_path):
 

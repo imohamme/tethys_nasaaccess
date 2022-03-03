@@ -3,9 +3,7 @@ from django.http import JsonResponse, HttpResponseRedirect, HttpResponse,FileRes
 from django.core.files import File
 from wsgiref.util import FileWrapper
 
-# from .forms import UploadShpForm, UploadDEMForm
 from .config import *
-# from .modelDjango import *
 from .model import *
 from .app import nasaaccess
 import pandas as pd
@@ -235,114 +233,6 @@ def getValues(request):
 
     return JsonResponse(return_obj)
 
-    
-
-# def plot_data(request):
-#     """
-#     Controller to download data using a unique access code emailed to the user when their data is ready
-#     """
-#     dict_gldaspolycentroid = {}
-#     dict_gldasswat = []
-#     dict_gpmpolycentroid = {}
-#     dict_gpmswat = []
-
-#     if request.method == 'POST':
-#         #get access code from form
-#         access_code = request.POST['access_code']
-
-#         #identify user's file path on the server
-#         unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data',access_code)
-#         #get the series from folders
-
-#         gldaspolycentroid_path = os.path.join(unique_path,'GLDASpolyCentroid','temp_Master.txt')
-#         gldasswat_path = os.path.join(unique_path,'GLDASwat','temp_Master.txt')
-#         gpmpolycentroid_path = os.path.join(unique_path,'GPMpolyCentroid','precipitationMaster.txt')
-#         gpmswat_path = os.path.join(unique_path,'GPMswat','precipitationMaster.txt')
-#         nextgdpp_path = os.path.join(unique_path,'NEXT_GDPPswat','temp_Master.txt')
-#         nexgdppcmip6_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','temp_Master.txt')
-
-#         if os.path.exists(gldaspolycentroid_path):
-#             print('GLDASpolyCentroid')
-#             data_master_1 = pd.read_csv(gldaspolycentroid_path)
-#             files_t = data_master_1['NAME'].to_list()
-#             for file in files_t:
-#                 path_file = os.path.join(unique_path,'GLDASpolyCentroid',f'{file}.txt')
-#                 mypd = pd.read_csv(path_file)
-#                 new_pd = mypd.reset_index()
-#                 new_pd.columns = ["max_temp", "min_temp"]
-#                 starting_date = list(mypd)
-#                 date = datetime.strptime(starting_date[0], '%Y%m%d')
-#                 date_arr = []
-#                 for one_day in range(new_pd.shape[0]):
-#                     new_date2 = date + timedelta(days=one_day)
-#                     new_date_string = new_date2.strftime('%m/%d/%Y')
-#                     date_arr.append(new_date_string)
-#                 new_pd['time'] = date_arr
-#                 dict_gldaspolycentroid = new_pd.to_dict()
-#             print(dict_gldaspolycentroid)
-
-#         if os.path.exists(gldasswat_path):
-#             print('GLDASwat')
-#             data_master_1 = pd.read_csv(gldasswat_path)
-#             files_t = data_master_1['NAME'].to_list()
-#             for file in files_t:
-#                 path_file = os.path.join(unique_path,'GLDASwat',f'{file}.txt')
-#                 mypd = pd.read_csv(path_file)
-#                 new_pd = mypd.reset_index()
-#                 new_pd.columns = ["max_temp", "min_temp"]
-#                 starting_date = list(mypd)
-#                 date = datetime.strptime(starting_date[0], '%Y%m%d')
-#                 date_arr = []
-#                 for one_day in range(new_pd.shape[0]):
-#                     new_date2 = date + timedelta(days=one_day)
-#                     new_date_string = new_date2.strftime('%m/%d/%Y')
-#                     date_arr.append(new_date_string)
-#                 new_pd['time'] = date_arr
-#                 dict_gldasswat.append(new_pd.to_dict())
-#             print(dict_gldasswat)
-
-#         if os.path.exists(gpmpolycentroid_path):
-#             print('GPMpolyCentroid')
-#             data_master_1 = pd.read_csv(gpmpolycentroid_path)
-#             files_t = data_master_1['NAME'].to_list()
-#             for file in files_t:
-#                 path_file = os.path.join(unique_path,'GPMpolyCentroid',f'{file}.txt')
-#                 mypd = pd.read_csv(path_file)
-#                 new_pd = mypd.reset_index()
-#                 new_pd.columns = ["max_temp", "min_temp"]
-#                 starting_date = list(mypd)
-#                 date = datetime.strptime(starting_date[0], '%Y%m%d')
-#                 date_arr = []
-#                 for one_day in range(new_pd.shape[0]):
-#                     new_date2 = date + timedelta(days=one_day)
-#                     new_date_string = new_date2.strftime('%m/%d/%Y')
-#                     date_arr.append(new_date_string)
-#                 new_pd['time'] = date_arr
-#                 dict_gpmpolycentroid = new_pd.to_dict()
-#             print(dict_gpmpolycentroid)
-
-#         if os.path.exists(gpmswat_path):
-#             print('GPMswat')
-#             data_master_1 = pd.read_csv(gpmswat_path)
-#             files_t = data_master_1['NAME'].to_list()
-#             for file in files_t:
-#                 path_file = os.path.join(unique_path,'GPMswat',f'{file}.txt')
-#                 mypd = pd.read_csv(path_file)
-#                 new_pd = mypd.reset_index()
-#                 new_pd.columns = ["max_temp", "min_temp"]
-#                 starting_date = list(mypd)
-#                 date = datetime.strptime(starting_date[0], '%Y%m%d')
-#                 date_arr = []
-#                 for one_day in range(new_pd.shape[0]):
-#                     new_date2 = date + timedelta(days=one_day)
-#                     new_date_string = new_date2.strftime('%m/%d/%Y')
-#                     date_arr.append(new_date_string)
-#                 new_pd['time'] = date_arr
-#                 dict_gpmswat.append(new_pd.to_dict())
-#             print(dict_gpmswat)
-        
-#     return HttpResponse()
-# Z6KLZF
 def plot_data(request):
     """
     Controller to download data using a unique access code emailed to the user when their data is ready
