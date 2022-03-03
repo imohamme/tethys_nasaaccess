@@ -167,7 +167,8 @@ def getValues(request):
 
     new_path = ''
     unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data',access_code)
-
+    if os.path.exists(unique_path) == False:
+        unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data')
     if func_name == 'GLDASpolyCentroid':
         pre_path = os.path.join(unique_path,'GLDASpolyCentroid')
         new_path = os.path.join(unique_path,'GLDASpolyCentroid','temp_Master.txt')
@@ -245,6 +246,10 @@ def plot_data(request):
 
         #identify user's file path on the server
         unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data',access_code)
+        if os.path.exists(unique_path) == False:
+            unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data')
+
+
         #get the series from folders
 
         gldaspolycentroid_path = os.path.join(unique_path,'GLDASpolyCentroid','temp_Master.txt')
@@ -254,6 +259,7 @@ def plot_data(request):
         nextgdpp_path = os.path.join(unique_path,'NEXGDPP','prGrid_Master.txt')
         nexgdppcmip6_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','prGrid_Master.txt')
 
+        print(gldaspolycentroid_path)
         if os.path.exists(gldaspolycentroid_path):
             print('GLDASpolyCentroid')
             data_master_1 = pd.read_csv(gldaspolycentroid_path)

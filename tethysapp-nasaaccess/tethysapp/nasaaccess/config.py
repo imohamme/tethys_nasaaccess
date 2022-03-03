@@ -1,23 +1,5 @@
 from .app import nasaaccess as app
-import os
 
-
-# data_path = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/nasaaccess_data/')
-
-# nasaaccess_py3 = os.path.join('/home/gio/anaconda3/envs/tethys/bin/python3')
-
-# nasaaccess_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.py')
-
-# nasaaccess_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
-# geoserver_workspace = 'nasaaccess'
-# geoserver_URI = 'nasaaccess'
-
-# geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
-#              'wms_url':'http://localhost:8081/geoserver/wms/',
-#              'user':'admin',
-#              'password':'geoserver',
-#              'workspace':'nasaaccess',
-#              'URI': 'nasaaccess'}
 
 try:
     data_path = app.get_custom_setting('data_path')
@@ -69,6 +51,24 @@ geoserver = {'user': geoserver_user,
              'password': geoserver_password,
              'workspace':geoserver_workspace,
              'URI': geoserver_URI} 
+
+
+# data_path = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/nasaaccess_data/')
+
+# nasaaccess_py3 = os.path.join('/home/gio/anaconda3/envs/tethys/bin/python3')
+
+# nasaaccess_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.py')
+
+# nasaaccess_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
+# geoserver_workspace = 'nasaaccess'
+# geoserver_URI = 'nasaaccess'
+
+# geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
+#              'wms_url':'http://localhost:8081/geoserver/wms/',
+#              'user':'admin',
+#              'password':'geoserver',
+#              'workspace':'nasaaccess',
+#              'URI': 'nasaaccess'}
 # try:
 #     nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
 # except Exception as e:
@@ -90,57 +90,8 @@ geoserver = {'user': geoserver_user,
 
 
 
-# geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
-#              'wms_url':'http://localhost:8081/geoserver/wms/',
-#              'user':'admin',
-#              'password':'geoserver',
-#              'workspace':geoserver_workspace,
-#              'URI': geoserver_URI}
-
 # nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
 
 # R_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.R')
 
 # R_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
-
-
-
-# nasaaccess_py3 = app.get_custom_setting('nasaaccess_py3')
-# nasaaccess_script = app.get_custom_setting('nasaaccess_script')
-# nasaaccess_log = app.get_custom_setting('nasaaccess_log')
-# geoserver_workspace = app.get_custom_setting('geoserver_workspace')
-# geoserver_URI = app.get_custom_setting('geoserver_URI')
-# nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
-# R_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.R')
-# R_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
-
-
-# gdalwarp_path = os.path.join('/Users/imohamme/anaconda3/envs/tethys/bin/gdalwarp')
-
-# geoserver = {'rest_url':'http://127.0.0.1:8081/geoserver/rest/',
-# 'wms_url':'http://127.0.0.1:8081/geoserver/wms/',
-# 'wfs_url':'http://127.0.0.1:8081/geoserver/wfs/',
-# 'user':'admin',
-# 'password':'geoserver',
-# 'workspace':'swat'
-# }
-
-# db = {'name': 'swat_db',
-# 'user':'tethys_super',
-# 'pass':'pass',
-# 'host':'localhost',
-# 'port':'5436'}
-
-# nasaaccess_path = os.path.join('/Users/imohamme/Documents/nasaaccess_data')
-
-# nasaaccess_temp = os.path.join('/Users/imohamme/Documents/swat_data', 'nasaaccess')
-
-# nasaaccess_py3 = os.path.join('/Users/imohamme/Documents/miniconda/envs/tethys/bin/python3')
-
-# nasaaccess_script = os.path.join('/Users/imohamme/Documents/subprocesses/ns.py')
-
-# nasaaccess_log = os.path.join('/Users/imohamme/Documents/subprocesses/nasaaccess.log')
-
-# R_path = os.path.join('/Users/imohamme/Documents/nasaaccess_data')
-
-# R_temp = os.path.join('/Users/imohamme/Documents/swat_data', 'nasaaccess')

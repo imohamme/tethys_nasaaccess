@@ -660,11 +660,18 @@ var LIBRARY_OBJECT = (function() {
           success: function(data) {
             updateLegend();
             removeLayersFunctions();
+
+            if (Object.keys(data).length === 0){
+                $.notify("No Data found for any requested function", "warn");
+                return
+            }
+
             console.log(data);
             var indice = 0;
             var arrayZooms = [];
 
             var func__names = Object.keys(data);
+            
 
             func__names.forEach(func__name => {
                 var list__points = Object.keys(data[func__name]).map(function(key) {
@@ -745,10 +752,13 @@ var LIBRARY_OBJECT = (function() {
             let zoomLevel =  Math.min(...arrayZooms); 
             map.getView().setZoom(zoomLevel - 2);
 
+            $.notify("Success", "success");
  
           },
           error: function (error) {
             console.log(error);
+            $.notify("An Error was found while plotting your data", "error");
+
           }
         });
         
@@ -777,6 +787,10 @@ var LIBRARY_OBJECT = (function() {
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);
+                        if (Object.keys(data).length === 0){
+                            $.notify("No Data found", "warn");
+                            return
+                        }
                         let datasets = []
                         let y__axis__title = '';
                         if(feature_single.func == 'GLDASpolyCentroid' || feature_single.func == 'GLDASwat'){
@@ -863,11 +877,13 @@ var LIBRARY_OBJECT = (function() {
                             });
                         }
                         showPlot();
+                        $.notify("Success", "success");
 
 
                     },
                     error: function (error) {
                       console.log(error);
+                      $.notify("An Error was found while plotting your data", "error");
                     }
                   });
 
