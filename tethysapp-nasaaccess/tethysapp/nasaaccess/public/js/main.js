@@ -693,14 +693,49 @@ var LIBRARY_OBJECT = (function() {
                     })
                   });
                   let rowHTML= `<tr id= ${func__name}-row-complete>
-                                 <th id="${func__name}-row-legend"></th>
-                                 <th>${func__name}</th>
+
+                                 <th id="${func__name}-row-legend" class="flex items-center" >
+                                     <span>${func__name}</span>
+
+                                 </th>
+
+
                                </tr>`
+                  let newSwitch =`
+                            <div class="flex justify-between items-center">
+
+                            <label 
+                                for="${func__name}-switch"
+                                class="flex items-center cursor-pointer"
+                            >
+                                <!-- toggle -->
+                                <div class="relative">
+                                <!-- input -->
+                                <input id="${func__name}-switch" type="checkbox" class="sr-only chk" value="${func__name}" checked />
+                                <!-- line -->
+                                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                <!-- dot -->
+                                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                                </div>
+                                <!-- label -->
+                                <div class="ml-3 text-gray-700 font-medium">
+                                </div>
+                            </label>
+                        </div>`
                  if(!document.getElementById(`${func__name}-row-complete`)){
                    $(rowHTML).appendTo('#tableLegend');
                  }
                  $(`#${func__name}-row-legend`).prepend($(getIconLegend(test_style)));
+                 $(`#${func__name}-row-legend`).prepend(newSwitch);
                 
+                 $(`#${func__name}-switch`).change(function(){
+                    if(this.checked){
+                        map.addLayer(layer_points[func__name]);
+                    }
+                    else{
+                        map.removeLayer(layer_points[func__name]);
+                    }
+                 })
 
 
                  indice += 1;
@@ -743,6 +778,7 @@ var LIBRARY_OBJECT = (function() {
                     success: function(data) {
                         console.log(data);
                         let datasets = []
+                        let y__axis__title = '';
                         if(feature_single.func == 'GLDASpolyCentroid' || feature_single.func == 'GLDASwat'){
                             let min_temp = {
                                 data: data.min_val,
@@ -757,7 +793,7 @@ var LIBRARY_OBJECT = (function() {
                                 fill: false
                             };
                             datasets = [min_temp, max_temp]
-
+                            y__axis__title = 'Temperature (°C)'
                         }
                         else{
                             let val__rain = {
@@ -767,6 +803,8 @@ var LIBRARY_OBJECT = (function() {
                                 fill: false
                             };
                             datasets = [val__rain];
+                            y__axis__title = 'Precipitation (mm)'
+
                         }
                         const ctx = $('#time__series');
                         if (myChart) {   
@@ -774,6 +812,9 @@ var LIBRARY_OBJECT = (function() {
                                 labels: data.labels,
                                 datasets: datasets
                             };
+                            myChart.options.plugins.title.text = feature_single.func;
+                            myChart.options.scales.y.title.text = y__axis__title;
+
                             myChart.update();
                             
                         }
@@ -788,7 +829,16 @@ var LIBRARY_OBJECT = (function() {
     
                                     responsive:true,
                                     maintainAspectRatio:false,
+                                    scales: {
+                                        y: {
+                                            title: {
+                                                display:true,
+                                                text: y__axis__title
+                                            }
+                                        }
+                                    },
                                     plugins: {
+
                                         legend: {
                                             position:'bottom'
                                         },

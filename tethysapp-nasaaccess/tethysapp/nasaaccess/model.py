@@ -98,7 +98,7 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,n
     print(shp_path)
     print(dem_path)
     print(unique_path)
-    print(tempdir)
+    # print(tempdir)
     print(start)
     print(end)
     
