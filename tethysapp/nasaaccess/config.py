@@ -50,48 +50,4 @@ nasa_password = 'ED!1z0m5tgb'
 geoserver = {'user': geoserver_user,
              'password': geoserver_password,
              'workspace':geoserver_workspace,
-             'URI': geoserver_URI} 
-
-
-# data_path = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/nasaaccess_data/')
-
-# nasaaccess_py3 = os.path.join('/home/gio/anaconda3/envs/tethys/bin/python3')
-
-# nasaaccess_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.py')
-
-# nasaaccess_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
-# geoserver_workspace = 'nasaaccess'
-# geoserver_URI = 'nasaaccess'
-
-# geoserver = {'rest_url':'http://localhost:8081/geoserver/rest/',
-#              'wms_url':'http://localhost:8081/geoserver/wms/',
-#              'user':'admin',
-#              'password':'geoserver',
-#              'workspace':'nasaaccess',
-#              'URI': 'nasaaccess'}
-# try:
-#     nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
-# except Exception as e:
-#     print("Please specify the custom settings")
-#     nasaaccess_R = ''
-# try:
-#     # R_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.R')
-#     R_script = app.get_custom_setting('R_script')
-
-# except Exception as e:
-#     print("Please specify the custom settings")
-#     R_script = ''
-
-# try:
-#     R_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
-# except Exception as e:
-#     print("Please specify the custom settings")
-#     R_log = ''    
-
-
-
-# nasaaccess_R = os.path.join('/home/gio/anaconda3/envs/tethys/bin/Rscript')
-
-# R_script = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.R')
-
-# R_log = os.path.join('/home/gio/tethysdev/tethys_nasaaccess/subprocesses/nasaaccess.log')
+             'URI': geoserver_URI}

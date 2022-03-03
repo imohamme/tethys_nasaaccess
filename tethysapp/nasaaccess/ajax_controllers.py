@@ -1,5 +1,5 @@
-import os, datetime, logging, glob
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse,FileResponse
+import os, datetime, logging
+from django.http import JsonResponse, HttpResponse
 from django.core.files import File
 from wsgiref.util import FileWrapper
 
@@ -104,8 +104,6 @@ def upload_tiffiles(request):
 
     filename = os.path.splitext(os.path.basename(dem_path_directory))[0].split('.')[0]
 
-    # path_to_shp = os.path.join(shp_path, filename)
-
     upload_dem(filename,dem_path_directory)
     return JsonResponse({"file":f'{filename}'})
 
@@ -204,9 +202,6 @@ def getValues(request):
         else:
             new_pd = mypd.reset_index()
 
-        print(func_name)
-        print(new_pd)
-
         if func_name == 'GLDASpolyCentroid' or func_name == 'GLDASwat':
             if new_pd.empty:
                 return_obj["max_val"]= []
@@ -259,33 +254,33 @@ def plot_data(request):
         nextgdpp_path = os.path.join(unique_path,'NEXGDPP','prGrid_Master.txt')
         nexgdppcmip6_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','prGrid_Master.txt')
 
-        print(gldaspolycentroid_path)
+        # print(gldaspolycentroid_path)
         if os.path.exists(gldaspolycentroid_path):
-            print('GLDASpolyCentroid')
+            # print('GLDASpolyCentroid')
             data_master_1 = pd.read_csv(gldaspolycentroid_path)
             response_obj['GLDASpolyCentroid'] = data_master_1.to_dict('index')
 
         if os.path.exists(gldasswat_path):
-            print('GLDASwat')
+            # print('GLDASwat')
             data_master_1 = pd.read_csv(gldasswat_path)
             response_obj['GLDASwat'] = data_master_1.to_dict('index')
 
         if os.path.exists(gpmpolycentroid_path):
-            print('GPMpolyCentroid')
+            # print('GPMpolyCentroid')
             data_master_1 = pd.read_csv(gpmpolycentroid_path)
             response_obj['GPMpolyCentroid'] = data_master_1.to_dict('index')
   
         if os.path.exists(gpmswat_path):
-            print('GPMswat')
+            # print('GPMswat')
             data_master_1 = pd.read_csv(gpmswat_path)
             response_obj['GPMswat'] = data_master_1.to_dict('index')
 
         if os.path.exists(nextgdpp_path):
-            print('NEXGDPP')
+            # print('NEXGDPP')
             data_master_1 = pd.read_csv(nextgdpp_path)
             response_obj['NEX_GDPPswat'] = data_master_1.to_dict('index')
         if os.path.exists(nexgdppcmip6_path):
-            print('NEX_GDPP_CMIP6')
+            # print('NEX_GDPP_CMIP6')
             data_master_1 = pd.read_csv(nexgdppcmip6_path)
             response_obj['NEX_GDPP_CMIP6'] = data_master_1.to_dict('index')
     return JsonResponse(response_obj)
