@@ -4,7 +4,6 @@
 
 {% block styles %}
 {{ block.super }}
-<!--<link rel="stylesheet" href="https://code.jquery.com/ui/3.3.1/themes/smoothness/jquery-ui.css">-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.4.2/ol.css" type="text/css">
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css" rel="stylesheet"/>
@@ -28,9 +27,6 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.es.min.js"></script>-->
-
-
 
 {% endblock %}
 
@@ -538,42 +534,6 @@
         <button class="bg-cyan-900 text-zinc-50 flex flex-1 justify-center items-center p-3 rounded-lg " id="nasaaccess">Run</button>
 
       </div>
-
-      <!-- <table class="table table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Function</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input class="chk" type="checkbox" value="GLDASpolyCentroid"></td>
-              <td>GLDASpolycentroid</td>
-              <td>Create daily air temperature time-series files at the centroid of each polygon within the selected boundary. Generated from
-                  NASA GLDAS remote sensing products.</td>
-            </tr>
-            <tr>
-              <td><input class="chk" type="checkbox" value="GLDASwat"></td>
-              <td>GLDASwat</td>
-              <td>Create SWAT-compatible daily air temperature daily time-series files evenly distributed (on a grid) over the selected boundary. Generated from
-                  NASA GLDAS remote sensing products.</td>
-            </tr>
-            <tr>
-              <td><input class="chk" type="checkbox" value="GPMpolyCentroid"></td>
-              <td>GPMpolycentroid</td>
-              <td>Create daily rainfall time-series files at the centroid of each polygon within the selected boundary. Generated from
-                  NASA GPM remote sensing products.</td>
-            </tr>
-            <tr>
-              <td><input class="chk" type="checkbox" value="GPMswat"></td>
-              <td>GPMswat</td>
-              <td>Create daily rainfall time-series files evenly distributed (on a grid) over the selected boundary. Generated from
-                  NASA GPM remote sensing products.</td>
-            </tr>
-          </tbody>
-      </table> -->
   
 </div>
 {% endblock %}
