@@ -1,5 +1,5 @@
 import os, datetime, logging
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse,FileResponse
 from django.core.files import File
 from wsgiref.util import FileWrapper
 
@@ -113,8 +113,9 @@ def download_data(request):
     Controller to download data using a unique access code emailed to the user when their data is ready
     """
     if request.method == 'POST':
+        print(request.POST)
         #get access code from form
-        access_code = request.POST['access_code']
+        access_code = request.POST.get('access_code')
 
         #identify user's file path on the server
         unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data')
@@ -130,32 +131,12 @@ def download_data(request):
 
         zipfolder(unique_path, unique_path)
 
-        #open the zip file
         path_to_file = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data.zip')
-        # f = open(path_to_file, 'r')
-        # myfile = File(f)
 
-        # download the zip file using the browser's download dialogue box
-        # response = HttpResponse(myfile, content_type='application/zip')
-        # response['Content-Disposition'] = 'attachment; filename=nasaaccess_data.zip'
-        # return response
-        # zip_file = open(path_to_file, 'rb')
-
-        # return FileResponse(zip_file, as_attachment=True)
         if os.path.exists(path_to_file):
-            print("jola")
-            with open(path_to_file, 'rb') as zip_file:
-                    response = HttpResponse(FileWrapper(zip_file), content_type='application/zip')
-                    response['Content-Disposition'] = 'attachment; filename="foo.zip"'
-                    return response
-        try:
             zip_file = open(path_to_file, 'rb')
-            response = HttpResponse(zip_file, content_type='application/zip')
-            response['Content-Disposition'] = 'attachment; filename=nasaaccess_data.zip'
-            return response
-        except Exception as e:
-            print(e)
-        return HttpResponse()
+            return FileResponse(zip_file)
+
 
 def getValues(request):
     return_obj = {}
