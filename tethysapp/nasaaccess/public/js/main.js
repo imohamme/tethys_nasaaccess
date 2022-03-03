@@ -590,49 +590,27 @@ var LIBRARY_OBJECT = (function() {
             url: 'download/',
             type: 'POST',
             data: data,
-            dataType: 'json',
-            xhrFields: {
-                responseType: 'blob' // to avoid binary data being mangled on charset conversion
+            dataType: 'binary',
+            xhr:function(){// Seems like the only way to get access to the xhr object
+                var xhr = new XMLHttpRequest();
+                xhr.responseType= 'blob'
+                return xhr;
             },
-            success: function(blob, status, xhr) {
-                // check for a filename
-                var filename = "";
-                var disposition = xhr.getResponseHeader('Content-Disposition');
-                if (disposition && disposition.indexOf('attachment') !== -1) {
-                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                    var matches = filenameRegex.exec(disposition);
-                    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-                }
-        
-                if (typeof window.navigator.msSaveBlob !== 'undefined') {
-                    // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
-                    window.navigator.msSaveBlob(blob, filename);
-                } else {
-                    var URL = window.URL || window.webkitURL;
-                    var downloadUrl = URL.createObjectURL(blob);
-        
-                    if (filename) {
-                        // use HTML5 a[download] attribute to specify filename
-                        var a = document.createElement("a");
-                        // safari doesn't support this yet
-                        if (typeof a.download === 'undefined') {
-                            window.location.href = downloadUrl;
-                        } else {
-                            a.href = downloadUrl;
-                            a.download = filename;
-                            document.body.appendChild(a);
-                            a.click();
-                        }
-                    } else {
-                        window.location.href = downloadUrl;
-                    }
-        
-                    setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
-                }
+            success: function(data) {
+
+                var a = document.createElement('a');
+                var blob = new Blob([data], {type: "application/zip"})
+                var url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = 'nasaaccess.zip';
+                document.body.append(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
             },
             error: function (error) {
-              console.log(error);
-            //   $("#loading").hide();
+                console.log((error));
             }
           });
           
@@ -660,11 +638,18 @@ var LIBRARY_OBJECT = (function() {
           success: function(data) {
             updateLegend();
             removeLayersFunctions();
+
+            if (Object.keys(data).length === 0){
+                $.notify("No Data found for any requested function", "warn");
+                return
+            }
+
             console.log(data);
             var indice = 0;
             var arrayZooms = [];
 
             var func__names = Object.keys(data);
+            
 
             func__names.forEach(func__name => {
                 var list__points = Object.keys(data[func__name]).map(function(key) {
@@ -745,10 +730,13 @@ var LIBRARY_OBJECT = (function() {
             let zoomLevel =  Math.min(...arrayZooms); 
             map.getView().setZoom(zoomLevel - 2);
 
+            $.notify("Success", "success");
  
           },
           error: function (error) {
             console.log(error);
+            $.notify("An Error was found while plotting your data", "error");
+
           }
         });
         
@@ -777,6 +765,10 @@ var LIBRARY_OBJECT = (function() {
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);
+                        if (Object.keys(data).length === 0){
+                            $.notify("No Data found", "warn");
+                            return
+                        }
                         let datasets = []
                         let y__axis__title = '';
                         if(feature_single.func == 'GLDASpolyCentroid' || feature_single.func == 'GLDASwat'){
@@ -863,11 +855,13 @@ var LIBRARY_OBJECT = (function() {
                             });
                         }
                         showPlot();
+                        $.notify("Success", "success");
 
 
                     },
                     error: function (error) {
                       console.log(error);
+                      $.notify("An Error was found while plotting your data", "error");
                     }
                   });
 

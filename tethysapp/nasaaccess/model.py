@@ -60,21 +60,8 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,n
     old_dodsrcfile, old_netrc = set_rc_vars()
 
     #identify where each of the input files are located in the server
-    # shp_path_sys = os.path.join(data_path, 'shapefiles', watershed, watershed + '.shp')
     shp_path = os.path.join(app_workspace, 'shapefiles', watershed, watershed + '.shp')
-    # shp_path = ''
-    # if os.path.isfile(shp_path_sys):
-        # shp_path = shp_path_sys
-    # if os.path.isfile(shp_path_user):
-        # shp_path = shp_path_user
-    # dem_path_sys = os.path.join(data_path, 'DEMfiles', dem, dem + '.tif')
     dem_path = os.path.join(app_workspace, 'DEMfiles',dem, dem + '.tif')
-    # dem_path = ''
-    # if os.path.isfile(dem_path_sys):
-        # dem_path = dem_path_sys
-    # if os.path.isfile(dem_path_user):
-    #    dem_path = dem_path_user
-    #create a new folder to store the user's requested data
     unique_id = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
     
     unique_path = os.path.join(data_path, 'outputs', unique_id)
@@ -85,10 +72,6 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,n
 
         os.makedirs(unique_path)
         os.chmod(unique_path, 0o777)
-    #create a temporary directory to store all intermediate data while nasaaccess functions run
-    # tempdir = os.path.join(data_path, 'temp', 'earthdata', unique_id)
-    # os.makedirs(tempdir)
-    # os.chmod(tempdir, 0o777)
     functions = ','.join(functions)
     separator=","
     separator2=","
@@ -99,19 +82,18 @@ def nasaaccess_run(email, functions, watershed, dem, start, end, app_workspace,n
     start_str = separator3.join(start)
     end_str = separator4.join(end)
 
-    print(nasaaccess_R)
-    print(R_script)
-    print(email)
-    print(functions)
-    print(nexgdpp_str)
-    print(nextgdppcmip_str)
-    print(unique_id)
-    print(shp_path)
-    print(dem_path)
-    print(unique_path)
-    # print(tempdir)
-    print(start)
-    print(end)
+    # print(nasaaccess_R)
+    # print(R_script)
+    # print(email)
+    # print(functions)
+    # print(nexgdpp_str)
+    # print(nextgdppcmip_str)
+    # print(unique_id)
+    # print(shp_path)
+    # print(dem_path)
+    # print(unique_path)
+    # print(start)
+    # print(end)
     
     logging.info(
         "Trying to run {0} functions for {1} watershed from {2} until {3}".format(functions, watershed, start, end))

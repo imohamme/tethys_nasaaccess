@@ -1,5 +1,5 @@
-import os, datetime, logging, glob
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse,FileResponse
+import os, datetime, logging
+from django.http import JsonResponse, HttpResponse,FileResponse
 from django.core.files import File
 from wsgiref.util import FileWrapper
 
@@ -104,8 +104,6 @@ def upload_tiffiles(request):
 
     filename = os.path.splitext(os.path.basename(dem_path_directory))[0].split('.')[0]
 
-    # path_to_shp = os.path.join(shp_path, filename)
-
     upload_dem(filename,dem_path_directory)
     return JsonResponse({"file":f'{filename}'})
 
@@ -115,8 +113,9 @@ def download_data(request):
     Controller to download data using a unique access code emailed to the user when their data is ready
     """
     if request.method == 'POST':
+        print(request.POST)
         #get access code from form
-        access_code = request.POST['access_code']
+        access_code = request.POST.get('access_code')
 
         #identify user's file path on the server
         unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data')
@@ -132,32 +131,12 @@ def download_data(request):
 
         zipfolder(unique_path, unique_path)
 
-        #open the zip file
         path_to_file = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data.zip')
-        # f = open(path_to_file, 'r')
-        # myfile = File(f)
 
-        # download the zip file using the browser's download dialogue box
-        # response = HttpResponse(myfile, content_type='application/zip')
-        # response['Content-Disposition'] = 'attachment; filename=nasaaccess_data.zip'
-        # return response
-        # zip_file = open(path_to_file, 'rb')
-
-        # return FileResponse(zip_file, as_attachment=True)
         if os.path.exists(path_to_file):
-            print("jola")
-            with open(path_to_file, 'rb') as zip_file:
-                    response = HttpResponse(FileWrapper(zip_file), content_type='application/zip')
-                    response['Content-Disposition'] = 'attachment; filename="foo.zip"'
-                    return response
-        try:
             zip_file = open(path_to_file, 'rb')
-            response = HttpResponse(zip_file, content_type='application/zip')
-            response['Content-Disposition'] = 'attachment; filename=nasaaccess_data.zip'
-            return response
-        except Exception as e:
-            print(e)
-        return HttpResponse()
+            return FileResponse(zip_file)
+
 
 def getValues(request):
     return_obj = {}
@@ -167,7 +146,8 @@ def getValues(request):
 
     new_path = ''
     unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data',access_code)
-
+    if os.path.exists(unique_path) == False:
+        unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data')
     if func_name == 'GLDASpolyCentroid':
         pre_path = os.path.join(unique_path,'GLDASpolyCentroid')
         new_path = os.path.join(unique_path,'GLDASpolyCentroid','temp_Master.txt')
@@ -202,9 +182,6 @@ def getValues(request):
             new_pd = mypd.reset_index(drop=True)
         else:
             new_pd = mypd.reset_index()
-
-        print(func_name)
-        print(new_pd)
 
         if func_name == 'GLDASpolyCentroid' or func_name == 'GLDASwat':
             if new_pd.empty:
@@ -245,6 +222,10 @@ def plot_data(request):
 
         #identify user's file path on the server
         unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data',access_code)
+        if os.path.exists(unique_path) == False:
+            unique_path = os.path.join(data_path, 'outputs', access_code, 'nasaaccess_data')
+
+
         #get the series from folders
 
         gldaspolycentroid_path = os.path.join(unique_path,'GLDASpolyCentroid','temp_Master.txt')
@@ -254,32 +235,33 @@ def plot_data(request):
         nextgdpp_path = os.path.join(unique_path,'NEXGDPP','prGrid_Master.txt')
         nexgdppcmip6_path = os.path.join(unique_path,'NEX_GDPP_CMIP6','prGrid_Master.txt')
 
+        # print(gldaspolycentroid_path)
         if os.path.exists(gldaspolycentroid_path):
-            print('GLDASpolyCentroid')
+            # print('GLDASpolyCentroid')
             data_master_1 = pd.read_csv(gldaspolycentroid_path)
             response_obj['GLDASpolyCentroid'] = data_master_1.to_dict('index')
 
         if os.path.exists(gldasswat_path):
-            print('GLDASwat')
+            # print('GLDASwat')
             data_master_1 = pd.read_csv(gldasswat_path)
             response_obj['GLDASwat'] = data_master_1.to_dict('index')
 
         if os.path.exists(gpmpolycentroid_path):
-            print('GPMpolyCentroid')
+            # print('GPMpolyCentroid')
             data_master_1 = pd.read_csv(gpmpolycentroid_path)
             response_obj['GPMpolyCentroid'] = data_master_1.to_dict('index')
   
         if os.path.exists(gpmswat_path):
-            print('GPMswat')
+            # print('GPMswat')
             data_master_1 = pd.read_csv(gpmswat_path)
             response_obj['GPMswat'] = data_master_1.to_dict('index')
 
         if os.path.exists(nextgdpp_path):
-            print('NEXGDPP')
+            # print('NEXGDPP')
             data_master_1 = pd.read_csv(nextgdpp_path)
             response_obj['NEX_GDPPswat'] = data_master_1.to_dict('index')
         if os.path.exists(nexgdppcmip6_path):
-            print('NEX_GDPP_CMIP6')
+            # print('NEX_GDPP_CMIP6')
             data_master_1 = pd.read_csv(nexgdppcmip6_path)
             response_obj['NEX_GDPP_CMIP6'] = data_master_1.to_dict('index')
     return JsonResponse(response_obj)

@@ -7,6 +7,7 @@ requirements:
   conda:
     channels:
       - conda-forge
+      - elkingio
     packages:
       - shapely
       - rasterio
@@ -17,7 +18,7 @@ requirements:
       - xarray
       - ncurses
       - requests
-      - r-base
+      - r-nasaaccess
       - r-essentials
       - r-devtools
 

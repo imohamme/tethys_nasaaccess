@@ -1,12 +1,8 @@
 from tethys_sdk.gizmos import *
 from django.shortcuts import render
-import os, datetime
-# from .forms import UploadShpForm, UploadDEMForm, accessCodeForm
 from .config import *
 from .app import nasaaccess
-# from .model import Base , DEMfiles, Shapefiles, accessCode
 from .config import *
-from geoserver.catalog import Catalog
 
 Persistent_Store_Name = 'catalog_db'
 
