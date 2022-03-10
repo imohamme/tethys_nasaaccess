@@ -1456,7 +1456,7 @@ var LIBRARY_OBJECT = (function() {
                 end_6.setMax();
 
                 end_6.setDate(new Date(2014, 11, 31),true);
-                end_6.setMin(new Date(2014,11,31));
+                end_6.setMin(new Date());
 
             }
             else{
@@ -1490,7 +1490,7 @@ var LIBRARY_OBJECT = (function() {
                 end_5.setMax();
 
                 end_5.setDate(new Date(2005, 11, 31),true);
-                end_5.setMin(new Date(2005,11,31));
+                end_5.setMin(new Date());
 
             }
             else{
@@ -1510,6 +1510,7 @@ var LIBRARY_OBJECT = (function() {
             }
 
         });
+
 
 
         
