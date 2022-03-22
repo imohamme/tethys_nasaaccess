@@ -6,20 +6,20 @@ requirements:
   skip: false
   conda:
     channels:
-      - conda-forge
-      - elkingio
+      # - conda-forge
+      # - elkingio
     packages:
-      - shapely
-      - rasterio
-      - netcdf4
-      - pandas
-      - geopandas
-      - georaster
-      - xarray
-      - ncurses
-      - requests
+      # - shapely
+      # - rasterio
+      # - netcdf4
+      # - pandas
+      # - geopandas
+      # - georaster
+      # - xarray
+      # - ncurses
+      # - requests
       # - r-nasaaccess
-      - r-essentials
-      - r-devtools
+      # - r-essentials
+      # - r-devtools
 
 post:
