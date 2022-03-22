@@ -18,7 +18,7 @@ requirements:
       - xarray
       - ncurses
       - requests
-      - r-nasaaccess
+      # - r-nasaaccess
       - r-essentials
       - r-devtools
 
