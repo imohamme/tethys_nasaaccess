@@ -7,7 +7,7 @@ class nasaaccess(TethysAppBase):
     Tethys app class for nasaaccess.
     """
 
-    name = 'nasaaccess'
+    name = 'Nasaaccess'
     index = 'nasaaccess:home'
     icon = 'nasaaccess/images/nasaaccess.png'
     package = 'nasaaccess'
