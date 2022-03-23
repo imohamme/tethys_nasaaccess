@@ -16,10 +16,10 @@ resource_files += find_resource_files('tethysapp/' + app_package + '/workspaces'
 
 setup(
     name=release_package,
-    version='1.0.0',
+    version='1.0.1',
     description='Web interface for downloading precipitation and air temperature data from NASA&#39;s EarthData website',
     long_description='',
-    keywords='"Hydrology", "GLDAS&quot", "GPM", "SWAT"',
+    keywords='"Hydrology", "GLDAS", "GPM", "SWAT"',
     author='Spencer McDonald, Ibrahim Mohammed, Giovanni Romero',
     author_email='ibrahim.mohammed@nasa.gov',
     url='',

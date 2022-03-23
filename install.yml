@@ -1,3 +1,5 @@
+version: 1.0.1
+
 # This should match the app - package name in your setup.py
 name: nasaaccess
 
