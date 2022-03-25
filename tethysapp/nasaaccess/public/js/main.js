@@ -1217,6 +1217,7 @@ var LIBRARY_OBJECT = (function() {
         });
 
         $('#submit_form').click(function() {
+           console.log("PRINT ME!")
             $("#cont-modal").modal('hide');
             nasaaccess();
         });

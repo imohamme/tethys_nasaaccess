@@ -76,10 +76,11 @@
       </div>
 
         <div class="my-3">
-          <p>**Use same time range for the first 4 functions</p>
+          
 
           <div class="flex justify-between items-center my-3 py-4">
-            <p><strong>Use Same Time Range</strong></p> 
+            <p><strong></strong></p>
+            <p><a style="font-style: oblique;font-size:small;font-weight:bold;">*Same time range can used for GLDAS, GLDASpolyCentroid, GPM, and GPMpolyCentroid functions.</a></p>
             <label 
               for="sameDates_input"
               class="flex items-center cursor-pointer"
@@ -115,7 +116,9 @@
           <div class="flex justify-center my-3">
             <p><strong>Available Functions</strong></p>
            </div>
-           <p>**Select at least one</p>
+           <p>**If you have activated the same time range option, select at least one function (i.e., <a style="font-style: oblique;font-weight: bold;">GLDASpolyCentroid, GLDAS, GPMpolyCentroid, or GPM</a>).
+            <br></br> 
+            <strong>Otherwise</strong>, you can select any function from the available functions.</p>
 
         <div>
           <!-- GLDASpolyCentroid -->
@@ -130,7 +133,7 @@
                 <div id="tooltip1" class="z-10 absolute left-1 flex flex-col items-center invisible mb-6">
 
                   <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate air temperature input files as well as air temperature stations file from NASA GLDAS remote sensing products.
+                    Generate daily minimum and maximum air temperature data from <a href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf">NASA GLDAS</a> modeled remote sensing products at polygon centroid.
                   </span>
                   <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
                 </div>
@@ -168,7 +171,7 @@
           <!-- GLDASwat -->
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
-              <p><strong>GLDASwat</strong></p> 
+              <p><strong>GLDAS</strong></p> 
               <!-- Tooltip -->
               <div class="relative w-full flex flex-col items-start group ml-px">
                 <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -177,7 +180,7 @@
                 <!-- group-hover:visible -->
                 <div class="z-10 fixed  w-1/4 left-1 flex flex-col items-center invisible mb-6">
                   <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate SWAT air temperature input files as well as air temperature stations file from NASA GLDAS remote sensing products.
+                    Generate daily minimum and maximum air temperature data from <a href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf">NASA GLDAS</a> modeled remote sensing products within watershed boundaries.
                   </span>
                   <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
                 </div>
@@ -223,7 +226,7 @@
                 </svg>
                 <div class="z-10 left-1	w-1/4 fixed flex flex-col items-center invisible mb-6">
                   <span class="relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate rainfall input files as well as rain station file from NASA GPM remote sensing products.
+                    Generate daily rainfall data from <a href='https://gpm.nasa.gov/'> NASA GPM</a> remote sensing products at polygon centroid.
                   </span>
                   <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
                 </div>
@@ -261,7 +264,7 @@
           <!-- GPMswat -->
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
-              <p> <strong>GPMswat</strong></p>
+              <p> <strong>GPM</strong></p>
               <!-- Tooltip -->
               <div class="relative w-full flex flex-col items-start group ml-px">
                 <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -269,7 +272,7 @@
                 </svg>
                 <div class="z-10 fixed w-1/4 left-1 flex flex-col items-center invisible mb-6">
                   <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate SWAT rainfall input files as well as rain stations file from NASA GPM remote sensing products.
+                    Generate daily rainfall data from <a href='https://gpm.nasa.gov/'> NASA GPM</a> remote sensing products within watershed boundaries.
                   </span>
                   <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
                 </div>
@@ -308,7 +311,7 @@
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
 
-              <p> <strong>NEXT_GDPPswat</strong></p> 
+              <p> <strong>CMIP5 collection</strong></p> 
               <!-- Tooltip -->
               <div class="relative w-full flex flex-col items-start group ml-px">
                 <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -316,7 +319,7 @@
                 </svg>
                 <div class="z-10 fixed w-1/4 left-1 flex flex-col items-center invisible mb-6">
                   <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate rainfall or air temperature as well as climate input stations file from NASA NEX-GDPP remote sensing climate change data products needed to drive various hydrological models.
+                    Generate daily rainfall or air temperature (minimum and maximum) data from <a href='https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp'>NASA NEX-GDPP-CMIP5</a> remote sensing climate change data products within watershed boundaries.
                   </span>
                   <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
                 </div>
@@ -412,7 +415,7 @@
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
 
-              <p> <strong>NEX_GDPP_CMIP6</strong>
+              <p> <strong>CMIP6 collection</strong>
 
               </p> 
               <!-- Tooltip -->
@@ -422,7 +425,7 @@
                 </svg>
                 <div class="z-10 absolute left-1 flex flex-col items-center invisible mb-6">
                   <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2 ">	
-                    Generate rainfall or air temperature as well as climate input stations file from NASA NEX-GDPP-CMIP6 remote sensing climate change data products needed to drive various hydrological models.
+                    Generate daily rainfall or air temperature (minimum and maximum) data from <a href='https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6'>NASA NEX-GDPP-CMIP6</a> remote sensing climate change data products within watershed boundaries.
                   </span>
                   <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
                 </div>
@@ -566,34 +569,62 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h5 class="modal-title" id="help-modal-label">Welcome to nasaaccess</h5>
+          <h5 class="modal-title" id="help-modal-label"><strong>Welcome to NASAaccess</strong></h5>
         </div>
         <div class="modal-body">
-            <p>The nasaaccess Tethys App is a web platform developed to generate weather station files
-                needed for the Soil and Water Assessment Tool (SWAT) and other hydrologic models.
-            </p>
-            <p>More information about methodologies used in NASA Access can be obtained from Mohammed et al., 2018
-                <a href='https://doi.org/10.3390/rs10060885'>(https://doi.org/10.3390/rs10060885)</a>.
-            </p>
-            <p>This application was built to provide a user interface for accessing the nasaaccess R package without
-                needing a local installation of R or setting a user account at
-                <a href='https://disc.gsfc.nasa.gov/registration/registration-for-data-access'>NASA GES DISC</a>.
+            <p>The NASAaccess Tethys App is a web platform developed for accessing and visualizing 
+              climate and weather data from NASA's Earth Observing System Data and Information System (<a href="https://earthdata.nasa.gov/eosdis" style="color: blue;">EOSDIS</a>).
+              More information about methodologies used in NASAaccess can be obtained from 
+                <a href='https://doi.org/10.3390/rs10060885' style="color:blue">Mohammed et al., 2018</a>, <a href='https://doi.org/10.1016/j.envsoft.2019.104499' style="color:blue">McDonald et al., 2019</a>, and <a href='https://imohamme.github.io/NASAaccess/' style='color:blue'>NASAaccess demonstration web pages</a>.
             </p>
             <br>
-            <p><strong>How To:</strong> Accessing GPM (precipitation) and GLDAS (air temperature) data products from NASA</p>
-                <ol>
-                    <li class="welcome-substep1">Select a watershed or upload your own (<strong>must be a polygon shapefile or json file in WGS 84 geographic projection</strong>)</li>
-                    <li class="welcome-substep1">Select a DEM or upload your own (<strong>must be a TIFF file in WGS-84 geographic projection</strong>)</li>
-                    <li class="welcome-substep1">Select a date range</li>
-                    <li class="welcome-substep1">Select at least one of the nasaaccess functions</li>
-                    <li class="welcome-substep1">Click the "Run nasaaccess" button</li>
-                    <li class="welcome-substep1">Provide an email address for the app to contact you when the data is ready and click "Submit"</li>
-                    <li class="welcome-substep1">Navigate the the nasaaaccess web application (in the same app portal) to download the data</li>
-                </ol>
-        </div>
+            <p>NASAaccess App needs a user registration access with <a href='https://earthdata.nasa.gov/' style="color:blue">Earthdata</a>. NASAaccess App maintainer (server admin\local user) installing the app on a local server\machine should
+                set up a registration account(s) with <a style='color: blue'  href='https://earthdata.nasa.gov/'>Earthdata</a> login as well as well as authorizing <a style='color: blue;'  href='https://www.nasa.gov/'>NASA</a>
+                <a style='color: blue;' href='https://disc.gsfc.nasa.gov/'>GES DISC</a> data access. Please refer to <a style="color: blue;" href='https://disc.gsfc.nasa.gov/data-access'> https://disc.gsfc.nasa.gov/data-access </a> for further details.</p>
+            <br>
+                <p>After registration with <a style='color: blue;' href='https://earthdata.nasa.gov/'>Earthdata</a>  NASAaccess App  maintainer should create a reference file <a style='font-style:oblique;' >'.netrc' </a> with <a style="color: blue;" href='https://earthdata.nasa.gov/'>Earthdata</a> credentials stored in it
+               to streamline the retrieval access to <a style='color:blue;' href='https://www.nasa.gov/'>NASA</a> servers.
+               Creating the <a style='font-style:oblique;' >'.netrc' </a> file at the maintainer machine <a style='font-style:oblique;' >'Home' </a> directory and storing the user <a style='color: blue;' href='https://www.nasa.gov/'>NASA</a> <a style='color: blue;' href='https://disc.gsfc.nasa.gov/'>GES DISC</a> logging information
+                in it is needed to execute the NASAaccess App functions. Accessing data at <a style='color:blue;' href='https://www.nasa.gov/'>NASA</a> servers is further explained at <a style='color: blue;' href=https://wiki.earthdata.nasa.gov/display/EL/How+To+Access+Data+With+cURL+And+Wget>EarthData wiki</a>.
+            </p>
+            <br>
+            <p><strong>How to work with NASAaccess Tethys App:</strong></p>
+            <ul class="list-group">
+              
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Select a watershed or upload your own
+                <span class="badge badge-primary d-flex badge-pill">must be a polygon shapefile or json file in a WGS 84 geographic projection</span>
+              </li>
+              <br>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Select a digital elevation model (DEM) or upload your own
+                <span class="badge badge-primary d-flex badge-pill">must be a TIFF file in a WGS-84 geographic projection</span>
+              </li>
+              <br>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Select at least one of the NASAaccess functions (e.g., <a style="font-style: oblique;">GPMpolyCentroid</a>)
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Click <button type="button" class="bg-cyan-900 text-zinc-50 p-2 rounded-lg inline-block" >Run</button> and then provide an email address for the app to contact you when the data preparation is ready and then click <button class="btn btn-primary p-2 text-zinc-50 inline-block">Submit</button>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Once your request is finished (i.e., you have received an email from NASAaccess stating your data has been processed and it has an access code) then click <button type="button" class="inline-block bg-green-900	text-zinc-50 items-center p-2 rounded-lg" >Download</button> and provide your access code to download the data to your desired location.
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Click <button type="button" class="inline-block bg-indigo-900	text-zinc-50 items-center p-2 rounded-lg">Plot</button> and provide your access code to start visualizing your data!
+              </li>
+            </ul>                
+            
+                <br>
+                <p><a style="font-style: oblique;">NASAaccess Tethys App source code can be browsed at <a style='color: blue; font-style: oblique;' href='https://github.com/imohamme/tethys_nasaaccess'>HERE.</a></a></p>
+                <br>
+                <p><a style='font-style:oblique;' >If you have questions, comments, or requests for further functionality please contact </a><a style='color: blue; font-style:oblique' href='mailto:ibrahim.mohammed@nasa.gov'>Ibrahim Mohammed</a>.</p>
+                
+                
+              </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
         </div>
       </div>
     </div>
@@ -608,7 +639,7 @@
           <h5 class="modal-title" id="download-modal-label">Download Data</h5>
         </div>
         <div class="modal-body">
-            <p>If you have previously run the NASAaccess function, you should have received at 6-digit access code.</p>
+            <p>If you have previously run the NASAaccess function, you should have received a 6-digit access code.</p>
             <p>Please input your access code below and click the "Download" button to download the files from your
                 NASAaccess query.</p>
             <form class="form" method="post" enctype="multipart/form-data" action="download/">

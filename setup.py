@@ -16,13 +16,13 @@ resource_files += find_resource_files('tethysapp/' + app_package + '/workspaces'
 
 setup(
     name=release_package,
-    version='1.0.1',
-    description='Web interface for downloading precipitation and air temperature data from NASA&#39;s EarthData website',
+    version='1.1.0',
+    description='Web interface for accessing and visualizing climate and weather data from NASA\'s Earth Observing System Data and Information System (EOSDIS)',
     long_description='',
-    keywords='"Hydrology", "GLDAS", "GPM", "SWAT"',
+    keywords='"Hydrology", "GLDAS", "GPM"',
     author='Spencer McDonald, Ibrahim Mohammed, Giovanni Romero',
     author_email='ibrahim.mohammed@nasa.gov',
-    url='',
+    url='https://github.com/imohamme/tethys_nasaaccess',
     license='NASA OPEN SOURCE AGREEMENT VERSION 1.3',
     packages=find_packages(),
     include_package_data=True,

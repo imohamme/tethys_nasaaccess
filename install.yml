@@ -1,4 +1,4 @@
-version: 1.0.1
+version: 1.1.0
 
 # This should match the app - package name in your setup.py
 name: nasaaccess
@@ -8,20 +8,19 @@ requirements:
   skip: false
   conda:
     channels:
-      # - conda-forge
-      # - elkingio
+       - conda-forge
+       - imohamme
     packages:
-      # - shapely
-      # - rasterio
-      # - netcdf4
-      # - pandas
-      # - geopandas
-      # - georaster
-      # - xarray
-      # - ncurses
-      # - requests
-      # - r-nasaaccess
-      # - r-essentials
-      # - r-devtools
+       - shapely
+       - rasterio
+       - netcdf4
+       - pandas
+       - geopandas
+       - georaster
+       - xarray
+       - ncurses
+       - requests
+       - r-nasaaccess
+       - r-devtools
 
 post:

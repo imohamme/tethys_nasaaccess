@@ -7,14 +7,14 @@ class nasaaccess(TethysAppBase):
     Tethys app class for nasaaccess.
     """
 
-    name = 'Nasaaccess'
+    name = 'NASAaccess'
     index = 'nasaaccess:home'
     icon = 'nasaaccess/images/nasaaccess.png'
     package = 'nasaaccess'
     root_url = 'nasaaccess'
     color = '#3e557a'
-    description = 'Web interface for downloading precipitation and air temperature data from NASA&#39;s EarthData website'
-    tags = ''
+    description = 'Web interface for accessing and visualizing climate and weather data from NASA\'s Earth Observing System Data and Information System (EOSDIS)'
+    tags = 'NASA, Hydrology, Climate, Weather, GPM, TRMM, GLDAS, CMIP5, CMIP6'
     enable_feedback = False
     feedback_emails = []
 
