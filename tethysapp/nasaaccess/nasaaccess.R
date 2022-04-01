@@ -1,8 +1,7 @@
 args = commandArgs(trailingOnly=TRUE)
-library(devtools)
-# install_github('nasa/NASAaccess',force=TRUE)
 library(NASAaccess)
-
+library(remotes)
+library(emayili)
 a <- strsplit(args[2],",")
 
 start_d <- strsplit(args[7],",")
@@ -95,16 +94,7 @@ if(x == "NEX_GDPP_CMIP6"){
 		)
 }
 }
-#install.packages("remotes")
 
-# file.copy(from=args[7], to=args[6],
-#           overwrite = TRUE, recursive = TRUE, 
-#           copy.mode = TRUE)
-
-library(remotes)
-remotes::install_github("datawookie/emayili")
-library(emayili)
-# install.packages("dplyr")
 
 email <- envelope(
   to = args[1],
@@ -118,6 +108,3 @@ smtp <- server(host = "smtp.gmail.com",
                username = 'nasaaccess.2022@gmail.com',
                password = 'nasaaccess123&')
 smtp(email, verbose = TRUE)
-
-#args[3]
-

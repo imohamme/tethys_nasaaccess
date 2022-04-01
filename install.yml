@@ -9,7 +9,6 @@ requirements:
   conda:
     channels:
        - conda-forge
-       - imohamme
     packages:
        - shapely
        - rasterio
@@ -21,6 +20,7 @@ requirements:
        - ncurses
        - requests
        - r-nasaaccess
-       - r-devtools
+       - r-remotes
+       - r-emayili
 
 post:
