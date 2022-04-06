@@ -1222,6 +1222,10 @@ var LIBRARY_OBJECT = (function() {
             nasaaccess();
         });
 
+        $('#funcs_def').click(function() {
+            $("#functions-modal").modal('show');
+        });
+
         $('#download_data').click(function() {
             $("#download-modal").modal('show');
         });

@@ -114,7 +114,14 @@
 
         <div>
           <div class="flex justify-center my-3">
-            <p><strong>Available Functions</strong></p>
+            <p class="flex space-x-2">   
+              <span class="font-bold">Available Functions</span> 
+              <span id="funcs_def" class="cursor-pointer">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+              </span> 
+            </p>
            </div>
            <p>**If you have activated the same time range option, select at least one function (i.e., <a style="font-style: oblique;font-weight: bold;">GLDASpolyCentroid, GLDAS, GPMpolyCentroid, or GPM</a>).
             <br></br> 
@@ -125,19 +132,6 @@
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
               <p> <strong> GLDASpolyCentroid </strong> </p> 
-              <!-- Tooltip -->
-              <div class="relative w-full flex flex-col items-start group ml-px">
-                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                </svg>
-                <div id="tooltip1" class="z-10 absolute left-1 flex flex-col items-center invisible mb-6">
-
-                  <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate daily minimum and maximum air temperature data from <a href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf">NASA GLDAS</a> modeled remote sensing products at polygon centroid.
-                  </span>
-                  <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
-                </div>
-              </div>
               <label 
                 for="GLDASpolycentroid_input"
                 class="flex items-center cursor-pointer"
@@ -172,19 +166,6 @@
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
               <p><strong>GLDAS</strong></p> 
-              <!-- Tooltip -->
-              <div class="relative w-full flex flex-col items-start group ml-px">
-                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                </svg>
-                <!-- group-hover:visible -->
-                <div class="z-10 fixed  w-1/4 left-1 flex flex-col items-center invisible mb-6">
-                  <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate daily minimum and maximum air temperature data from <a href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf">NASA GLDAS</a> modeled remote sensing products within watershed boundaries.
-                  </span>
-                  <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
-                </div>
-              </div>
               <label 
                 for="GLDASwat_input"
                 class="flex items-center cursor-pointer"
@@ -219,18 +200,6 @@
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
               <p> <strong>GPMpolyCentroid</strong> </p> 
-              <!-- Tooltip -->
-              <div class="relative w-full flex flex-col items-start group ml-px">
-                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                </svg>
-                <div class="z-10 left-1	w-1/4 fixed flex flex-col items-center invisible mb-6">
-                  <span class="relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate daily rainfall data from <a href='https://gpm.nasa.gov/'> NASA GPM</a> remote sensing products at polygon centroid.
-                  </span>
-                  <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
-                </div>
-              </div>
               <label 
                 for="GPMpolyCentroid_input"
                 class="flex items-center cursor-pointer"
@@ -265,18 +234,6 @@
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
               <p> <strong>GPM</strong></p>
-              <!-- Tooltip -->
-              <div class="relative w-full flex flex-col items-start group ml-px">
-                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                </svg>
-                <div class="z-10 fixed w-1/4 left-1 flex flex-col items-center invisible mb-6">
-                  <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate daily rainfall data from <a href='https://gpm.nasa.gov/'> NASA GPM</a> remote sensing products within watershed boundaries.
-                  </span>
-                  <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
-                </div>
-              </div>
               <label 
                 for="GPMswat_input"
                 class="flex items-center cursor-pointer"
@@ -312,18 +269,7 @@
             <div class="flex justify-between items-center my-3 py-4">
 
               <p> <strong>CMIP5 collection</strong></p> 
-              <!-- Tooltip -->
-              <div class="relative w-full flex flex-col items-start group ml-px">
-                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                </svg>
-                <div class="z-10 fixed w-1/4 left-1 flex flex-col items-center invisible mb-6">
-                  <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2">	
-                    Generate daily rainfall or air temperature (minimum and maximum) data from <a href='https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp'>NASA NEX-GDPP-CMIP5</a> remote sensing climate change data products within watershed boundaries.
-                  </span>
-                  <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
-                </div>
-              </div>
+
               <label 
                 for="NEXT_GDPPswat_input"
                 class="flex items-center cursor-pointer"
@@ -418,18 +364,7 @@
               <p> <strong>CMIP6 collection</strong>
 
               </p> 
-              <!-- Tooltip -->
-              <div class="relative w-full flex flex-col items-start group ml-px">
-                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                </svg>
-                <div class="z-10 absolute left-1 flex flex-col items-center invisible mb-6">
-                  <span class=" relative z-10 p-4 leading-none text-white whitespace-no-wrap bg-black shadow-lg border-cyan-900	 border-2 ">	
-                    Generate daily rainfall or air temperature (minimum and maximum) data from <a href='https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6'>NASA NEX-GDPP-CMIP6</a> remote sensing climate change data products within watershed boundaries.
-                  </span>
-                  <div class="w-[32rem] h-fit -mt-2 rotate-45 bg-black rounded-lg"></div>
-                </div>
-              </div>
+
               <label 
                 for="NEX_GDPP_CMIP6_input"
                 class="flex items-center cursor-pointer"
@@ -563,6 +498,7 @@
 
 {# Use the after_app_content block for modals #}
 {% block after_app_content %}
+{% include "nasaaccess/functions_definitions.html" %} 
   <!-- Example Modal -->
   <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
     <div class="modal-dialog" role="document">
