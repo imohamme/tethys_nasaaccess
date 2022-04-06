@@ -8,19 +8,12 @@ requirements:
   skip: false
   conda:
     channels:
-       - conda-forge
+      - conda-forge
     packages:
-       - shapely
-       - rasterio
-       - netcdf4
-       - pandas
-       - geopandas
-       - georaster
-       - xarray
-       - ncurses
-       - requests
-       - r-nasaaccess
-       - r-remotes
-       - r-emayili
+      - pandas
+      - requests
+      - r-nasaaccess
+      - r-remotes
+      - r-emayili
 
 post:

@@ -1,9 +1,5 @@
-shapely
-rasterio
-netcdf4
 pandas
-geopandas
-georaster
-xarray
-ncurses
 requests
+r-nasaaccess
+r-remotes
+r-emayili
