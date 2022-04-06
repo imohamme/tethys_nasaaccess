@@ -1032,7 +1032,12 @@ var LIBRARY_OBJECT = (function() {
     // the DOM tree finishes loading
 
     $(function() {
-
+        $( document ).ready(function() {
+            if(ERROR_STR != ''){
+                console.log( "ready!" );
+                $.notify(ERROR_STR, "info");
+            }
+        });
         init_all();
         getValues();
         const start_all_4 = datepicker('#start_pick', { id: 0,

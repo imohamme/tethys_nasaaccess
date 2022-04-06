@@ -18,6 +18,7 @@ def home(request):
     shp_options = []
     WORKSPACE = geoserver['workspace']
     REST_URL = ''
+    error_str = ''
     try:
         engine_geo =  nasaaccess.get_spatial_dataset_service('ADPC', as_engine = True)
         REST_URL =  engine_geo.endpoint
@@ -30,6 +31,7 @@ def home(request):
                     dem_options.append((layer['name'],layer['name']))
 
     except Exception as e:
+        error_str = 'Start the GeoServer Service or connect a different GeoServer service'
         print(e)
 
     select_watershed = SelectInput(display_text='',
@@ -53,7 +55,8 @@ def home(request):
         'select_watershed': select_watershed,
         'select_dem': select_dem,
         'geoserver_url': REST_URL,
-        'geoserver_workspace': WORKSPACE
+        'geoserver_workspace': WORKSPACE,
+        'error_str':error_str
     }
 
 
