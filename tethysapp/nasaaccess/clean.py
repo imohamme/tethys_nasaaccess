@@ -1,6 +1,6 @@
 import os, time, shutil
 # make sure to have the outputs folder as a custom settings
-path = "/home/gio/tethysdev/tethys_nasaaccess/nasaaccess_data/outputs"
+path = ""
 now = time.time()
 for filename in os.listdir(path):
 
