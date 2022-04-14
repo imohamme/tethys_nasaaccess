@@ -1,4 +1,7 @@
-import os, time, shutil
+import os
+import shutil
+import time
+
 # make sure to have the outputs folder as a custom settings
 path = ""
 now = time.time()
