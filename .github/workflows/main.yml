@@ -60,3 +60,33 @@ jobs:
           url: 'https://tethys-staging.byu.edu/apps/app-store/install/git/status'
           install_id: '${{ steps.iid.outputs.IID }}'
           tethys_auth_token: '${{ secrets.TETHYS_BYU_AUTH_TOKEN }}'
+
+  deployment_indhri:
+    runs-on: ubuntu-latest
+    name: Deployment Indhri Portal
+    needs: app-lint
+    steps:
+      - name: Get Variables
+        id: vars
+        run: echo ::set-output name=short_ref::${GITHUB_REF##*/}
+      - name: Deploy Stage
+        id: deploy
+        uses: fjogeleit/http-request-action@master
+        with:
+          method: 'POST'
+          url: 'https://indhri-hydro-apps.westus2.cloudapp.azure.com/apps/app-store/install/git/'
+          data: '{"url": "https://github.com/${{ github.repository }}.git", "branch": "${{ steps.vars.outputs.short_ref }}"}'
+          timeout: 10000
+          customHeaders: '{"Authorization": "Token ${{ secrets.TETHYS_INDHRI_AUTH_TOKEN }}"}'
+      - name: Get Installation ID
+        id: iid
+        run: |
+          echo ${{ steps.deploy.outputs.response }}
+          echo ::set-output name=IID::${{ fromJson(steps.deploy.outputs.response).install_id }}
+      - name: Get Installation Status
+        id: status
+        uses: msouff/tethys-app-status@v1
+        with:
+          url: 'https://indhri-hydro-apps.westus2.cloudapp.azure.com/apps/app-store/install/git/status'
+          install_id: '${{ steps.iid.outputs.IID }}'
+          tethys_auth_token: '${{ secrets.TETHYS_INDHRI_AUTH_TOKEN }}'
