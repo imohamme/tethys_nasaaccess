@@ -8,12 +8,10 @@ requirements:
   skip: false
   conda:
     channels:
-      - conda-forge
+      # - conda-forge
     packages:
-      - pandas
-      - requests
-      - r-nasaaccess
-      - r-remotes
-      - r-emayili
+      # - r-nasaaccess
+      # - r-remotes
+      # - r-emayili
 
 post:

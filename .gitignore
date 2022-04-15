@@ -7,3 +7,8 @@
 *.db
 *.sqlite
 *.DS_Store
+.isort.cfg
+.markdownlint.yaml
+.trunk
+.flake8
+.DS_Store
