@@ -18,6 +18,7 @@ def run_nasaaccess(request):
     Controller to call nasaaccess R functions.
     """
     # Get selected parameters and pass them into nasaccess R scripts
+    error_now = ""
     try:
         d_start = request.POST.getlist("startDate[]")
         d_end = request.POST.getlist("endDate[]")
@@ -47,7 +48,10 @@ def run_nasaaccess(request):
         )
         return JsonResponse({"Result": str(result)})
     except Exception as e:
+        error_now = str(e)
         return JsonResponse({"Error": str(e)})
+
+    return JsonResponse({"Error": error_now})
 
 
 def upload_shapefiles(request):
