@@ -35,7 +35,7 @@ setup(
     url="https://github.com/imohamme/tethys_nasaaccess",
     license="NASA OPEN SOURCE AGREEMENT VERSION 1.3",
     packages=find_namespace_packages(),
-    package_data={'': resource_files},
+    package_data={"": resource_files},
     include_package_data=True,
     zip_safe=False,
     install_requires=dependencies,
