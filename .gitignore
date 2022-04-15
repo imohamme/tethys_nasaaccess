@@ -11,3 +11,4 @@
 .markdownlint.yaml
 .trunk
 .flake8
+.DS_Store

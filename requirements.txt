@@ -1,5 +1,3 @@
-pandas
-requests
 r-nasaaccess
 r-remotes
 r-emayili

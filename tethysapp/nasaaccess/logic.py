@@ -5,43 +5,9 @@ import string
 import subprocess
 
 import requests
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
 
 from .app import nasaaccess as app
-from .config import R_script, data_path, geoserver, nasaaccess_log, nasaaccess_R
-
-logging.basicConfig(filename=nasaaccess_log, level=logging.INFO)
-
-Base = declarative_base()
-Persistent_Store_Name = "catalog_db"
-
-
-class Shapefiles(Base):
-    __tablename__ = "shapefiles"
-
-    id = Column(Integer, primary_key=True)  # Record number.
-    shapefile = Column(String(1000))
-
-    def __init__(self, shapefile):
-        self.shapefile = shapefile
-
-
-class DEMfiles(Base):
-    __tablename__ = "demfiles"
-
-    id = Column(Integer, primary_key=True)  # Record number.
-    DEMfile = Column(String(1000))
-
-    def __init__(self, demfile):
-        self.DEMfile = demfile
-
-
-class accessCode(Base):
-    __tablename__ = "accesscode"
-
-    id = Column(Integer, primary_key=True)  # Record number.
-    accessCode = Column(String(1000))
+from .config import R_script, data_path, geoserver, nasaaccess_R
 
 
 def nasaaccess_run(

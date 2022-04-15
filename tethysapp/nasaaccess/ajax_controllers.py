@@ -7,7 +7,7 @@ import pandas as pd
 from django.http import FileResponse, JsonResponse
 
 from .config import data_path, nasaaccess_log
-from .model import nasaaccess_run, upload_dem, upload_shapefile
+from .logic import nasaaccess_run, upload_dem, upload_shapefile
 
 logging.basicConfig(filename=nasaaccess_log, level=logging.INFO)
 
