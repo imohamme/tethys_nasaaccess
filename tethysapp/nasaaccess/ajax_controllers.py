@@ -155,6 +155,8 @@ def download_data(request):
             zip_file = open(path_to_file, "rb")
             return FileResponse(zip_file)
 
+    return JsonResponse({"error": "There was an error during the response"})
+
 
 def getValues(request):
     return_obj = {}

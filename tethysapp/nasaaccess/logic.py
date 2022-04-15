@@ -130,9 +130,9 @@ def upload_shapefile(id, shp_path):
                 shapefile_base=os.path.join(shp_path, id),
                 overwrite=True,
             )
-
-        ##Delete files
-        # shutil.rmtree(shp_path)
+    return "uploaded shapefile"
+    ##Delete files
+    # shutil.rmtree(shp_path)
 
 
 def upload_dem(id, dem_path):
@@ -175,6 +175,6 @@ def upload_dem(id, dem_path):
         requests.put(
             request_url, verify=False, headers=headers, data=data, auth=(USER, PASSWORD)
         )
-
-        ##Delete Files
-        # shutil.rmtree(dem_path)
+    return "uploaded dem"
+    ##Delete Files
+    # shutil.rmtree(dem_path)
