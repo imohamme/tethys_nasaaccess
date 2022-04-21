@@ -20,12 +20,6 @@ except Exception as e:
     print("Please specify the custom settings")
     R_script = ""
 try:
-    nasaaccess_log = app.get_custom_setting("nasaaccess_log")
-except Exception as e:
-    print(e)
-    print("Please specify the custom settings")
-    nasaaccess_log = ""
-try:
     geoserver_workspace = app.get_custom_setting("geoserver_workspace")
 except Exception as e:
     print(e)

@@ -6,10 +6,9 @@ from datetime import datetime, timedelta
 import pandas as pd
 from django.http import FileResponse, JsonResponse
 
-from .config import data_path, nasaaccess_log
+from .config import data_path
 from .logic import nasaaccess_run, upload_dem, upload_shapefile
 
-logging.basicConfig(filename=nasaaccess_log, level=logging.INFO)
 
 
 def run_nasaaccess(request):
