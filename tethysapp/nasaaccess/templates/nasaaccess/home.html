@@ -32,14 +32,14 @@
 {% endblock %}
 
 {% block header_buttons %}
-  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
-    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Help">
+    <a data-toggle="modal" data-target="#help-modal"><i class="fa-solid fa-circle-info"></i></a>
   </div>
 {% endblock %}
 
 {% block app_navigation_items %}
-<div class="flex flex-col">
-      <div class="my-3">
+<div class="flex flex-col text-sm space-y-8">
+      <div class="my-2">
         <div class="flex justify-center">
           <p>
             <strong>
@@ -47,7 +47,7 @@
             </strong>
           </p>
         </div>
-          <div class = "my-3 h-12 flex justify-between items-center">
+          <div class = "my-2 h-12 flex justify-between items-center">
               <div>
                 <p>
                   <strong>
@@ -55,13 +55,13 @@
                   </strong>
                 </p>
               </div>
-              <div class="bg-cyan-900 text-zinc-50 flex justify-center items-center h-12 w-12 rounded-lg cursor-pointer" id="addShp">
-                <span class="glyphicon glyphicon-upload"></span>
+              <div class="bg-cyan-900 text-zinc-50 flex justify-center items-center h-8 w-8 rounded-lg cursor-pointer" id="addShp">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
               </div>
           </div>
           {% gizmo select_watershed %}
 
-          <div class = "my-3 h-12 flex justify-between items-center">
+          <div class = "my-2 h-12 flex justify-between items-center">
             <div>
               <p>
                 <strong>
@@ -69,17 +69,17 @@
                 </strong>
               </p>
             </div>
-            <div class="bg-cyan-900 text-zinc-50 flex justify-center items-center h-12 w-12 rounded-lg cursor-pointer" id="addDem">
-              <span class="glyphicon glyphicon-upload"></span>
+            <div class="bg-cyan-900 text-zinc-50 flex justify-center items-center h-8 w-8 rounded-lg cursor-pointer" id="addDem">
+              <i class="fa-solid fa-arrow-up-from-bracket"></i>
             </div>
         </div>
           {% gizmo select_dem %}
       </div>
 
-        <div class="my-3">
+        <div class="my-2">
           
 
-          <div class="flex justify-between items-center my-3 py-4">
+          <div class="flex justify-between items-center">
             <p><strong></strong></p>
             <p><a style="font-style: oblique;font-size:small;font-weight:bold;">*Same time range can used for GLDAS, GLDASpolyCentroid, GPM, and GPMpolyCentroid functions.</a></p>
             <label 
@@ -93,7 +93,7 @@
                 <!-- line -->
                 <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                 <!-- dot -->
-                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
               </div>
               <!-- label -->
               <div class="ml-3 text-gray-700 font-medium">
@@ -114,24 +114,24 @@
         </div>
 
         <div>
-          <div class="flex justify-center my-3">
+          <div class="flex justify-center my-2">
             <p class="flex space-x-2">   
               <span class="font-bold">Available Functions</span> 
               <span id="funcs_def" class="cursor-pointer">
-                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                 </svg>
               </span> 
             </p>
            </div>
-           <p>**If you have activated the same time range option, select at least one function (i.e., <a style="font-style: oblique;font-weight: bold;">GLDASpolyCentroid, GLDAS, GPMpolyCentroid, or GPM</a>).
+           <p class='my-2 pb-4' >**If you have activated the same time range option, select at least one function (i.e., <a style="font-style: oblique;font-weight: bold;">GLDASpolyCentroid, GLDAS, GPMpolyCentroid, or GPM</a>).
             <br></br> 
             <strong>Otherwise</strong>, you can select any function from the available functions.</p>
 
         <div>
           <!-- GLDASpolyCentroid -->
-          <div class="w-full mx-auto border-b my-5">
-            <div class="flex justify-between items-center my-3 py-4">
+          <div class="w-full mx-auto border-b my-2 text-sm">
+            <div class="flex justify-between items-center my-2 py-1">
               <p> <strong> GLDASpolyCentroid </strong> </p> 
               <label 
                 for="GLDASpolycentroid_input"
@@ -144,7 +144,7 @@
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
-                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                  <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                 </div>
                 <!-- label -->
                 <div class="ml-3 text-gray-700 font-medium">
@@ -164,8 +164,8 @@
           </div>
 
           <!-- GLDASwat -->
-          <div class="w-full mx-auto border-b my-5">
-            <div class="flex justify-between items-center my-3 py-4">
+          <div class="w-full mx-auto border-b my-2 text-sm">
+            <div class="flex justify-between items-center my-2 py-1">
               <p><strong>GLDAS</strong></p> 
               <label 
                 for="GLDASwat_input"
@@ -178,7 +178,7 @@
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
-                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                  <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                 </div>
                 <!-- label -->
                 <div class="ml-3 text-gray-700 font-medium">
@@ -198,8 +198,8 @@
           </div>
 
           <!-- GPMpolyCentroid -->
-          <div class="w-full mx-auto border-b my-5">
-            <div class="flex justify-between items-center my-3 py-4">
+          <div class="w-full mx-auto border-b my-2 text-sm">
+            <div class="flex justify-between items-center my-2 py-1">
               <p> <strong>GPMpolyCentroid</strong> </p> 
               <label 
                 for="GPMpolyCentroid_input"
@@ -212,7 +212,7 @@
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
-                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                  <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                 </div>
                 <!-- label -->
                 <div class="ml-3 text-gray-700 font-medium">
@@ -232,8 +232,8 @@
           </div>
 
           <!-- GPMswat -->
-          <div class="w-full mx-auto border-b my-5">
-            <div class="flex justify-between items-center my-3 py-4">
+          <div class="w-full mx-auto border-b my-2 text-sm">
+            <div class="flex justify-between items-center my-2 py-1">
               <p> <strong>GPM</strong></p>
               <label 
                 for="GPMswat_input"
@@ -246,7 +246,7 @@
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
-                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                  <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                 </div>
                 <!-- label -->
                 <div class="ml-3 text-gray-700 font-medium">
@@ -266,8 +266,8 @@
           </div>
 
           <!-- NEXT_GDPPswat -->
-          <div class="w-full mx-auto border-b my-5">
-            <div class="flex justify-between items-center my-3 py-4">
+          <div class="w-full mx-auto border-b my-2 text-sm">
+            <div class="flex justify-between items-center my-2 py-1">
 
               <p> <strong>CMIP5 collection</strong></p> 
 
@@ -282,7 +282,7 @@
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
-                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                  <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                 </div>
                 <!-- label -->
                 <div class="ml-3 text-gray-700 font-medium">
@@ -359,8 +359,8 @@
             </div>
           </div>
           <!-- NEX_GDPP_CMIP6 -->
-          <div class="w-full mx-auto border-b my-5">
-            <div class="flex justify-between items-center my-3 py-4">
+          <div class="w-full mx-auto border-b my-2 text-sm">
+            <div class="flex justify-between items-center my-2 py-1">
 
               <p> <strong>CMIP6 collection</strong>
 
@@ -377,7 +377,7 @@
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
-                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                  <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                 </div>
                 <!-- label -->
                 <div class="ml-3 text-gray-700 font-medium">
@@ -463,16 +463,16 @@
           </div>
         </div>
       </div>
-      <!-- <div class="my-3">
-        <div class="flex justify-center my-3">
+      <!-- <div class="my-2">
+        <div class="flex justify-center my-2">
           <p><strong>Select Date Range</strong></p>
         </div>
 
       </div> -->
       <div class="flex items-center space-x-2">
-        <button class="bg-green-900	text-zinc-50 flex flex-1 justify-center items-center p-3 rounded-lg" id="download_data">Download</button>
-        <button class="bg-indigo-900 text-zinc-50 flex flex-1 justify-center items-center p-3 rounded-lg" id="plot_data">Plot</button>
-        <button class="bg-cyan-900 text-zinc-50 flex flex-1 justify-center items-center p-3 rounded-lg " id="nasaaccess">Run</button>
+        <button class="bg-green-900	text-zinc-50 flex flex-1 justify-center items-center p-1 rounded-lg" id="download_data">Download</button>
+        <button class="bg-indigo-900 text-zinc-50 flex flex-1 justify-center items-center p-1 rounded-lg" id="plot_data">Plot</button>
+        <button class="bg-cyan-900 text-zinc-50 flex flex-1 justify-center items-center p-1 rounded-lg " id="nasaaccess">Run</button>
 
       </div>
   
@@ -501,11 +501,11 @@
 {% block after_app_content %}
 {% include "nasaaccess/functions_definitions.html" %} 
   <!-- Example Modal -->
-  <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+  <div class="modal fade text-sm" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="help-modal-label"><strong>Welcome to NASAaccess</strong></h5>
         </div>
         <div class="modal-body">
@@ -560,20 +560,21 @@
                 
               </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">OK</button>
         </div>
       </div>
     </div>
   </div>
 
 <!-- Download Data Modal -->
-  <div class="modal fade" id="download-modal" tabindex="-1" role="dialog" aria-labelledby="download-modal-label">
+  <div class="modal fade text-sm" id="download-modal" tabindex="-1" role="dialog" aria-labelledby="download-modal-label">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="download-modal-label">Download Data</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
         </div>
         <div class="modal-body">
             <p>If you have previously run the NASAaccess function, you should have received a 6-digit access code.</p>
@@ -584,13 +585,14 @@
                 <div class="flex justify-start items-center space-x-4 mt-2">
                   <label for="access_code">Access Code: </label>
                   <input type="text" id="access_code_input" name="access_code" class="border border-green-500 rounded-lg">
-                  <button id= "submit_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-dismiss="modal">Download</button>
                 </div>
             </form>
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button id= "submit_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-1 rounded-lg" data-bs-dismiss="modal">Download</button>
+          <button type="button" class="bg-red-600 text-zinc-50 p-1 rounded-lg" data-bs-dismiss="modal">Cancel</button>
+
         </div>
       </div>
     </div>
@@ -598,12 +600,13 @@
 
 
 <!-- Plot Data Modal -->
-<div class="modal fade" id="plot-modal" tabindex="-1" role="dialog" aria-labelledby="plot-modal-label">
+<div class="modal fade text-sm" id="plot-modal" tabindex="-1" role="dialog" aria-labelledby="plot-modal-label">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h5 class="modal-title" id="plot-modal-label">Plot Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
       </div>
       <div class="modal-body">
           <p>If you have previously run the NASAaccess function, you should have received at 6-digit access code.</p>
@@ -614,13 +617,15 @@
               <div class="flex justify-start items-center space-x-4 mt-2">
                 <label for="access_code">Access Code: </label>
                 <input type="text" id="access_code_input2" name="access_code" class="border border-green-500 rounded-lg">
-                <button id= "plot_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-dismiss="modal">Plot</button>
               </div>
           </form>
 
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id= "plot_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-1 rounded-lg" data-bs-dismiss="modal">Plot</button>
+
+          <button type="button" class="bg-red-600 text-zinc-50 p-1 rounded-lg" data-bs-dismiss="modal">Cancel</button>
+
       </div>
     </div>
   </div>
@@ -628,12 +633,13 @@
 
 
 <!-- Contact Information Modal -->
-  <div class="modal fade" id="cont-modal" tabindex="-1" role="dialog" aria-labelledby="cont-modal-label">
+  <div class="modal fade text-sm" id="cont-modal" tabindex="-1" role="dialog" aria-labelledby="cont-modal-label">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="cont-modal-label">Contact Information</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
         </div>
         <div class="modal-body">
             <p>Depending on the watershed size and the date range you selected,
@@ -652,20 +658,23 @@
               </p>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" id="submit_form">Submit</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" id="submit_form" class="bg-green-900 text-zinc-50  p-1 rounded-lg"> Submit </button>
+
+          <button type="button" class="bg-red-600 text-zinc-50 p-1 rounded-lg" data-bs-dismiss="modal">Cancel</button>
+
         </div>
       </div>
     </div>
   </div>
 
 <!-- Upload New Shapefile Modal -->
-  <div class="modal fade" id="shp-modal" tabindex="-1" role="dialog" aria-labelledby="shp-modal-label">
+  <div class="modal fade text-sm" id="shp-modal" tabindex="-1" role="dialog" aria-labelledby="shp-modal-label">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="shp-modal-label">Upload New Shapefile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
         </div>
         <div class="modal-body">
             <div class="alert alert-info" id="data-req"> <strong>Data Requirements:</strong> Must be a polygon shapefile or json file in a geographic projection (e.g. WGS84)</div>
@@ -674,25 +683,28 @@
                 {% csrf_token %}
                 <input type="file" class="btn local-file-upload" id="shapefile-upload" accept=".shp,.prj,.shx,.dbf," multiple>
                 <br>
-                <button type="button" id="shp_submit" class="bg-green-900 text-zinc-50  p-3 rounded-lg"> Submit Shapefile</button>
 
                 <div class="flex-container-row"><img id="loading" class="view-file hidden" src="/static/nasaaccess/images/loader.gif" style="margin: auto"/></div>
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="bg-red-600 text-zinc-50 p-3 rounded-lg" data-dismiss="modal">Cancel</button>
+          <button type="button" id="shp_submit" class="bg-green-900 text-zinc-50  p-1 rounded-lg"> Submit Shapefile</button>
+
+          <button type="button" class="bg-red-600 text-zinc-50 p-1 rounded-lg" data-bs-dismiss="modal">Cancel</button>
+
         </div>
       </div>
     </div>
   </div>
 
     <!-- Upload New DEM Modal -->
-  <div class="modal fade" id="dem-modal" tabindex="-1" role="dialog" aria-labelledby="dem-modal-label">
+  <div class="modal fade text-sm" id="dem-modal" tabindex="-1" role="dialog" aria-labelledby="dem-modal-label">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="dem-modal-label">Upload New DEM file</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
         </div>
         <div class="modal-body">
             <div class="alert alert-info" id="data-req"> <strong>Data Requirements:</strong> Must be a TIFF file in a geographic projection (e.g. WGS84)</div>
@@ -700,13 +712,14 @@
                 {% csrf_token %}
                 <input type="file" class="btn local-file-upload" id="dem-upload" >
                 <br>
-                <button type="button" id="dem_submit" class="bg-green-900 text-zinc-50 p-3 rounded-lg"> Upload New DEM</button>
 
                 <div class="flex-container-row"><img id="loading" class="view-file hidden" src="/static/nasaaccess/images/loader.gif" style="margin: auto"/></div>
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="bg-red-600 text-zinc-50 p-3 rounded-lg" data-dismiss="modal">Cancel</button>
+          <button type="button" id="dem_submit" class="bg-green-900 text-zinc-50 p-1 rounded-lg"> Upload New DEM</button>
+
+          <button type="button" class="bg-red-600 text-zinc-50 p-1 rounded-lg" data-bs-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>

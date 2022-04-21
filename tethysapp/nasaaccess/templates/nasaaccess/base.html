@@ -13,7 +13,7 @@
 
 {% block header_buttons %}
   <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Help">
-    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-euro"></span></a>
+    <a data-toggle="modal" data-target="#help-modal"><i class="fa-solid fa-circle-info"></i></a>
   </div>
 {% endblock %}
 
@@ -32,8 +32,14 @@
 
 {% block content_dependent_styles %}
   {{ block.super }}
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+  integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
   <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
-
   <link href="{% static 'nasaaccess/css/main.css' %}" rel="stylesheet"/>
   <style type="text/tailwindcss">
     @layer utilities {

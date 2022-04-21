@@ -1,34 +1,88 @@
-<div class="modal fade" id="functions-modal" tabindex="-1" role="dialog" aria-labelledby="functions-modal-label">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="functions-modal-label">Functions Definitions</h4>
-        </div>
-        <div class="modal-body">
-            <p class="p-1"> <strong>GLDASpolyCentroid </strong></p>
-            <p>Generate daily minimum and maximum air temperature data from <a href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf">NASA GLDAS</a> modeled remote sensing products at polygon centroid.</p>
-            <p class="p-1"> <strong>GLDAS</strong></p>
-            <p>Generate daily minimum and maximum air temperature data from <a href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf">NASA GLDAS</a> modeled remote sensing products within watershed boundaries.
-            </p>
-            <p class="p-1"> <strong>GPMpolyCentroid </strong></p>
-            <p>Generate daily rainfall data from <a href='https://gpm.nasa.gov/'> NASA GPM</a> remote sensing products at polygon centroid.
-            </p>
-            <p class="p-1"> <strong>GPM </strong></p>
-            <p>Generate daily rainfall data from <a href='https://gpm.nasa.gov/'> NASA GPM</a> remote sensing products within watershed boundaries.
-            </p>
-            <p class="p-1"> <strong>CMIP5 collection </strong></p>
-            <p>Generate daily rainfall or air temperature (minimum and maximum) data from <a href='https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp'>NASA NEX-GDPP-CMIP5</a> remote sensing climate change data products within watershed boundaries.
-            </p>
-            <p class="p-1"> <strong>CMIP6 collection </strong></p>
-            <p>Generate daily rainfall or air temperature (minimum and maximum) data from <a href='https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6'>NASA NEX-GDPP-CMIP6</a> remote sensing climate change data products within watershed boundaries.
-            </p>
-
-        
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+<div
+  class="modal fade text-sm"
+  id="functions-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="functions-modal-label"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="functions-modal-label">
+          Functions Definitions
+        </h4>
+      </div>
+      <div class="modal-body">
+        <p class="p-1"><strong>GLDASpolyCentroid </strong></p>
+        <p>
+          Generate daily minimum and maximum air temperature data from
+          <a
+            href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf"
+            >NASA GLDAS</a
+          >
+          modeled remote sensing products at polygon centroid.
+        </p>
+        <p class="p-1"><strong>GLDAS</strong></p>
+        <p>
+          Generate daily minimum and maximum air temperature data from
+          <a
+            href="https://hydro1.gesdisc.eosdis.nasa.gov/data/GLDAS/GLDAS_NOAH025_3H.2.1/doc/README_GLDAS2.pdf"
+            >NASA GLDAS</a
+          >
+          modeled remote sensing products within watershed boundaries.
+        </p>
+        <p class="p-1"><strong>GPMpolyCentroid </strong></p>
+        <p>
+          Generate daily rainfall data from
+          <a href="https://gpm.nasa.gov/"> NASA GPM</a> remote sensing products
+          at polygon centroid.
+        </p>
+        <p class="p-1"><strong>GPM </strong></p>
+        <p>
+          Generate daily rainfall data from
+          <a href="https://gpm.nasa.gov/"> NASA GPM</a> remote sensing products
+          within watershed boundaries.
+        </p>
+        <p class="p-1"><strong>CMIP5 collection </strong></p>
+        <p>
+          Generate daily rainfall or air temperature (minimum and maximum) data
+          from
+          <a
+            href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp"
+            >NASA NEX-GDPP-CMIP5</a
+          >
+          remote sensing climate change data products within watershed
+          boundaries.
+        </p>
+        <p class="p-1"><strong>CMIP6 collection </strong></p>
+        <p>
+          Generate daily rainfall or air temperature (minimum and maximum) data
+          from
+          <a
+            href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6"
+            >NASA NEX-GDPP-CMIP6</a
+          >
+          remote sensing climate change data products within watershed
+          boundaries.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="bg-red-600 text-zinc-50 p-1 rounded-lg"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   </div>
+</div>
