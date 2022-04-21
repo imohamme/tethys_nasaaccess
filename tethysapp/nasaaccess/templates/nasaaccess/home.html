@@ -32,8 +32,8 @@
 {% endblock %}
 
 {% block header_buttons %}
-  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Help">
-    <a data-toggle="modal" data-target="#help-modal"><i class="fa-solid fa-circle-info"></i></a>
+  <div class="header-button glyphicon-button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Help">
+    <a data-bs-toggle="modal" data-bs-target="#help-modal"><i class="fa-solid fa-circle-info"></i></a>
   </div>
 {% endblock %}
 
@@ -501,12 +501,13 @@
 {% block after_app_content %}
 {% include "nasaaccess/functions_definitions.html" %} 
   <!-- Example Modal -->
-  <div class="modal fade text-sm" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade text-sm " id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="help-modal-label"><strong>Welcome to NASAaccess</strong></h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
         </div>
         <div class="modal-body">
             <p>The NASAaccess Tethys App is a web platform developed for accessing and visualizing 
@@ -529,26 +530,26 @@
             <ul class="list-group">
               
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Select a watershed or upload your own
-                <span class="badge badge-primary d-flex badge-pill">must be a polygon shapefile or json file in a WGS 84 geographic projection</span>
+                <span class="text-sm">Select a watershed or upload your own</span> 
+                <span class="badge bg-primary d-flex rounded-pill"> polygon shapefile/geojson in a WGS 84 geographic projection</span>
               </li>
               <br>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Select a digital elevation model (DEM) or upload your own
-                <span class="badge badge-primary d-flex badge-pill">must be a TIFF file in a WGS-84 geographic projection</span>
+                <p class="text-sm">Select a digital elevation model (DEM) or upload your own</p> 
+                <span class="badge bg-primary d-flex rounded-pill">must be a TIFF file in a WGS-84 geographic projection</span>
               </li>
               <br>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Select at least one of the NASAaccess functions (e.g., <a style="font-style: oblique;">GPMpolyCentroid</a>)
+                <p>Select at least one of the NASAaccess functions</p> <span>(e.g., <a style="font-style: oblique;">GPMpolyCentroid</a>)</span> 
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Click <button type="button" class="bg-cyan-900 text-zinc-50 p-2 rounded-lg inline-block" >Run</button> and then provide an email address for the app to contact you when the data preparation is ready and then click <button class="btn btn-primary p-2 text-zinc-50 inline-block">Submit</button>
+                <p>Click <span class="bg-cyan-900 text-zinc-50 p-1 rounded-lg inline-block" >Run</span> and then provide an email address for the app to contact you when the data preparation is ready and then click <span class="bg-green-900 text-zinc-50 p-1 rounded-lg inline-block">Submit</span></p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Once your request is finished (i.e., you have received an email from NASAaccess stating your data has been processed and it has an access code) then click <button type="button" class="inline-block bg-green-900	text-zinc-50 items-center p-2 rounded-lg" >Download</button> and provide your access code to download the data to your desired location.
+                <p>Once your request is finished (i.e., you have received an email from NASAaccess stating your data has been processed and it has an access code) then click <span class="bg-cyan-900 text-zinc-50 p-1 rounded-lg inline-block" >Download</span> and provide your access code to download the data to your desired location.</p>                
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Click <button type="button" class="inline-block bg-indigo-900	text-zinc-50 items-center p-2 rounded-lg">Plot</button> and provide your access code to start visualizing your data!
+                <p>Click <span class="bg-cyan-900 text-zinc-50 p-1 rounded-lg inline-block" >Plot</span> and provide your access code to start visualizing your data!</p>                
               </li>
             </ul>                
             
