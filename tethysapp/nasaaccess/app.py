@@ -87,12 +87,6 @@ class nasaaccess(TethysAppBase):
                 required=False,
             ),
             CustomSetting(
-                name="nasaaccess_log",
-                type=CustomSetting.TYPE_STRING,
-                description="Path to the nasaaccess log file",
-                required=False,
-            ),
-            CustomSetting(
                 name="geoserver_workspace",
                 type=CustomSetting.TYPE_STRING,
                 description="Geoserver Workspace",
