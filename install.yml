@@ -5,13 +5,13 @@ name: nasaaccess
 
 requirements:
   # Putting in a skip true param will skip the entire section. Ignoring the option will assume it be set to False
-  skip: false
+  skip: true
   conda:
     channels:
-      # - conda-forge
+      - conda-forge
     packages:
-      # - r-nasaaccess
-      # - r-remotes
-      # - r-emayili
+      - r-nasaaccess
+      - r-remotes
+      - r-emayili
 
 post:
