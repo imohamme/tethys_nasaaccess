@@ -72,7 +72,7 @@ var LIBRARY_OBJECT = (function() {
      *                    PRIVATE FUNCTION IMPLEMENTATIONS
      *************************************************************************/
      showPlot = function(){
-         $("#map").addClass("h-[48rem]");
+         $("#map").addClass("h-28");
          $("#map").removeClass("h-full");
          $("#graphs__panel").removeClass("hidden");
          setTimeout(function(){ map.updateSize(); }, 200);
@@ -700,7 +700,7 @@ var LIBRARY_OBJECT = (function() {
                                 <!-- line -->
                                 <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                                 <!-- dot -->
-                                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                                <div class="dot absolute w-5 h-5 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
                                 </div>
                                 <!-- label -->
                                 <div class="ml-3 text-gray-700 font-medium">
