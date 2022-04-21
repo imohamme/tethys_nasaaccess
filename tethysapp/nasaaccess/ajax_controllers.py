@@ -1,4 +1,3 @@
-import logging
 import os
 import zipfile
 from datetime import datetime, timedelta
@@ -8,7 +7,6 @@ from django.http import FileResponse, JsonResponse
 
 from .config import data_path
 from .logic import nasaaccess_run, upload_dem, upload_shapefile
-
 
 
 def run_nasaaccess(request):
@@ -79,7 +77,7 @@ def upload_shapefiles(request):
             os.makedirs(shp_path_directory)
             os.chmod(shp_path_directory, 0o777)
         if os.path.isfile(shp_path_directory_file):
-            logging.info("file already exists")
+            print("file already exists")
         else:
             with open(shp_path_directory_file, "wb") as dst:
                 for chunk in files[n].chunks():
@@ -115,7 +113,7 @@ def upload_tiffiles(request):
             os.makedirs(dem_path_directory)
             os.chmod(dem_path_directory, 0o777)
         if os.path.isfile(dem_path_directory_file):
-            logging.info("file already exists")
+            print("file already exists")
         else:
             with open(dem_path_directory_file, "wb") as dst:
                 for chunk in files[n].chunks():
