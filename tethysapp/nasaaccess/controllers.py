@@ -2,10 +2,50 @@ from django.shortcuts import render
 from tethys_sdk.gizmos import SelectInput
 
 from .app import nasaaccess
-from .config import geoserver
+# from .config import geoserver
 
 Persistent_Store_Name = "catalog_db"
+try:
+    geoserver_password = nasaaccess.get_custom_setting("geoserver_password")
+except Exception as e:
+    print(e)
+    print("Please specify the custom settings")
+    geoserver_password = ""   
 
+try:
+    geoserver_user = nasaaccess.get_custom_setting("geoserver_user")
+except Exception as e:
+    print(e)
+    print("Please specify the custom settings")
+    geoserver_user = ""   
+
+try:
+    geoserver_URI = nasaaccess.get_custom_setting("geoserver_URI")
+except Exception as e:
+    print(e)
+    print("Please specify the custom settings")
+    geoserver_URI = ""   
+
+try:
+    geoserver_workspace = nasaaccess.get_custom_setting("geoserver_workspace")
+except Exception as e:
+    print(e)
+    print("Please specify the custom settings")
+    geoserver_workspace = ""   
+
+try:
+    nasaaccess_R = nasaaccess.get_custom_setting("nasaaccess_R")
+except Exception as e:
+    print(e)
+    print("Please specify the custom settings")
+    nasaaccess_R = ""
+
+geoserver = {
+    "user": geoserver_user,
+    "password": geoserver_password,
+    "workspace": geoserver_workspace,
+    "URI": geoserver_URI,
+}
 
 def home(request):
     """
@@ -23,6 +63,7 @@ def home(request):
         engine_geo = nasaaccess.get_spatial_dataset_service("ADPC", as_engine=True)
         REST_URL = engine_geo.endpoint
         layers__all = engine_geo.list_stores(WORKSPACE, True)
+        print(layers__all)
         if layers__all["success"] is True:
             for layer in layers__all["result"]:
                 if layer["resource_type"] == "dataStore":

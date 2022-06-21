@@ -197,7 +197,7 @@ var LIBRARY_OBJECT = (function () {
   };
 
   add_basins = function () {
-    //      Get the selected value from the select watershed drop down
+    //Get the selected value from the select watershed drop down
     var layer = $("#select_watershed").val();
     var options = $("#select_watershed option");
 
@@ -236,20 +236,20 @@ var LIBRARY_OBJECT = (function () {
         bbox = layerParams.BoundingBox[0].extent;
         var new_extent = ol.proj.transformExtent(bbox, srs, "EPSG:4326");
         var center = ol.extent.getCenter(new_extent);
-        //                  Create a new view using the extent of the new selected layer
+        // Create a new view using the extent of the new selected layer
         var view = new ol.View({
           center: center,
           projection: "EPSG:4326",
           extent: new_extent,
           zoom: 6,
         });
-        //                  Move the map to center on the selected watershed
+        //Move the map to center on the selected watershed
         map.setView(view);
         map.getView().fit(new_extent, map.getSize());
       },
     });
 
-    //      Display styling for the selected watershed boundaries
+    //Display styling for the selected watershed boundaries
     var sld_string =
       '<StyledLayerDescriptor version="1.0.0"><NamedLayer><Name>nasaaccess:' +
       layer +
@@ -334,7 +334,7 @@ var LIBRARY_OBJECT = (function () {
         url: wms_url,
         dataType: "xml",
         success: function (xml) {
-          //                  Get the projection and extent of the selected layer from the wms capabilities xml file
+          //Get the projection and extent of the selected layer from the wms capabilities xml file
           var layers = xml.getElementsByTagName("Layer");
           var parser = new ol.format.WMSCapabilities();
           var result = parser.read(xml);
@@ -391,21 +391,21 @@ var LIBRARY_OBJECT = (function () {
         $("#start_GLDASwat").val(),
         $("#start_GPMpolyCentroid").val(),
         $("#start_GPMswat").val(),
-        $("#start_NEXT_GDPPswat").val(),
-        $("#start_NEX_GDPP_CMIP6").val(),
+        $("#start_NEX_GDDP_CMIP5").val(),
+        $("#start_NEX_GDDP_CMIP6").val(),
       ];
       end = [
         $("#end_GLDASpolycentroid").val(),
         $("#end_GLDASwat").val(),
         $("#end_GPMpolyCentroid").val(),
         $("#end_GPMswat").val(),
-        $("#end_NEXT_GDPPswat").val(),
-        $("#end_NEX_GDPP_CMIP6").val(),
+        $("#end_NEX_GDDP_CMIP5").val(),
+        $("#end_NEX_GDDP_CMIP6").val(),
       ];
 
-      if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+      if ( 
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
@@ -425,36 +425,36 @@ var LIBRARY_OBJECT = (function () {
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
-          $("#start_NEXT_GDPPswat").val(),
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
-          $("#end_NEXT_GDPPswat").val(),
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
       if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
-          $("#start_NEXT_GDPPswat").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
           "",
         ];
         end = [
@@ -462,13 +462,13 @@ var LIBRARY_OBJECT = (function () {
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
-          $("#end_NEXT_GDPPswat").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
           "",
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
@@ -476,7 +476,7 @@ var LIBRARY_OBJECT = (function () {
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
           "",
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
@@ -484,13 +484,13 @@ var LIBRARY_OBJECT = (function () {
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
           "",
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
     } else {
       if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_pick").val(),
@@ -510,36 +510,36 @@ var LIBRARY_OBJECT = (function () {
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
-          $("#start_NEXT_GDPPswat").val(),
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
-          $("#end_NEXT_GDPPswat").val(),
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
       if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
-          $("#start_NEXT_GDPPswat").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
           "",
         ];
         end = [
@@ -547,13 +547,13 @@ var LIBRARY_OBJECT = (function () {
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
-          $("#end_NEXT_GDPPswat").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
           "",
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_pick").val(),
@@ -561,7 +561,7 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           "",
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_pick").val(),
@@ -569,7 +569,7 @@ var LIBRARY_OBJECT = (function () {
           $("#end_pick").val(),
           $("#end_pick").val(),
           "",
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
     }
@@ -578,31 +578,33 @@ var LIBRARY_OBJECT = (function () {
     console.log(start);
     console.log(end);
     var functions = [];
-    var NEXT_GDPPswat_inputs = [];
-    var NEX_GDPP_CMIP6_inputs = [];
+    var NEX_GDDP_CMIP5_inputs = [];
+    var NEX_GDDP_CMIP6_inputs = [];
 
     $(".chk:checked").each(function () {
       if ($(this).val() != "sameDates") {
+        console.log($(this).val());
         functions.push($(this).val());
       }
     });
-    if (functions.includes("NEXT_GDPPswat")) {
-      NEXT_GDPPswat_inputs = [
-        $("#NEXT_GDPPswat_model_select").val(),
-        $("#NEXT_GDPPswat_type_select").val(),
-        $("#NEXT_GDPPswat_slice_select").val(),
+    if (functions.includes("NEX_GDDP_CMIP5")) {
+      NEX_GDDP_CMIP5_inputs = [
+        $("#NEX_GDDP_CMIP5_model_select").val(),
+        $("#NEX_GDDP_CMIP5_type_select").val(),
+        $("#NEX_GDDP_CMIP5_slice_select").val(),
       ];
     }
-    if (functions.includes("NEX_GDPP_CMIP6")) {
-      NEX_GDPP_CMIP6_inputs = [
-        $("#NEX_GDPP_CMIP6_model_select").val(),
-        $("#NEX_GDPP_CMIP6_type_select").val(),
-        $("#NEX_GDPP_CMIP6_slice_select").val(),
+    if (functions.includes("NEX_GDDP_CMIP6")) {
+      NEX_GDDP_CMIP6_inputs = [
+        $("#NEX_GDDP_CMIP6_model_select").val(),
+        $("#NEX_GDDP_CMIP6_type_select").val(),
+        $("#NEX_GDDP_CMIP6_slice_select").val(),
       ];
     }
     var watershed = $("#select_watershed").val();
     var dem = $("#select_dem").val();
     var email = $("#id_email").val();
+    console.log(functions);
     $.ajax({
       type: "POST",
       // url: "/apps/nasaaccess2/run/",
@@ -614,16 +616,21 @@ var LIBRARY_OBJECT = (function () {
         watershed: watershed,
         dem: dem,
         email: email,
-        nexgdpp: NEXT_GDPPswat_inputs,
-        nextgdppcmip: NEX_GDPP_CMIP6_inputs,
-      },
+        nexgdpp: NEX_GDDP_CMIP5_inputs,
+        nextgdppcmip: NEX_GDDP_CMIP6_inputs,
+      }
     }).done(function (data) {
       console.log(data);
+      functions = [];
       if (data.Result === "nasaaccess is running") {
         $("#job_init").removeClass("hidden");
         setTimeout(function () {
           $("#job_init").addClass("hidden");
         }, 10000);
+      }
+      else{
+        $.notify("An error was found when retrieving the data", "error");
+
       }
     });
   };
@@ -666,6 +673,7 @@ var LIBRARY_OBJECT = (function () {
     });
     console.log(data);
     console.log(files);
+    $("#loading").removeClass("hidden");
     $.ajax({
       url: "upload_shp/",
       type: "POST",
@@ -674,38 +682,48 @@ var LIBRARY_OBJECT = (function () {
       processData: false,
       contentType: false,
       success: function (result) {
-        $("#loading").hide();
-        let shpSelect = document.getElementById("select_watershed");
-        shpSelect.options[shpSelect.options.length] = new Option(
-          `${result.file}`,
-          `${result.file}`
-        );
-        // $('#select_watershed').val(result.file);
-        // $(`select[name^="${select_watershed}"] option:selected`).attr("selected",null);
+        console.log(result);
+        $("#loading").addClass("hidden");
+        if(result['checker']['bool'] == true){
+          let shpSelect = document.getElementById("select_watershed");
+          shpSelect.options[shpSelect.options.length] = new Option(
+            `${result.file}`,
+            `${result.file}`
+          );
+          // $('#select_watershed').val(result.file);
+          // $(`select[name^="${select_watershed}"] option:selected`).attr("selected",null);
+  
+          // $(`select[name^="${select_watershed}"] option[value="${result.file}"]`).attr("selected","selected");
+  
+          console.log(result.response);
+          map.removeLayer(basin_layer);
+          map.removeLayer(dem_layer);
+          add_basins();
+        }
+        else{
+          $.notify(result['checker']['mssg'], "warn");
 
-        // $(`select[name^="${select_watershed}"] option[value="${result.file}"]`).attr("selected","selected");
+        }
 
-        console.log(result.response);
-        map.removeLayer(basin_layer);
-        map.removeLayer(dem_layer);
-        add_basins();
       },
       error: function (error) {
         console.log(error);
-        $("#loading").hide();
+        $("#loading").addClass("hidden");
       },
     });
   };
 
   uploadDEM = function () {
     let files = $("#dem-upload")[0].files;
-
     let data = new FormData();
     Object.keys(files).forEach(function (file) {
       data.append("files", files[file]);
     });
     console.log(data);
     console.log(files);
+    console.log("visibel");
+    $("#loading").removeClass("hidden");
+
     $.ajax({
       url: "upload_dem/",
       type: "POST",
@@ -714,21 +732,29 @@ var LIBRARY_OBJECT = (function () {
       processData: false,
       contentType: false,
       success: function (result) {
-        $("#loading").hide();
-        let demSelect = document.getElementById("select_dem");
-        demSelect.options[demSelect.options.length] = new Option(
-          `${result.file}`,
-          `${result.file}`
-        );
-        // $('#select_dem').val(result.file);
-        console.log(result.response);
-        map.removeLayer(basin_layer);
-        map.removeLayer(dem_layer);
-        add_dem();
+        console.log(result);
+        console.log(result['checker']);
+        $("#loading").addClass("hidden");
+        if(result['checker']){
+          let demSelect = document.getElementById("select_dem");
+          demSelect.options[demSelect.options.length] = new Option(
+            `${result.file}`,
+            `${result.file}`
+          );
+          // $('#select_dem').val(result.file);
+          console.log(result.response);
+          map.removeLayer(basin_layer);
+          map.removeLayer(dem_layer);
+          add_dem();
+        }
+        else{
+          $.notify("DEM is already in the GeoServer, Please upload other DEM file", "warn");
+        }
+
       },
       error: function (error) {
         console.log(error);
-        $("#loading").hide();
+        $("#loading").addClass("hidden");
       },
     });
   };
@@ -1340,7 +1366,7 @@ var LIBRARY_OBJECT = (function () {
       },
     });
 
-    const start_5 = datepicker("#start_NEXT_GDPPswat", {
+    const start_5 = datepicker("#start_NEX_GDDP_CMIP5", {
       id: 10,
       startDate: new Date(2006, 0, 1),
       formatter: (input, date, instance) => {
@@ -1358,7 +1384,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_5 = datepicker("#end_NEXT_GDPPswat", {
+    const end_5 = datepicker("#end_NEX_GDDP_CMIP5", {
       id: 11,
       formatter: (input, date, instance) => {
         const value = date
@@ -1375,7 +1401,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const start_6 = datepicker("#start_NEX_GDPP_CMIP6", {
+    const start_6 = datepicker("#start_NEX_GDDP_CMIP6", {
       id: 12,
       formatter: (input, date, instance) => {
         const value = date
@@ -1392,7 +1418,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_6 = datepicker("#end_NEX_GDPP_CMIP6", {
+    const end_6 = datepicker("#end_NEX_GDDP_CMIP6", {
       id: 13,
       formatter: (input, date, instance) => {
         const value = date
@@ -1473,12 +1499,15 @@ var LIBRARY_OBJECT = (function () {
     $("#GLDASpolycentroid_input").change(function () {
       if (!$("#sameDates_input").is(":checked")) {
         if (this.checked) {
+          console.log("checked");
           $("#GLDASpolycentroid_id_block").removeClass("h-0");
           $("#GLDASpolycentroid_id_block").addClass("max-h-fit");
           $("#GLDASpolycentroid_id_block").removeClass("overflow-hidden");
           $("#GLDASpolycentroid_id_block").addClass("ease-in");
           $("#GLDASpolycentroid_id_block").addClass("duration-700");
         } else {
+          console.log("not checked");
+
           $("#GLDASpolycentroid_id_block").removeClass("max-h-fit");
           $("#GLDASpolycentroid_id_block").addClass("h-0");
           $("#GLDASpolycentroid_id_block").addClass("overflow-hidden");
@@ -1542,35 +1571,35 @@ var LIBRARY_OBJECT = (function () {
       }
     });
 
-    $("#NEXT_GDPPswat_input").change(function () {
+    $("#NEX_GDDP_CMIP5_input").change(function () {
       if (this.checked) {
-        $("#NEXT_GDPPswat_id_block").removeClass("h-0");
-        $("#NEXT_GDPPswat_id_block").addClass("max-h-fit");
-        $("#NEXT_GDPPswat_id_block").removeClass("overflow-hidden");
-        $("#NEXT_GDPPswat_id_block").addClass("ease-in");
-        $("#NEXT_GDPPswat_id_block").addClass("duration-700");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("h-0");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("max-h-fit");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("ease-in");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("duration-700");
       } else {
-        $("#NEXT_GDPPswat_id_block").removeClass("max-h-fit");
-        $("#NEXT_GDPPswat_id_block").addClass("h-0");
-        $("#NEXT_GDPPswat_id_block").addClass("overflow-hidden");
-        $("#NEXT_GDPPswat_id_block").removeClass("ease-in");
-        $("#NEXT_GDPPswat_id_block").removeClass("duration-700");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("max-h-fit");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("h-0");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("ease-in");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("duration-700");
       }
     });
 
-    $("#NEX_GDPP_CMIP6_input").change(function () {
+    $("#NEX_GDDP_CMIP6_input").change(function () {
       if (this.checked) {
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("h-0");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("max-h-fit");
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("overflow-hidden");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("ease-in");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("duration-700");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("h-0");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("max-h-fit");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("ease-in");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("duration-700");
       } else {
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("max-h-fit");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("h-0");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("overflow-hidden");
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("ease-in");
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("duration-700");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("max-h-fit");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("h-0");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("ease-in");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("duration-700");
       }
     });
     $("#sameDates_input").change(function () {
@@ -1644,7 +1673,7 @@ var LIBRARY_OBJECT = (function () {
         }
       }
     });
-    $("#NEX_GDPP_CMIP6_slice_select").change(function () {
+    $("#NEX_GDDP_CMIP6_slice_select").change(function () {
       if ($(this).val() == "historical") {
         start_6.setMin();
         start_6.setMax();
@@ -1672,7 +1701,7 @@ var LIBRARY_OBJECT = (function () {
         end_6.setMin(new Date());
       }
     });
-    $("#NEXT_GDPPswat_slice_select").change(function () {
+    $("#NEX_GDDP_CMIP5_slice_select").change(function () {
       if ($(this).val() == "historical") {
         start_5.setMin();
         start_6.setMax();

@@ -5,9 +5,16 @@ from datetime import datetime, timedelta
 import pandas as pd
 from django.http import FileResponse, JsonResponse
 
-from .config import data_path
+# from .config import data_path
 from .logic import nasaaccess_run, upload_dem, upload_shapefile
+from .app import nasaaccess as app
 
+try:
+    data_path = app.get_custom_setting("data_path")
+except Exception as e:
+    print(e)
+    print("Please specify the custom settings")
+    data_path = ""   
 
 def run_nasaaccess(request):
 
@@ -84,8 +91,8 @@ def upload_shapefiles(request):
                     dst.write(chunk)
 
     filename = os.path.splitext(os.path.basename(shp_path_directory))[0].split(".")[0]
-    upload_shapefile(filename, shp_path_directory)
-    return JsonResponse({"file": f"{filename}"})
+    checker = upload_shapefile(filename, shp_path_directory)
+    return JsonResponse({"file": f"{filename}","checker":checker})
 
 
 def upload_tiffiles(request):
@@ -121,8 +128,8 @@ def upload_tiffiles(request):
 
     filename = os.path.splitext(os.path.basename(dem_path_directory))[0].split(".")[0]
 
-    upload_dem(filename, dem_path_directory)
-    return JsonResponse({"file": f"{filename}"})
+    checker = upload_dem(filename, dem_path_directory)
+    return JsonResponse({"file": f"{filename}", "checker":checker})
 
 
 def download_data(request):
