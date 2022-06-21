@@ -110,14 +110,19 @@ tryCatch(
     },
     finally = {
 		print(b)
+		zero_check <- paste("<html><head></head><body><p>None of the selected functions were able to provide data.</p></body><html>")
 
+		if (isTRUE(b)) {
+			zero_check <- paste("<html><head></head><body><p>Hello,<br>Your nasaaccess data is ready for download for the following functions" , toString(get("b", env=globalenv())), " <br>Please use the unique access code: <strong>", args[3], "</strong><br></p></body><html>")
+
+		}
 		email <- envelope(
 		to = args[1],
 		from = "nasaaccess.2022@gmail.com",
 		subject = 'Your nasaaccess data is ready',
 		#   html =paste("<html><head></head><body><p>Hello,<br>Your nasaaccess data is ready for download at <a href='http://127.0.0.1:8000/apps/nasaaccess'>http://localhost:8080/apps/nasaaccess</a><br>Your unique access code is: <strong>", args[3], "</strong><br></p></body><html>")
-		html =paste("<html><head></head><body><p>Hello,<br>Your nasaaccess data is ready for download for the following functions" , toString(get("b", env=globalenv())), " <br>Please use the unique access code: <strong>", args[3], "</strong><br></p></body><html>")
-
+		# html =paste("<html><head></head><body><p>Hello,<br>Your nasaaccess data is ready for download for the following functions" , toString(get("b", env=globalenv())), " <br>Please use the unique access code: <strong>", args[3], "</strong><br></p></body><html>")
+		html = zero_check
 		)
 
 		smtp <- server(host = "smtp.gmail.com",
