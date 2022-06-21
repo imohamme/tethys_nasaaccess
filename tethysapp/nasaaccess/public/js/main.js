@@ -637,6 +637,7 @@ var LIBRARY_OBJECT = (function () {
 
   validateQuery = function () {
     var watershed = $("#select_watershed").val();
+    console.log(watershed,dem,start,end,models);
     var dem = $("#select_dem").val();
     var start = $("#start_pick").val();
     var end = $("#end_pick").val();
@@ -644,16 +645,18 @@ var LIBRARY_OBJECT = (function () {
     $(".chk:checked").each(function () {
       models.push($(this).val());
     });
+    
     if (
-      watershed === undefined ||
-      dem === undefined ||
-      start === undefined ||
-      end === undefined ||
+      (watershed === undefined || watershed == "") ||
+      (dem === undefined || dem == "") ||
+      (start === undefined || start == "" ) ||
+      (end === undefined  || end == "") ||
       models.length == 0
     ) {
-      alert(
-        "Please be sure you have selected a watershed, DEM, start and end dates, and at least 1 function"
-      );
+      // alert(
+      //   ""
+      // );
+      $.notify("Please be sure you have selected a watershed, DEM, start and end dates, and at least 1 function","warn")
     } else {
       $("#cont-modal").modal("show");
     }
