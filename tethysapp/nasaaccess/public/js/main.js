@@ -904,6 +904,7 @@ var LIBRARY_OBJECT = (function () {
           map.removeLayer(basin_layer);
           map.removeLayer(dem_layer);
           add_basins();
+          $.notify("Shapefile Successfully Added", "success");
         }
         else{
           $.notify(result['checker']['mssg'], "warn");
