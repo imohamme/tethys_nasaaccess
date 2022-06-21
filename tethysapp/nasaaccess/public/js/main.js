@@ -221,7 +221,7 @@ var LIBRARY_OBJECT = (function () {
       url: wms_url,
       dataType: "xml",
       success: function (xml) {
-        //                  Get the projection and extent of the selected layer from the wms capabilities xml file
+        //Get the projection and extent of the selected layer from the wms capabilities xml file
         var layers = xml.getElementsByTagName("Layer");
         var parser = new ol.format.WMSCapabilities();
         var result = parser.read(xml);
@@ -247,6 +247,12 @@ var LIBRARY_OBJECT = (function () {
         map.setView(view);
         map.getView().fit(new_extent, map.getSize());
       },
+      error:function(e){
+        if(e.status == 200){
+          console.log(e);
+
+        }
+      }
     });
 
     //Display styling for the selected watershed boundaries
@@ -287,6 +293,9 @@ var LIBRARY_OBJECT = (function () {
 
     //      add the selected layer to the map
     map.addLayer(basin_layer);
+    // var extent = basin_layer.getExtent();
+    // map.getView().fit(extent, map.getSize());
+
   };
 
   add_dem = function () {
@@ -637,25 +646,218 @@ var LIBRARY_OBJECT = (function () {
 
   validateQuery = function () {
     var watershed = $("#select_watershed").val();
-    console.log(watershed,dem,start,end,models);
     var dem = $("#select_dem").val();
-    var start = $("#start_pick").val();
-    var end = $("#end_pick").val();
+    // var start = $("#start_pick").val();
+    // var end = $("#end_pick").val();
     var models = [];
+    
+    
     $(".chk:checked").each(function () {
       models.push($(this).val());
     });
-    
+    console.log(watershed,dem,start,end,models);
+    var start = [];
+    var end = [];
+
+    if (!$("#sameDates_input").is(":checked")) {
+      start = [
+        $("#start_GLDASpolycentroid").val(),
+        $("#start_GLDASwat").val(),
+        $("#start_GPMpolyCentroid").val(),
+        $("#start_GPMswat").val(),
+        $("#start_NEX_GDDP_CMIP5").val(),
+        $("#start_NEX_GDDP_CMIP6").val(),
+      ];
+      end = [
+        $("#end_GLDASpolycentroid").val(),
+        $("#end_GLDASwat").val(),
+        $("#end_GPMpolyCentroid").val(),
+        $("#end_GPMswat").val(),
+        $("#end_NEX_GDDP_CMIP5").val(),
+        $("#end_NEX_GDDP_CMIP6").val(),
+      ];
+
+      if ( 
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          "",
+          "",
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          "",
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+      if (
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          "",
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          "",
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+    } else {
+      if (
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          "",
+          "",
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          "",
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+      if (
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          "",
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          "",
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+    }
+
+
+
     if (
       (watershed === undefined || watershed == "") ||
       (dem === undefined || dem == "") ||
-      (start === undefined || start == "" ) ||
-      (end === undefined  || end == "") ||
+      start.length == 0 ||
+      end.length == 0  ||
       models.length == 0
     ) {
-      // alert(
-      //   ""
-      // );
+
       $.notify("Please be sure you have selected a watershed, DEM, start and end dates, and at least 1 function","warn")
     } else {
       $("#cont-modal").modal("show");
@@ -735,6 +937,7 @@ var LIBRARY_OBJECT = (function () {
       processData: false,
       contentType: false,
       success: function (result) {
+
         console.log(result);
         console.log(result['checker']);
         $("#loading").addClass("hidden");
@@ -749,6 +952,8 @@ var LIBRARY_OBJECT = (function () {
           map.removeLayer(basin_layer);
           map.removeLayer(dem_layer);
           add_dem();
+          $.notify("Sucessfully added the DEM layer to the map", "success");
+
         }
         else{
           $.notify("DEM is already in the GeoServer, Please upload other DEM file", "warn");
@@ -758,6 +963,7 @@ var LIBRARY_OBJECT = (function () {
       error: function (error) {
         console.log(error);
         $("#loading").addClass("hidden");
+        $.notify("There was an error while uploading the DEM LAYER", "error");
       },
     });
   };

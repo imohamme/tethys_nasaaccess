@@ -12,9 +12,9 @@ nextgdppcmip <- strsplit(args[10],",")
 b <- a[[1]]
 ca <- ""
 
+
 tryCatch(
     expr = {
-		print(typeof(b))
 		for(x in a[[1]]){
 			ca <- x
 			
@@ -23,8 +23,6 @@ tryCatch(
 					Dir =paste(args[6],"/GLDASpolyCentroid/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					#   start = args[8],
-					#   end = args[9]
 					start = start_d[[1]][1],
 					end = end_d[[1]][1]
 					)
@@ -35,8 +33,6 @@ tryCatch(
 					Dir =paste(args[6],"/GPMswat/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					#   start = args[8],
-					#   end = args[9]
 					start = start_d[[1]][2],
 					end = end_d[[1]][2]
 					)
@@ -46,8 +42,6 @@ tryCatch(
 					Dir =paste(args[6],"/GPMpolyCentroid/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					#   start = args[8],
-					#   end = args[9]
 					start = start_d[[1]][3],
 					end = end_d[[1]][3]
 					)
@@ -57,8 +51,6 @@ tryCatch(
 					Dir =paste(args[6],"/GLDASwat/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					#   start = args[8],
-					#   end = args[9]
 					start = start_d[[1]][4],
 					end = end_d[[1]][4]
 					)
@@ -68,8 +60,6 @@ tryCatch(
 					Dir =paste(args[6],"/NEXGDPP/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					#   start = args[8],
-					#   end = args[9],
 					start = start_d[[1]][5],
 					end = end_d[[1]][5],
 					model = nexgdpp[[1]][1],
@@ -82,8 +72,6 @@ tryCatch(
 					Dir =paste(args[6],"/NEX_GDPP_CMIP6/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					#   start = args[8],
-					#   end = args[9],
 					start = start_d[[1]][6],
 					end = end_d[[1]][6],
 					model = nextgdppcmip[[1]][1],
@@ -96,11 +84,10 @@ tryCatch(
     },
     error = function(e){ 
         # (Optional)
-        # Do this if an error is caught...
-		print("there is an error ")
-		print(b)
-		print(ca)
-		nb <- b[! b %in% c(ca)]
+        # Do t"his if an error is caught.
+		print("we have an error")
+		nb <- get("b", env=globalenv())
+		nb <- nb[! nb %in% c(ca)]
 		assign("b", nb, env=globalenv())
 		print(e)
     },
@@ -109,12 +96,12 @@ tryCatch(
         # Do this if an warning is caught...
     },
     finally = {
-		print(b)
-		zero_check <- paste("<html><head></head><body><p>None of the selected functions were able to provide data.</p></body><html>")
+		print("printing b")
+		print(get("b", env=globalenv()))
+		zero_check <- paste("<html><head></head><body><p>Hello,<br>Your nasaaccess data is ready for download for the following functions" , toString(get("b", env=globalenv())), " <br>Please use the unique access code: <strong>", args[3], "</strong><br></p></body><html>")
 
-		if (isTRUE(b)) {
-			zero_check <- paste("<html><head></head><body><p>Hello,<br>Your nasaaccess data is ready for download for the following functions" , toString(get("b", env=globalenv())), " <br>Please use the unique access code: <strong>", args[3], "</strong><br></p></body><html>")
-
+		if (identical(get("b", env=globalenv()), character(0)) ) {
+			zero_check <- paste("<html><head></head><body><p>None of the selected functions were able to provide data.</p></body><html>")
 		}
 		email <- envelope(
 		to = args[1],
@@ -132,7 +119,6 @@ tryCatch(
 		smtp(email, verbose = TRUE)
     }
 )
-
 
 
 
