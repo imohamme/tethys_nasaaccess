@@ -215,7 +215,7 @@ def getValues(request):
     if os.path.exists(new_path):
         path_file = os.path.join(pre_path, f"{file}.txt")
         mypd = pd.read_csv(path_file)
-        if func_name == "NEX_GDPPswat" or func_name == "NEX_GDPP_CMIP6" or func_name == "GPM_NRT":
+        if func_name == "NEX_GDPPswat" or func_name == "NEX_GDPP_CMIP6" or func_name == "GPM_NRT" or func_name == "GPMswat":
             new_pd = mypd.reset_index(drop=True)
         else:
             new_pd = mypd.reset_index()
