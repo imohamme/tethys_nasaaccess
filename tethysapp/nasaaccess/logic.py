@@ -5,6 +5,7 @@ import string
 import subprocess
 
 import requests
+from geo.Geoserver import Geoserver
 
 from .app import nasaaccess as app
 # from .config import R_script, data_path, geoserver, nasaaccess_R
@@ -225,19 +226,13 @@ def upload_dem(id, dem_path):
                         workspace_id=WORKSPACE, uri=GEOSERVER_URI
                     )
             file_path = os.path.join(dem_path, id + ".tif")
-            headers = {
-                "Content-type": "image/tiff",
-            }
 
-            data = open(file_path, "rb").read()
+            geo = Geoserver(REST_URL.split("/rest")[0], username=USER, password=PASSWORD)
 
-            request_url = "{0}workspaces/{1}/coveragestores/{2}/file.geotiff".format(
-                REST_URL, WORKSPACE, id
-            )
+            geo.create_coveragestore(layer_name=id, path=file_path, workspace=WORKSPACE)
 
-            requests.put(
-                request_url, verify=False, headers=headers, data=data, auth=(USER, PASSWORD)
-            )
+
+
             return True
         else:
             return False
