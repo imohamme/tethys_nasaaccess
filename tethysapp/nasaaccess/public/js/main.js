@@ -313,9 +313,11 @@ var LIBRARY_OBJECT = (function () {
     }
 
     var store_id = gs_workspace + ":" + layer;
-    var style = "DEM"; // Corresponds to a custom SLD style in geoserver
-
-    //      Set the wms source to the url, workspace, and store for the dem layer of the selected watershed
+    // var style = "DEM";
+    var style = `${layer}_style`; // Corresponds to a custom SLD style in geoserver
+     // Corresponds to a custom SLD style in geoserver
+    	
+    //Set the wms source to the url, workspace, and store for the dem layer of the selected watershed
     wms_source = new ol.source.ImageWMS({
       url: geoserver_url,
       params: { LAYERS: store_id, STYLES: style },
