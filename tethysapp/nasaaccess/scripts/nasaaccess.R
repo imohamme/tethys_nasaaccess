@@ -16,6 +16,7 @@ ca <- ""
 tryCatch(
     expr = {
 		for(x in a[[1]]){
+			print(x)
 			ca <- x
 			
 			if(x == "GLDASpolyCentroid"){

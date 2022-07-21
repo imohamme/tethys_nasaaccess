@@ -518,10 +518,12 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
           "",
           "",
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -539,10 +541,12 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
           $("#start_NEX_GDDP_CMIP5").val(),
           $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -560,10 +564,13 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
+
           $("#start_NEX_GDDP_CMIP5").val(),
           "",
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -581,6 +588,9 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
+
+          
           "",
           $("#start_NEX_GDDP_CMIP6").val(),
         ];
@@ -589,20 +599,21 @@ var LIBRARY_OBJECT = (function () {
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
+          $("#end_pick").val(),
+
           "",
           $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
     }
-    // var start = $('#start_pick').val();
-    // var end = $('#end_pick').val();
-    console.log(start);
-    console.log(end);
+
+
     var functions = [];
     var NEX_GDDP_CMIP5_inputs = [];
     var NEX_GDDP_CMIP6_inputs = [];
 
     $(".chk:checked").each(function () {
+      console.log($(this).val());
       if ($(this).val() != "sameDates") {
         console.log($(this).val());
         functions.push($(this).val());
@@ -625,7 +636,45 @@ var LIBRARY_OBJECT = (function () {
     var watershed = $("#select_watershed").val();
     var dem = $("#select_dem").val();
     var email = $("#id_email").val();
+    if(functions.indexOf('GLDASpolyCentroid') == -1){
+      start[0]= ''
+      end[0]= ''
+
+    }
+    if(functions.indexOf('GPM_NRT') == -1){
+      start[1]= ''
+      end[1]= ''
+
+    }
+    if(functions.indexOf('GLDASwat') == -1){
+      start[2]= ''
+      end[2]= ''
+
+    }
+    if(functions.indexOf('GPMpolyCentroid') == -1){
+      start[3]= ''
+      end[3]= ''
+
+    }
+    if(functions.indexOf('GPMswat') == -1){
+      start[4]= ''
+      end[4]= ''
+
+    }
+    if(functions.indexOf('NEX_GDDP_CMIP5') == -1){
+      start[5]= ''
+      end[5]= ''
+
+    }
+    if(functions.indexOf('NEX_GDDP_CMIP6') == -1){
+      start[6]= ''
+      end[6]= ''
+
+    }
+    console.log(start);
+    console.log(end);
     console.log(functions);
+
     $.ajax({
       type: "POST",
       // url: "/apps/nasaaccess2/run/",
@@ -1985,59 +2034,61 @@ var LIBRARY_OBJECT = (function () {
     });
     $("#NEX_GDDP_CMIP6_slice_select").change(function () {
       if ($(this).val() == "historical") {
+        start_7.setMin();
+        start_7.setMax();
+
+        start_7.setDate(new Date(1950, 0, 1), true);
+        start_7.setMin(new Date(1950, 0, 1));
+        start_7.setMax(new Date(2014, 11, 31));
+
+        end_7.setMin();
+        end_7.setMax();
+
+        end_7.setDate(new Date(2014, 11, 31), true);
+        end_7.setMin(new Date(1950, 0, 1));
+        start_7.setMax(new Date(2014, 11, 31));
+
+      } else {
+        start_7.setMin();
+        start_7.setMax();
+
+        start_7.setDate(new Date(2015, 0, 1), true);
+        start_7.setMin(new Date(2015, 0, 1));
+
+        end_7.setMin();
+        end_7.setMax();
+
+        end_7.setDate(new Date(), true);
+        end_7.setMin(new Date());
+      }
+    });
+    $("#NEX_GDDP_CMIP5_slice_select").change(function () {
+      if ($(this).val() == "historical") {
         start_6.setMin();
         start_6.setMax();
 
         start_6.setDate(new Date(1950, 0, 1), true);
         start_6.setMin(new Date(1950, 0, 1));
-        start_6.setMax(new Date(2014, 11, 31));
+        start_6.setMax(new Date(2005, 11, 31));
 
         end_6.setMin();
         end_6.setMax();
 
-        end_6.setDate(new Date(2014, 11, 31), true);
+        end_6.setDate(new Date(2005, 11, 31), true);
         end_6.setMin(new Date());
       } else {
         start_6.setMin();
         start_6.setMax();
 
-        start_6.setDate(new Date(2015, 0, 1), true);
-        start_6.setMin(new Date(2015, 0, 1));
+        start_6.setDate(new Date(2006, 0, 1), true);
+
+        start_6.setMin(new Date(2006, 0, 1));
 
         end_6.setMin();
         end_6.setMax();
 
         end_6.setDate(new Date(), true);
         end_6.setMin(new Date());
-      }
-    });
-    $("#NEX_GDDP_CMIP5_slice_select").change(function () {
-      if ($(this).val() == "historical") {
-        start_5.setMin();
-        start_6.setMax();
-
-        start_5.setDate(new Date(1950, 0, 1), true);
-        start_5.setMin(new Date(1950, 0, 1));
-        start_5.setMax(new Date(2005, 11, 31));
-
-        end_5.setMin();
-        end_5.setMax();
-
-        end_5.setDate(new Date(2005, 11, 31), true);
-        end_5.setMin(new Date());
-      } else {
-        start_5.setMin();
-        start_5.setMax();
-
-        start_5.setDate(new Date(2006, 0, 1), true);
-
-        start_5.setMin(new Date(2006, 0, 1));
-
-        end_5.setMin();
-        end_5.setMax();
-
-        end_5.setDate(new Date(), true);
-        end_5.setMin(new Date());
       }
     });
   });
