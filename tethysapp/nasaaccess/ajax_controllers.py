@@ -171,13 +171,14 @@ def getValues(request):
     file = request.POST["name"]
     func_name = request.POST["func"]
     access_code = request.POST["access_code"]
-
+    print(file)
     new_path = ""
     unique_path = os.path.join(
         data_path, "outputs", access_code, "nasaaccess_data", access_code
     )
     if os.path.exists(unique_path) is False:
         unique_path = os.path.join(data_path, "outputs", access_code, "nasaaccess_data")
+
     if func_name == "GLDASpolyCentroid":
         pre_path = os.path.join(unique_path, "GLDASpolyCentroid")
         new_path = os.path.join(unique_path, "GLDASpolyCentroid", "temp_Master.txt")
@@ -214,7 +215,7 @@ def getValues(request):
     if os.path.exists(new_path):
         path_file = os.path.join(pre_path, f"{file}.txt")
         mypd = pd.read_csv(path_file)
-        if func_name == "NEX_GDPPswat" or func_name == "NEX_GDPP_CMIP6":
+        if func_name == "NEX_GDPPswat" or func_name == "NEX_GDPP_CMIP6" or func_name == "GPM_NRT":
             new_pd = mypd.reset_index(drop=True)
         else:
             new_pd = mypd.reset_index()
@@ -231,6 +232,7 @@ def getValues(request):
             if new_pd.empty:
                 return_obj["val"] = []
             else:
+                print(new_pd)
                 new_pd.columns = ["val"]
                 return_obj["val"] = new_pd["val"].to_list()
 
@@ -288,7 +290,7 @@ def plot_data(request):
             # print('GLDASpolyCentroid')
             data_master_1 = pd.read_csv(gldaspolycentroid_path)
             response_obj["GLDASpolyCentroid"] = data_master_1.to_dict("index")
-            
+
         if os.path.exists(gpnnrt_path):
             # print('GPM_NRT')
             data_master_1 = pd.read_csv(gpnnrt_path)
