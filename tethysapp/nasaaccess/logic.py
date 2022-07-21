@@ -231,12 +231,15 @@ def upload_dem(id, dem_path):
 
             geo.create_coveragestore(layer_name=id, path=file_path, workspace=WORKSPACE)
 
-
+            new_style = geo.create_coveragestyle(raster_path=file_path, style_name=f'{id}_style', workspace=WORKSPACE,
+                                    color_ramp='RdYlBu')
+            geo.publish_style(layer_name=id, style_name=f'{id}_style', workspace=WORKSPACE)
 
             return True
         else:
             return False
-    except Exception:
+    except Exception as e:
+        print (e)
         return False
 
     # return "uploaded dem"
