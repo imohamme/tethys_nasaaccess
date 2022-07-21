@@ -28,13 +28,22 @@ tryCatch(
 					)
 
 			}
+			if(x == "GPM_NRT"){
+				GPM_NRT(
+					Dir =paste(args[6],"/GPM_NRT/",sep=""),
+					watershed = args[4],
+					DEM = args[5],
+					start = start_d[[1]][2],
+					end = end_d[[1]][2]
+					)
+			}
 			if(x == "GPMswat"){
 				GPMswat(
 					Dir =paste(args[6],"/GPMswat/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					start = start_d[[1]][2],
-					end = end_d[[1]][2]
+					start = start_d[[1]][3],
+					end = end_d[[1]][3]
 					)
 			}
 			if(x == "GPMpolyCentroid"){
@@ -42,8 +51,8 @@ tryCatch(
 					Dir =paste(args[6],"/GPMpolyCentroid/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					start = start_d[[1]][3],
-					end = end_d[[1]][3]
+					start = start_d[[1]][4],
+					end = end_d[[1]][4]
 					)
 			}
 			if(x == "GLDASwat"){
@@ -51,8 +60,8 @@ tryCatch(
 					Dir =paste(args[6],"/GLDASwat/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					start = start_d[[1]][4],
-					end = end_d[[1]][4]
+					start = start_d[[1]][5],
+					end = end_d[[1]][5]
 					)
 			}
 			if(x == "NEX_GDDP_CMIP5"){
@@ -60,8 +69,8 @@ tryCatch(
 					Dir =paste(args[6],"/NEXGDPP/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					start = start_d[[1]][5],
-					end = end_d[[1]][5],
+					start = start_d[[1]][6],
+					end = end_d[[1]][6],
 					model = nexgdpp[[1]][1],
 					type = nexgdpp[[1]][2],
 					slice = nexgdpp[[1]][3]
@@ -72,8 +81,8 @@ tryCatch(
 					Dir =paste(args[6],"/NEX_GDPP_CMIP6/",sep=""),
 					watershed = args[4],
 					DEM = args[5],
-					start = start_d[[1]][6],
-					end = end_d[[1]][6],
+					start = start_d[[1]][7],
+					end = end_d[[1]][7],
 					model = nextgdppcmip[[1]][1],
 					type = nextgdppcmip[[1]][2],
 					slice = nextgdppcmip[[1]][3]

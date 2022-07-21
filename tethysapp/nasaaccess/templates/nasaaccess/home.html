@@ -163,6 +163,40 @@
             </div>
           </div>
 
+          <!-- GPM_NRT -->
+          <div class="w-full mx-auto border-b my-5">
+            <div class="flex justify-between items-center my-3 py-4">
+              <p> <strong> GPM_NRT </strong> </p> 
+              <label 
+                for="GPM_NRT_input"
+                class="flex items-center cursor-pointer"
+              >
+                <!-- toggle -->
+                <div class="relative">
+                  <!-- input -->
+                  <input id="GPM_NRT_input" type="checkbox" class="sr-only chk" value="GPM_NRT" />
+                  <!-- line -->
+                  <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                  <!-- dot -->
+                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                </div>
+                <!-- label -->
+                <div class="ml-3 text-gray-700 font-medium">
+                </div>
+              </label>
+            </div>
+            <div id="GPM_NRT_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*Start date</p> 
+                <input type="text" id="start_GPM_NRT" name="start_GPM_NRT" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*End date</p>
+                <input type="text" id="end_GPM_NRT" name="end_GPM_NRT" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+            </div>
+          </div>
+
           <!-- GLDASwat -->
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
@@ -441,7 +475,9 @@
                 <p class="w-6/12">*Slice</p>
                 <div class="inline-block relative w-full">
                   <select name="NEX_GDDP_CMIP6_slice" id="NEX_GDDP_CMIP6_slice_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="ssp225">ssp225</option>
+                    <option value="ssp126">ssp126</option>
+                    <option value="ssp245">ssp245</option>
+                    <option value="ssp370">ssp370</option>
                     <option value="ssp585">ssp585</option>
                     <option value="historical">historical</option>
                   </select>

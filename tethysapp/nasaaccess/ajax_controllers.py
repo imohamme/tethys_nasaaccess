@@ -182,6 +182,10 @@ def getValues(request):
         pre_path = os.path.join(unique_path, "GLDASpolyCentroid")
         new_path = os.path.join(unique_path, "GLDASpolyCentroid", "temp_Master.txt")
 
+    if func_name == 'GPM_NRT':
+        pre_path = os.path.join(unique_path,'GPM_NRT')
+        new_path = os.path.join(unique_path,'GPM_NRT','precipitationMaster.txt')
+    
     if func_name == "GLDASwat":
         pre_path = os.path.join(unique_path, "GLDASwat")
         new_path = os.path.join(unique_path, "GLDASwat", "temp_Master.txt")
@@ -267,6 +271,8 @@ def plot_data(request):
         gldaspolycentroid_path = os.path.join(
             unique_path, "GLDASpolyCentroid", "temp_Master.txt"
         )
+        gpnnrt_path = os.path.join(unique_path,'GPM_NRT','precipitationMaster.txt')
+
         gldasswat_path = os.path.join(unique_path, "GLDASwat", "temp_Master.txt")
         gpmpolycentroid_path = os.path.join(
             unique_path, "GPMpolyCentroid", "precipitationMaster.txt"
@@ -282,6 +288,11 @@ def plot_data(request):
             # print('GLDASpolyCentroid')
             data_master_1 = pd.read_csv(gldaspolycentroid_path)
             response_obj["GLDASpolyCentroid"] = data_master_1.to_dict("index")
+            
+        if os.path.exists(gpnnrt_path):
+            # print('GPM_NRT')
+            data_master_1 = pd.read_csv(gpnnrt_path)
+            response_obj['GPM_NRT'] = data_master_1.to_dict('index')
 
         if os.path.exists(gldasswat_path):
             # print('GLDASwat')

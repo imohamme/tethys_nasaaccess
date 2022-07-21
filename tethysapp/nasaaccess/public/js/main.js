@@ -397,6 +397,7 @@ var LIBRARY_OBJECT = (function () {
     if (!$("#sameDates_input").is(":checked")) {
       start = [
         $("#start_GLDASpolycentroid").val(),
+        $('#start_GPM_NRT').val(),
         $("#start_GLDASwat").val(),
         $("#start_GPMpolyCentroid").val(),
         $("#start_GPMswat").val(),
@@ -405,6 +406,7 @@ var LIBRARY_OBJECT = (function () {
       ];
       end = [
         $("#end_GLDASpolycentroid").val(),
+        $('#end_GPM_NRT').val(),
         $("#end_GLDASwat").val(),
         $("#end_GPMpolyCentroid").val(),
         $("#end_GPMswat").val(),
@@ -418,6 +420,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -426,6 +429,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -439,6 +443,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -447,6 +452,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -460,6 +466,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -468,6 +475,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -481,6 +489,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -489,6 +498,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -662,6 +672,7 @@ var LIBRARY_OBJECT = (function () {
     if (!$("#sameDates_input").is(":checked")) {
       start = [
         $("#start_GLDASpolycentroid").val(),
+        $("#start_GPM_NRT").val(),
         $("#start_GLDASwat").val(),
         $("#start_GPMpolyCentroid").val(),
         $("#start_GPMswat").val(),
@@ -683,6 +694,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -691,6 +703,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -704,6 +717,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -712,6 +726,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -725,6 +740,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -733,6 +749,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -746,6 +763,7 @@ var LIBRARY_OBJECT = (function () {
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -754,6 +772,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -771,10 +790,12 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
           "",
           "",
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -792,10 +813,12 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
           $("#start_NEX_GDDP_CMIP5").val(),
           $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -813,10 +836,12 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
           $("#start_NEX_GDDP_CMIP5").val(),
           "",
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -834,10 +859,12 @@ var LIBRARY_OBJECT = (function () {
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
           "",
           $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -1470,8 +1497,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-
-    const start_2 = datepicker("#start_GLDASwat", {
+    const start_2 = datepicker("#start_GPM_NRT", {
       id: 4,
       formatter: (input, date, instance) => {
         const value = date
@@ -1488,7 +1514,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_2 = datepicker("#end_GLDASwat", {
+    const end_2 = datepicker("#end_GPM_NRT", {
       id: 5,
       formatter: (input, date, instance) => {
         const value = date
@@ -1505,8 +1531,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-
-    const start_3 = datepicker("#start_GPMpolyCentroid", {
+    const start_3 = datepicker("#start_GLDASwat", {
       id: 6,
       formatter: (input, date, instance) => {
         const value = date
@@ -1523,7 +1548,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_3 = datepicker("#end_GPMpolyCentroid", {
+    const end_3 = datepicker("#end_GLDASwat", {
       id: 7,
       formatter: (input, date, instance) => {
         const value = date
@@ -1541,7 +1566,7 @@ var LIBRARY_OBJECT = (function () {
       },
     });
 
-    const start_4 = datepicker("#start_GPMswat", {
+    const start_4 = datepicker("#start_GPMpolyCentroid", {
       id: 8,
       formatter: (input, date, instance) => {
         const value = date
@@ -1558,7 +1583,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_4 = datepicker("#end_GPMswat", {
+    const end_4 = datepicker("#end_GPMpolyCentroid", {
       id: 9,
       formatter: (input, date, instance) => {
         const value = date
@@ -1576,9 +1601,8 @@ var LIBRARY_OBJECT = (function () {
       },
     });
 
-    const start_5 = datepicker("#start_NEX_GDDP_CMIP5", {
+    const start_5 = datepicker("#start_GPMswat", {
       id: 10,
-      startDate: new Date(2006, 0, 1),
       formatter: (input, date, instance) => {
         const value = date
           .toLocaleDateString("en-GB", {
@@ -1594,7 +1618,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_5 = datepicker("#end_NEX_GDDP_CMIP5", {
+    const end_5 = datepicker("#end_GPMswat", {
       id: 11,
       formatter: (input, date, instance) => {
         const value = date
@@ -1611,8 +1635,10 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const start_6 = datepicker("#start_NEX_GDDP_CMIP6", {
+
+    const start_6 = datepicker("#start_NEX_GDDP_CMIP5", {
       id: 12,
+      startDate: new Date(2006, 0, 1),
       formatter: (input, date, instance) => {
         const value = date
           .toLocaleDateString("en-GB", {
@@ -1628,7 +1654,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_6 = datepicker("#end_NEX_GDDP_CMIP6", {
+    const end_6 = datepicker("#end_NEX_GDDP_CMIP5", {
       id: 13,
       formatter: (input, date, instance) => {
         const value = date
@@ -1645,7 +1671,43 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
+    const start_7 = datepicker("#start_NEX_GDDP_CMIP6", {
+      id: 14,
+      formatter: (input, date, instance) => {
+        const value = date
+          .toLocaleDateString("en-GB", {
+            // you can use undefined as first argument
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .split("/")
+          .reverse()
+          .join("-");
 
+        input.value = value; // => '1/1/2099'
+      },
+    });
+    const end_7 = datepicker("#end_NEX_GDDP_CMIP6", {
+      id: 15,
+      formatter: (input, date, instance) => {
+        const value = date
+          .toLocaleDateString("en-GB", {
+            // you can use undefined as first argument
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .split("/")
+          .reverse()
+          .join("-");
+
+        input.value = value; // => '1/1/2099'
+      },
+    });
+
+    start_2.setDate(new Date(2010, 05, 01), true);
+    end_2.setDate(new Date(), true);
     start_6.setDate(new Date(2015, 0, 1), true);
     end_6.setDate(new Date(), true);
     start_5.setDate(new Date(2006, 0, 1), true);
@@ -1723,6 +1785,27 @@ var LIBRARY_OBJECT = (function () {
           $("#GLDASpolycentroid_id_block").addClass("overflow-hidden");
           $("#GLDASpolycentroid_id_block").removeClass("ease-in");
           $("#GLDASpolycentroid_id_block").removeClass("duration-700");
+        }
+      }
+    });
+
+    $("#GPM_NRT_input").change(function () {
+      if (!$("#sameDates_input").is(":checked")) {
+        if (this.checked) {
+          console.log("checked");
+          $("#GPM_NRT_id_block").removeClass("h-0");
+          $("#GPM_NRT_id_block").addClass("max-h-fit");
+          $("#GPM_NRT_id_block").removeClass("overflow-hidden");
+          $("#GPM_NRT_id_block").addClass("ease-in");
+          $("#GPM_NRT_id_block").addClass("duration-700");
+        } else {
+          console.log("not checked");
+
+          $("#GPM_NRT_id_block").removeClass("max-h-fit");
+          $("#GPM_NRT_id_block").addClass("h-0");
+          $("#GPM_NRT_id_block").addClass("overflow-hidden");
+          $("#GPM_NRT_id_block").removeClass("ease-in");
+          $("#GPM_NRT_id_block").removeClass("duration-700");
         }
       }
     });
@@ -1834,6 +1917,14 @@ var LIBRARY_OBJECT = (function () {
         $("#GPMpolyCentroid_id_block").removeClass("ease-in");
         $("#GPMpolyCentroid_id_block").removeClass("duration-700");
 
+        //GPM_NRT_id_block
+        $("#GPM_NRT_id_block").removeClass("max-h-fit");
+        $("#GPM_NRT_id_block").addClass("h-0");
+        $("#GPM_NRT_id_block").addClass("overflow-hidden");
+        $("#GPM_NRT_id_block").removeClass("ease-in");
+        $("#GPM_NRT_id_block").removeClass("duration-700");
+
+
         //GLDASwat_id_block
         $("#GLDASwat_id_block").removeClass("max-h-fit");
         $("#GLDASwat_id_block").addClass("h-0");
@@ -1866,6 +1957,13 @@ var LIBRARY_OBJECT = (function () {
           $("#GPMpolyCentroid_id_block").removeClass("overflow-hidden");
           $("#GPMpolyCentroid_id_block").addClass("ease-in");
           $("#GPMpolyCentroid_id_block").addClass("duration-700");
+        }
+        if ($("#GPM_NRT_input").is(":checked")) {
+          $("#GPM_NRT_id_block").removeClass("h-0");
+          $("#GPM_NRT_id_block").addClass("max-h-fit");
+          $("#GPM_NRT_id_block").removeClass("overflow-hidden");
+          $("#GPM_NRT_id_block").addClass("ease-in");
+          $("#GPM_NRT_id_block").addClass("duration-700");
         }
         if ($("#GLDASwat_input").is(":checked")) {
           $("#GLDASwat_id_block").removeClass("h-0");
