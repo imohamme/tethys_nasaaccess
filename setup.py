@@ -26,7 +26,7 @@ resource_files += find_resource_files(
 
 setup(
     name=release_package,
-    version="1.1.0",
+    version="1.1.1",
     description="Web interface for accessing and visualizing climate and weather data from NASA's Earth Observing System Data and Information System (EOSDIS)",
     long_description="",
     keywords='"Hydrology", "GLDAS", "GPM"',
