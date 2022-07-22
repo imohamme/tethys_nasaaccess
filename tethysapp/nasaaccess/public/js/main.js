@@ -269,8 +269,8 @@ var LIBRARY_OBJECT = (function () {
               <CssParameter name="fill-opacity">0</CssParameter>\
             </Fill>\
             <Stroke>\
-              <CssParameter name="stroke">#ffffff</CssParameter>\
-              <CssParameter name="stroke-width">1.5</CssParameter>\
+              <CssParameter name="stroke">#000000</CssParameter>\
+              <CssParameter name="stroke-width">2</CssParameter>\
             </Stroke>\
             </PolygonSymbolizer>\
             </Rule>\
