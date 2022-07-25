@@ -192,6 +192,7 @@ def upload_shapefile(id, shp_path):
             return {"bool":False, "mssg":"Shapefile is already on the GeoServer"}
 
     except Exception:
+        print(e)
         return {"bool":False, "mssg":"it was not possible to upload the shapefile"}
     # return "uploaded shapefile"
     ##Delete files
