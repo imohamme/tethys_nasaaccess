@@ -1,3 +1,5 @@
 r-nasaaccess
 r-remotes
 r-emayili
+r-codetools
+geoserver-rest

@@ -1,17 +1,19 @@
-version: 1.1.0
+version: 2.0.1
 
 # This should match the app - package name in your setup.py
 name: nasaaccess
 
 requirements:
   # Putting in a skip true param will skip the entire section. Ignoring the option will assume it be set to False
-  skip: true
+  skip: false
   conda:
     channels:
       - conda-forge
     packages:
-      - r-nasaaccess
-      - r-remotes
-      - r-emayili
+      # - r-nasaaccess
+      # - r-remotes
+      # - r-emayili
+      # - r-codetools
+      - geoserver-rest
 
 post:

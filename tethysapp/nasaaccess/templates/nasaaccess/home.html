@@ -124,7 +124,7 @@
               </span> 
             </p>
            </div>
-           <p>**If you have activated the same time range option, select at least one function (i.e., <a style="font-style: oblique;font-weight: bold;">GLDASpolyCentroid, GLDAS, GPMpolyCentroid, or GPM</a>).
+           <p>**If you have activated the same time range option, select at least one function (i.e., <a style="font-style: oblique;font-weight: bold;">GLDASpolyCentroid, GLDAS, GPMpolyCentroid, GPM, GPM_NRT</a>).
             <br></br> 
             <strong>Otherwise</strong>, you can select any function from the available functions.</p>
 
@@ -159,6 +159,40 @@
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*End date</p>
                 <input type="text" id="end_GLDASpolycentroid" name="end_GLDASpolycentroid" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+            </div>
+          </div>
+
+          <!-- GPM_NRT -->
+          <div class="w-full mx-auto border-b my-5">
+            <div class="flex justify-between items-center my-3 py-4">
+              <p> <strong> GPM_NRT </strong> </p> 
+              <label 
+                for="GPM_NRT_input"
+                class="flex items-center cursor-pointer"
+              >
+                <!-- toggle -->
+                <div class="relative">
+                  <!-- input -->
+                  <input id="GPM_NRT_input" type="checkbox" class="sr-only chk" value="GPM_NRT" />
+                  <!-- line -->
+                  <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                  <!-- dot -->
+                  <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                </div>
+                <!-- label -->
+                <div class="ml-3 text-gray-700 font-medium">
+                </div>
+              </label>
+            </div>
+            <div id="GPM_NRT_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*Start date</p> 
+                <input type="text" id="start_GPM_NRT" name="start_GPM_NRT" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+              <div class="flex flex-row space-x-4">
+                <p class="w-6/12">*End date</p>
+                <input type="text" id="end_GPM_NRT" name="end_GPM_NRT" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
             </div>
           </div>
@@ -265,20 +299,20 @@
             </div>
           </div>
 
-          <!-- NEXT_GDPPswat -->
+          <!-- NEX_GDDP_CMIP5 -->
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
 
               <p> <strong>CMIP5 collection</strong></p> 
 
               <label 
-                for="NEXT_GDPPswat_input"
+                for="NEX_GDDP_CMIP5_input"
                 class="flex items-center cursor-pointer"
               >
                 <!-- toggle -->
                 <div class="relative">
                   <!-- input -->
-                  <input id="NEXT_GDPPswat_input" type="checkbox" class="sr-only chk" value="NEXT_GDPPswat" />
+                  <input id="NEX_GDDP_CMIP5_input" type="checkbox" class="sr-only chk" value="NEX_GDDP_CMIP5" />
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
@@ -289,11 +323,11 @@
                 </div>
               </label>
             </div>
-            <div id="NEXT_GDPPswat_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+            <div id="NEX_GDDP_CMIP5_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*Model</p>
                 <div class="inline-block relative w-full">
-                  <select name="NEXT_GDPPswat_model" id="NEXT_GDPPswat_model_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                  <select name="NEX_GDDP_CMIP5_model" id="NEX_GDDP_CMIP5_model_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="inmcm4">inmcm4</option>
                     <option value="bcc-csm1-1">bcc-csm1-1</option>
                     <option value="MRI-CGCM3">MRI-CGCM3</option>
@@ -324,7 +358,7 @@
                   <p class="w-6/12">*Type</p>
 
                   <div class="inline-block relative w-full">
-                    <select name="NEXT_GDPPswat_type" id="NEXT_GDPPswat_type_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <select name="NEX_GDDP_CMIP5_type" id="NEX_GDDP_CMIP5_type_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                       <option value="pr">pr</option>
                       <option value="tas">tas</option>
                     </select>
@@ -337,7 +371,7 @@
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*Slice</p>
                 <div class="inline-block relative w-full">
-                  <select name="NEXT_GDPPswat_slice" id="NEXT_GDPPswat_slice_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                  <select name="NEX_GDDP_CMIP5_slice" id="NEX_GDDP_CMIP5_slice_select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="rcp45">rcp45</option>
                     <option value="rcp85">rcp85</option>
                     <option value="historical">historical</option>
@@ -349,16 +383,16 @@
               </div>
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*Start date</p> 
-                <input type="text" id="start_NEXT_GDPPswat" name="start_NEXT_GDPPswat" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" id="start_NEX_GDDP_CMIP5" name="start_NEX_GDDP_CMIP5" class="start w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*End date</p>
-                <input type="text" id="end_NEXT_GDPPswat" name="end_NEXT_GDPPswat" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" id="end_NEX_GDDP_CMIP5" name="end_NEX_GDDP_CMIP5" class="end w-full rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
   
             </div>
           </div>
-          <!-- NEX_GDPP_CMIP6 -->
+          <!-- NEX_GDDP_CMIP6 -->
           <div class="w-full mx-auto border-b my-5">
             <div class="flex justify-between items-center my-3 py-4">
 
@@ -367,13 +401,13 @@
               </p> 
 
               <label 
-                for="NEX_GDPP_CMIP6_input"
+                for="NEX_GDDP_CMIP6_input"
                 class="flex items-center cursor-pointer"
               >
                 <!-- toggle -->
                 <div class="relative">
                   <!-- input -->
-                  <input id="NEX_GDPP_CMIP6_input" type="checkbox" class="sr-only chk" value="NEX_GDPP_CMIP6" />
+                  <input id="NEX_GDDP_CMIP6_input" type="checkbox" class="sr-only chk" value="NEX_GDDP_CMIP6" />
                   <!-- line -->
                   <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                   <!-- dot -->
@@ -384,11 +418,11 @@
                 </div>
               </label>
             </div>
-            <div id="NEX_GDPP_CMIP6_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
+            <div id="NEX_GDDP_CMIP6_id_block" class="h-0 overflow-hidden flex flex-col space-y-4 transition duration-700 ease-out">
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">Model</p>
                 <div class="inline-block relative w-full">
-                  <select name="NEX_GDPP_CMIP6_model" id="NEX_GDPP_CMIP6_model_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                  <select name="NEX_GDDP_CMIP6_model" id="NEX_GDDP_CMIP6_model_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="ACCESS-ESM1-5">ACCESS-ESM1-5</option>
                     <option value="BCC-CSM2-MR">BCC-CSM2-MR</option>
                     <option value="CanESM5">CanESM5</option>
@@ -428,7 +462,7 @@
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*Type</p>
                 <div class="inline-block relative w-full">
-                  <select name="NEX_GDPP_CMIP6_type" id="NEX_GDPP_CMIP6_type_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                  <select name="NEX_GDDP_CMIP6_type" id="NEX_GDDP_CMIP6_type_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="pr">pr</option>
                     <option value="tas">tas</option>
                   </select>
@@ -440,8 +474,10 @@
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*Slice</p>
                 <div class="inline-block relative w-full">
-                  <select name="NEX_GDPP_CMIP6_slice" id="NEX_GDPP_CMIP6_slice_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="ssp225">ssp225</option>
+                  <select name="NEX_GDDP_CMIP6_slice" id="NEX_GDDP_CMIP6_slice_select" class="block appearance-none w-full bg-white border border-gray-400 rounded-lg hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="ssp126">ssp126</option>
+                    <option value="ssp245">ssp245</option>
+                    <option value="ssp370">ssp370</option>
                     <option value="ssp585">ssp585</option>
                     <option value="historical">historical</option>
                   </select>
@@ -453,11 +489,11 @@
 
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*Start date</p> 
-                <input type="text" id="start_NEX_GDPP_CMIP6" name="start_NEX_GDPP_CMIP6" class="start w-full	rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" id="start_NEX_GDDP_CMIP6" name="start_NEX_GDDP_CMIP6" class="start w-full	rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
               <div class="flex flex-row space-x-4">
                 <p class="w-6/12">*End date</p>
-                <input type="text" id="end_NEX_GDPP_CMIP6" name="end_NEX_GDPP_CMIP6" class="end w-full	rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" id="end_NEX_GDDP_CMIP6" name="end_NEX_GDDP_CMIP6" class="end w-full	rounded-lg bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               </div>
             </div>
           </div>
@@ -530,12 +566,12 @@
               
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Select a watershed or upload your own
-                <span class="badge badge-primary d-flex badge-pill">must be a polygon shapefile or json file in a WGS 84 geographic projection</span>
+                <span class="text-base px-5 bg-gray-200 text-gray-600 rounded-full font-bold">must be a polygon shapefile or json file in a WGS 84 geographic projection</span>
               </li>
               <br>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 Select a digital elevation model (DEM) or upload your own
-                <span class="badge badge-primary d-flex badge-pill">must be a TIFF file in a WGS-84 geographic projection</span>
+                <span class="text-base px-5 bg-gray-200 text-gray-600 rounded-full font-bold">must be a TIFF file in a WGS-84 geographic projection</span>
               </li>
               <br>
               <li class="list-group-item d-flex justify-content-between align-items-center">

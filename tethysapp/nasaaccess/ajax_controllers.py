@@ -5,9 +5,16 @@ from datetime import datetime, timedelta
 import pandas as pd
 from django.http import FileResponse, JsonResponse
 
-from .config import data_path
+# from .config import data_path
 from .logic import nasaaccess_run, upload_dem, upload_shapefile
+from .app import nasaaccess as app
 
+try:
+    data_path = app.get_custom_setting("data_path")
+except Exception as e:
+    print(e)
+    print("Please specify the custom settings")
+    data_path = ""   
 
 def run_nasaaccess(request):
 
@@ -84,8 +91,8 @@ def upload_shapefiles(request):
                     dst.write(chunk)
 
     filename = os.path.splitext(os.path.basename(shp_path_directory))[0].split(".")[0]
-    upload_shapefile(filename, shp_path_directory)
-    return JsonResponse({"file": f"{filename}"})
+    checker = upload_shapefile(filename, shp_path_directory)
+    return JsonResponse({"file": f"{filename}","checker":checker})
 
 
 def upload_tiffiles(request):
@@ -121,8 +128,8 @@ def upload_tiffiles(request):
 
     filename = os.path.splitext(os.path.basename(dem_path_directory))[0].split(".")[0]
 
-    upload_dem(filename, dem_path_directory)
-    return JsonResponse({"file": f"{filename}"})
+    checker = upload_dem(filename, dem_path_directory)
+    return JsonResponse({"file": f"{filename}", "checker":checker})
 
 
 def download_data(request):
@@ -164,17 +171,22 @@ def getValues(request):
     file = request.POST["name"]
     func_name = request.POST["func"]
     access_code = request.POST["access_code"]
-
+    print(file)
     new_path = ""
     unique_path = os.path.join(
         data_path, "outputs", access_code, "nasaaccess_data", access_code
     )
     if os.path.exists(unique_path) is False:
         unique_path = os.path.join(data_path, "outputs", access_code, "nasaaccess_data")
+
     if func_name == "GLDASpolyCentroid":
         pre_path = os.path.join(unique_path, "GLDASpolyCentroid")
         new_path = os.path.join(unique_path, "GLDASpolyCentroid", "temp_Master.txt")
 
+    if func_name == 'GPM_NRT':
+        pre_path = os.path.join(unique_path,'GPM_NRT')
+        new_path = os.path.join(unique_path,'GPM_NRT','precipitationMaster.txt')
+    
     if func_name == "GLDASwat":
         pre_path = os.path.join(unique_path, "GLDASwat")
         new_path = os.path.join(unique_path, "GLDASwat", "temp_Master.txt")
@@ -203,7 +215,7 @@ def getValues(request):
     if os.path.exists(new_path):
         path_file = os.path.join(pre_path, f"{file}.txt")
         mypd = pd.read_csv(path_file)
-        if func_name == "NEX_GDPPswat" or func_name == "NEX_GDPP_CMIP6":
+        if func_name == "NEX_GDPPswat" or func_name == "NEX_GDPP_CMIP6" or func_name == "GPM_NRT" or func_name == "GPMswat" or func_name == "GPMpolyCentroid":
             new_pd = mypd.reset_index(drop=True)
         else:
             new_pd = mypd.reset_index()
@@ -220,6 +232,7 @@ def getValues(request):
             if new_pd.empty:
                 return_obj["val"] = []
             else:
+                print(new_pd)
                 new_pd.columns = ["val"]
                 return_obj["val"] = new_pd["val"].to_list()
 
@@ -260,6 +273,8 @@ def plot_data(request):
         gldaspolycentroid_path = os.path.join(
             unique_path, "GLDASpolyCentroid", "temp_Master.txt"
         )
+        gpnnrt_path = os.path.join(unique_path,'GPM_NRT','precipitationMaster.txt')
+
         gldasswat_path = os.path.join(unique_path, "GLDASwat", "temp_Master.txt")
         gpmpolycentroid_path = os.path.join(
             unique_path, "GPMpolyCentroid", "precipitationMaster.txt"
@@ -275,6 +290,11 @@ def plot_data(request):
             # print('GLDASpolyCentroid')
             data_master_1 = pd.read_csv(gldaspolycentroid_path)
             response_obj["GLDASpolyCentroid"] = data_master_1.to_dict("index")
+
+        if os.path.exists(gpnnrt_path):
+            # print('GPM_NRT')
+            data_master_1 = pd.read_csv(gpnnrt_path)
+            response_obj['GPM_NRT'] = data_master_1.to_dict('index')
 
         if os.path.exists(gldasswat_path):
             # print('GLDASwat')

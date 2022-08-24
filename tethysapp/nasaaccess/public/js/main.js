@@ -197,7 +197,7 @@ var LIBRARY_OBJECT = (function () {
   };
 
   add_basins = function () {
-    //      Get the selected value from the select watershed drop down
+    //Get the selected value from the select watershed drop down
     var layer = $("#select_watershed").val();
     var options = $("#select_watershed option");
 
@@ -221,7 +221,7 @@ var LIBRARY_OBJECT = (function () {
       url: wms_url,
       dataType: "xml",
       success: function (xml) {
-        //                  Get the projection and extent of the selected layer from the wms capabilities xml file
+        //Get the projection and extent of the selected layer from the wms capabilities xml file
         var layers = xml.getElementsByTagName("Layer");
         var parser = new ol.format.WMSCapabilities();
         var result = parser.read(xml);
@@ -236,20 +236,26 @@ var LIBRARY_OBJECT = (function () {
         bbox = layerParams.BoundingBox[0].extent;
         var new_extent = ol.proj.transformExtent(bbox, srs, "EPSG:4326");
         var center = ol.extent.getCenter(new_extent);
-        //                  Create a new view using the extent of the new selected layer
+        // Create a new view using the extent of the new selected layer
         var view = new ol.View({
           center: center,
           projection: "EPSG:4326",
           extent: new_extent,
           zoom: 6,
         });
-        //                  Move the map to center on the selected watershed
+        //Move the map to center on the selected watershed
         map.setView(view);
         map.getView().fit(new_extent, map.getSize());
       },
+      error:function(e){
+        if(e.status == 200){
+          console.log(e);
+
+        }
+      }
     });
 
-    //      Display styling for the selected watershed boundaries
+    //Display styling for the selected watershed boundaries
     var sld_string =
       '<StyledLayerDescriptor version="1.0.0"><NamedLayer><Name>nasaaccess:' +
       layer +
@@ -263,8 +269,8 @@ var LIBRARY_OBJECT = (function () {
               <CssParameter name="fill-opacity">0</CssParameter>\
             </Fill>\
             <Stroke>\
-              <CssParameter name="stroke">#ffffff</CssParameter>\
-              <CssParameter name="stroke-width">1.5</CssParameter>\
+              <CssParameter name="stroke">#000000</CssParameter>\
+              <CssParameter name="stroke-width">2</CssParameter>\
             </Stroke>\
             </PolygonSymbolizer>\
             </Rule>\
@@ -287,6 +293,9 @@ var LIBRARY_OBJECT = (function () {
 
     //      add the selected layer to the map
     map.addLayer(basin_layer);
+    // var extent = basin_layer.getExtent();
+    // map.getView().fit(extent, map.getSize());
+
   };
 
   add_dem = function () {
@@ -304,9 +313,11 @@ var LIBRARY_OBJECT = (function () {
     }
 
     var store_id = gs_workspace + ":" + layer;
-    var style = "DEM"; // Corresponds to a custom SLD style in geoserver
-
-    //      Set the wms source to the url, workspace, and store for the dem layer of the selected watershed
+    // var style = "DEM";
+    var style = `${layer}_style`; // Corresponds to a custom SLD style in geoserver
+     // Corresponds to a custom SLD style in geoserver
+    	
+    //Set the wms source to the url, workspace, and store for the dem layer of the selected watershed
     wms_source = new ol.source.ImageWMS({
       url: geoserver_url,
       params: { LAYERS: store_id, STYLES: style },
@@ -334,7 +345,7 @@ var LIBRARY_OBJECT = (function () {
         url: wms_url,
         dataType: "xml",
         success: function (xml) {
-          //                  Get the projection and extent of the selected layer from the wms capabilities xml file
+          //Get the projection and extent of the selected layer from the wms capabilities xml file
           var layers = xml.getElementsByTagName("Layer");
           var parser = new ol.format.WMSCapabilities();
           var result = parser.read(xml);
@@ -388,27 +399,30 @@ var LIBRARY_OBJECT = (function () {
     if (!$("#sameDates_input").is(":checked")) {
       start = [
         $("#start_GLDASpolycentroid").val(),
+        $('#start_GPM_NRT').val(),
         $("#start_GLDASwat").val(),
         $("#start_GPMpolyCentroid").val(),
         $("#start_GPMswat").val(),
-        $("#start_NEXT_GDPPswat").val(),
-        $("#start_NEX_GDPP_CMIP6").val(),
+        $("#start_NEX_GDDP_CMIP5").val(),
+        $("#start_NEX_GDDP_CMIP6").val(),
       ];
       end = [
         $("#end_GLDASpolycentroid").val(),
+        $('#end_GPM_NRT').val(),
         $("#end_GLDASwat").val(),
         $("#end_GPMpolyCentroid").val(),
         $("#end_GPMswat").val(),
-        $("#end_NEXT_GDPPswat").val(),
-        $("#end_NEX_GDPP_CMIP6").val(),
+        $("#end_NEX_GDDP_CMIP5").val(),
+        $("#end_NEX_GDDP_CMIP6").val(),
       ];
 
-      if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+      if ( 
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
@@ -417,6 +431,7 @@ var LIBRARY_OBJECT = (function () {
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
@@ -425,74 +440,81 @@ var LIBRARY_OBJECT = (function () {
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
-          $("#start_NEXT_GDPPswat").val(),
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
-          $("#end_NEXT_GDPPswat").val(),
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
       if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
-          $("#start_NEXT_GDPPswat").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
           "",
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
-          $("#end_NEXT_GDPPswat").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
           "",
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_GLDASpolycentroid").val(),
+          $('#start_GPM_NRT').val(),
           $("#start_GLDASwat").val(),
           $("#start_GPMpolyCentroid").val(),
           $("#start_GPMswat").val(),
           "",
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_GLDASpolycentroid").val(),
+          $('#end_GPM_NRT').val(),
           $("#end_GLDASwat").val(),
           $("#end_GPMpolyCentroid").val(),
           $("#end_GPMswat").val(),
           "",
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
     } else {
       if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
+          $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
@@ -501,6 +523,7 @@ var LIBRARY_OBJECT = (function () {
           "",
         ];
         end = [
+          $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
@@ -510,36 +533,40 @@ var LIBRARY_OBJECT = (function () {
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
-          $("#start_NEXT_GDPPswat").val(),
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_pick").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
-          $("#end_NEXT_GDPPswat").val(),
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_pick").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
       if (
-        !$("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        $("#NEXT_GDPPswat_input").is(":checked")
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
-          $("#start_NEXT_GDPPswat").val(),
+          $("#start_pick").val(),
+
+          $("#start_NEX_GDDP_CMIP5").val(),
           "",
         ];
         end = [
@@ -547,62 +574,107 @@ var LIBRARY_OBJECT = (function () {
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
-          $("#end_NEXT_GDPPswat").val(),
+          $("#end_pick").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
           "",
         ];
       }
       if (
-        $("#NEX_GDPP_CMIP6_input").is(":checked") &&
-        !$("#NEXT_GDPPswat_input").is(":checked")
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
       ) {
         start = [
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
           $("#start_pick").val(),
+          $("#start_pick").val(),
+
+          
           "",
-          $("#start_NEX_GDPP_CMIP6").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
         ];
         end = [
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
           $("#end_pick").val(),
+          $("#end_pick").val(),
+
           "",
-          $("#end_NEX_GDPP_CMIP6").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
         ];
       }
     }
-    // var start = $('#start_pick').val();
-    // var end = $('#end_pick').val();
-    console.log(start);
-    console.log(end);
+
+
     var functions = [];
-    var NEXT_GDPPswat_inputs = [];
-    var NEX_GDPP_CMIP6_inputs = [];
+    var NEX_GDDP_CMIP5_inputs = [];
+    var NEX_GDDP_CMIP6_inputs = [];
 
     $(".chk:checked").each(function () {
+      console.log($(this).val());
       if ($(this).val() != "sameDates") {
+        console.log($(this).val());
         functions.push($(this).val());
       }
     });
-    if (functions.includes("NEXT_GDPPswat")) {
-      NEXT_GDPPswat_inputs = [
-        $("#NEXT_GDPPswat_model_select").val(),
-        $("#NEXT_GDPPswat_type_select").val(),
-        $("#NEXT_GDPPswat_slice_select").val(),
+    if (functions.includes("NEX_GDDP_CMIP5")) {
+      NEX_GDDP_CMIP5_inputs = [
+        $("#NEX_GDDP_CMIP5_model_select").val(),
+        $("#NEX_GDDP_CMIP5_type_select").val(),
+        $("#NEX_GDDP_CMIP5_slice_select").val(),
       ];
     }
-    if (functions.includes("NEX_GDPP_CMIP6")) {
-      NEX_GDPP_CMIP6_inputs = [
-        $("#NEX_GDPP_CMIP6_model_select").val(),
-        $("#NEX_GDPP_CMIP6_type_select").val(),
-        $("#NEX_GDPP_CMIP6_slice_select").val(),
+    if (functions.includes("NEX_GDDP_CMIP6")) {
+      NEX_GDDP_CMIP6_inputs = [
+        $("#NEX_GDDP_CMIP6_model_select").val(),
+        $("#NEX_GDDP_CMIP6_type_select").val(),
+        $("#NEX_GDDP_CMIP6_slice_select").val(),
       ];
     }
     var watershed = $("#select_watershed").val();
     var dem = $("#select_dem").val();
     var email = $("#id_email").val();
+    if(functions.indexOf('GLDASpolyCentroid') == -1){
+      start[0]= ''
+      end[0]= ''
+
+    }
+    if(functions.indexOf('GPM_NRT') == -1){
+      start[1]= ''
+      end[1]= ''
+
+    }
+    if(functions.indexOf('GLDASwat') == -1){
+      start[2]= ''
+      end[2]= ''
+
+    }
+    if(functions.indexOf('GPMpolyCentroid') == -1){
+      start[3]= ''
+      end[3]= ''
+
+    }
+    if(functions.indexOf('GPMswat') == -1){
+      start[4]= ''
+      end[4]= ''
+
+    }
+    if(functions.indexOf('NEX_GDDP_CMIP5') == -1){
+      start[5]= ''
+      end[5]= ''
+
+    }
+    if(functions.indexOf('NEX_GDDP_CMIP6') == -1){
+      start[6]= ''
+      end[6]= ''
+
+    }
+    console.log(start);
+    console.log(end);
+    console.log(functions);
+
     $.ajax({
       type: "POST",
       // url: "/apps/nasaaccess2/run/",
@@ -614,16 +686,21 @@ var LIBRARY_OBJECT = (function () {
         watershed: watershed,
         dem: dem,
         email: email,
-        nexgdpp: NEXT_GDPPswat_inputs,
-        nextgdppcmip: NEX_GDPP_CMIP6_inputs,
-      },
+        nexgdpp: NEX_GDDP_CMIP5_inputs,
+        nextgdppcmip: NEX_GDDP_CMIP6_inputs,
+      }
     }).done(function (data) {
       console.log(data);
+      functions = [];
       if (data.Result === "nasaaccess is running") {
         $("#job_init").removeClass("hidden");
         setTimeout(function () {
           $("#job_init").addClass("hidden");
         }, 10000);
+      }
+      else{
+        $.notify("An error was found when retrieving the data", "error");
+
       }
     });
   };
@@ -631,22 +708,235 @@ var LIBRARY_OBJECT = (function () {
   validateQuery = function () {
     var watershed = $("#select_watershed").val();
     var dem = $("#select_dem").val();
-    var start = $("#start_pick").val();
-    var end = $("#end_pick").val();
+    // var start = $("#start_pick").val();
+    // var end = $("#end_pick").val();
     var models = [];
+    
+    
     $(".chk:checked").each(function () {
       models.push($(this).val());
     });
+    console.log(watershed,dem,start,end,models);
+    var start = [];
+    var end = [];
+
+    if (!$("#sameDates_input").is(":checked")) {
+      start = [
+        $("#start_GLDASpolycentroid").val(),
+        $("#start_GPM_NRT").val(),
+        $("#start_GLDASwat").val(),
+        $("#start_GPMpolyCentroid").val(),
+        $("#start_GPMswat").val(),
+        $("#start_NEX_GDDP_CMIP5").val(),
+        $("#start_NEX_GDDP_CMIP6").val(),
+      ];
+      end = [
+        $("#end_GLDASpolycentroid").val(),
+        $("#end_GLDASwat").val(),
+        $("#end_GPMpolyCentroid").val(),
+        $("#end_GPMswat").val(),
+        $("#end_NEX_GDDP_CMIP5").val(),
+        $("#end_NEX_GDDP_CMIP6").val(),
+      ];
+
+      if ( 
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          "",
+          "",
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          "",
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+      if (
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_GLDASpolycentroid").val(),
+          $("#start_GPM_NRT").val(),
+          $("#start_GLDASwat").val(),
+          $("#start_GPMpolyCentroid").val(),
+          $("#start_GPMswat").val(),
+          "",
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_GLDASpolycentroid").val(),
+          $("#end_GPM_NRT").val(),
+          $("#end_GLDASwat").val(),
+          $("#end_GPMpolyCentroid").val(),
+          $("#end_GPMswat").val(),
+          "",
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+    } else {
+      if (
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          "",
+          "",
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          "",
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+      if (
+        !$("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        $("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_NEX_GDDP_CMIP5").val(),
+          "",
+        ];
+      }
+      if (
+        $("#NEX_GDDP_CMIP6_input").is(":checked") &&
+        !$("#NEX_GDDP_CMIP5_input").is(":checked")
+      ) {
+        start = [
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          $("#start_pick").val(),
+          "",
+          $("#start_NEX_GDDP_CMIP6").val(),
+        ];
+        end = [
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          $("#end_pick").val(),
+          "",
+          $("#end_NEX_GDDP_CMIP6").val(),
+        ];
+      }
+    }
+
+
+
     if (
-      watershed === undefined ||
-      dem === undefined ||
-      start === undefined ||
-      end === undefined ||
+      (watershed === undefined || watershed == "") ||
+      (dem === undefined || dem == "") ||
+      start.length == 0 ||
+      end.length == 0  ||
       models.length == 0
     ) {
-      alert(
-        "Please be sure you have selected a watershed, DEM, start and end dates, and at least 1 function"
-      );
+
+      $.notify("Please be sure you have selected a watershed, DEM, start and end dates, and at least 1 function","warn")
     } else {
       $("#cont-modal").modal("show");
     }
@@ -666,6 +956,7 @@ var LIBRARY_OBJECT = (function () {
     });
     console.log(data);
     console.log(files);
+    $("#loading").removeClass("hidden");
     $.ajax({
       url: "upload_shp/",
       type: "POST",
@@ -674,38 +965,49 @@ var LIBRARY_OBJECT = (function () {
       processData: false,
       contentType: false,
       success: function (result) {
-        $("#loading").hide();
-        let shpSelect = document.getElementById("select_watershed");
-        shpSelect.options[shpSelect.options.length] = new Option(
-          `${result.file}`,
-          `${result.file}`
-        );
-        // $('#select_watershed').val(result.file);
-        // $(`select[name^="${select_watershed}"] option:selected`).attr("selected",null);
+        console.log(result);
+        $("#loading").addClass("hidden");
+        if(result['checker']['bool'] == true){
+          let shpSelect = document.getElementById("select_watershed");
+          shpSelect.options[shpSelect.options.length] = new Option(
+            `${result.file}`,
+            `${result.file}`
+          );
+          // $('#select_watershed').val(result.file);
+          // $(`select[name^="${select_watershed}"] option:selected`).attr("selected",null);
+  
+          // $(`select[name^="${select_watershed}"] option[value="${result.file}"]`).attr("selected","selected");
+  
+          console.log(result.response);
+          map.removeLayer(basin_layer);
+          map.removeLayer(dem_layer);
+          add_basins();
+          $.notify("Shapefile Successfully Added", "success");
+        }
+        else{
+          $.notify(result['checker']['mssg'], "warn");
 
-        // $(`select[name^="${select_watershed}"] option[value="${result.file}"]`).attr("selected","selected");
+        }
 
-        console.log(result.response);
-        map.removeLayer(basin_layer);
-        map.removeLayer(dem_layer);
-        add_basins();
       },
       error: function (error) {
         console.log(error);
-        $("#loading").hide();
+        $("#loading").addClass("hidden");
       },
     });
   };
 
   uploadDEM = function () {
     let files = $("#dem-upload")[0].files;
-
     let data = new FormData();
     Object.keys(files).forEach(function (file) {
       data.append("files", files[file]);
     });
     console.log(data);
     console.log(files);
+    console.log("visibel");
+    $("#loading").removeClass("hidden");
+
     $.ajax({
       url: "upload_dem/",
       type: "POST",
@@ -714,21 +1016,33 @@ var LIBRARY_OBJECT = (function () {
       processData: false,
       contentType: false,
       success: function (result) {
-        $("#loading").hide();
-        let demSelect = document.getElementById("select_dem");
-        demSelect.options[demSelect.options.length] = new Option(
-          `${result.file}`,
-          `${result.file}`
-        );
-        // $('#select_dem').val(result.file);
-        console.log(result.response);
-        map.removeLayer(basin_layer);
-        map.removeLayer(dem_layer);
-        add_dem();
+
+        console.log(result);
+        console.log(result['checker']);
+        $("#loading").addClass("hidden");
+        if(result['checker']){
+          let demSelect = document.getElementById("select_dem");
+          demSelect.options[demSelect.options.length] = new Option(
+            `${result.file}`,
+            `${result.file}`
+          );
+          // $('#select_dem').val(result.file);
+          console.log(result.response);
+          map.removeLayer(basin_layer);
+          map.removeLayer(dem_layer);
+          add_dem();
+          $.notify("Sucessfully added the DEM layer to the map", "success");
+
+        }
+        else{
+          $.notify("DEM is already in the GeoServer, Please upload other DEM file", "warn");
+        }
+
       },
       error: function (error) {
         console.log(error);
-        $("#loading").hide();
+        $("#loading").addClass("hidden");
+        $.notify("There was an error while uploading the DEM LAYER", "error");
       },
     });
   };
@@ -1234,8 +1548,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-
-    const start_2 = datepicker("#start_GLDASwat", {
+    const start_2 = datepicker("#start_GPM_NRT", {
       id: 4,
       formatter: (input, date, instance) => {
         const value = date
@@ -1252,7 +1565,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_2 = datepicker("#end_GLDASwat", {
+    const end_2 = datepicker("#end_GPM_NRT", {
       id: 5,
       formatter: (input, date, instance) => {
         const value = date
@@ -1269,8 +1582,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-
-    const start_3 = datepicker("#start_GPMpolyCentroid", {
+    const start_3 = datepicker("#start_GLDASwat", {
       id: 6,
       formatter: (input, date, instance) => {
         const value = date
@@ -1287,7 +1599,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_3 = datepicker("#end_GPMpolyCentroid", {
+    const end_3 = datepicker("#end_GLDASwat", {
       id: 7,
       formatter: (input, date, instance) => {
         const value = date
@@ -1305,7 +1617,7 @@ var LIBRARY_OBJECT = (function () {
       },
     });
 
-    const start_4 = datepicker("#start_GPMswat", {
+    const start_4 = datepicker("#start_GPMpolyCentroid", {
       id: 8,
       formatter: (input, date, instance) => {
         const value = date
@@ -1322,7 +1634,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_4 = datepicker("#end_GPMswat", {
+    const end_4 = datepicker("#end_GPMpolyCentroid", {
       id: 9,
       formatter: (input, date, instance) => {
         const value = date
@@ -1340,9 +1652,8 @@ var LIBRARY_OBJECT = (function () {
       },
     });
 
-    const start_5 = datepicker("#start_NEXT_GDPPswat", {
+    const start_5 = datepicker("#start_GPMswat", {
       id: 10,
-      startDate: new Date(2006, 0, 1),
       formatter: (input, date, instance) => {
         const value = date
           .toLocaleDateString("en-GB", {
@@ -1358,7 +1669,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_5 = datepicker("#end_NEXT_GDPPswat", {
+    const end_5 = datepicker("#end_GPMswat", {
       id: 11,
       formatter: (input, date, instance) => {
         const value = date
@@ -1375,8 +1686,10 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const start_6 = datepicker("#start_NEX_GDPP_CMIP6", {
+
+    const start_6 = datepicker("#start_NEX_GDDP_CMIP5", {
       id: 12,
+      startDate: new Date(2006, 0, 1),
       formatter: (input, date, instance) => {
         const value = date
           .toLocaleDateString("en-GB", {
@@ -1392,7 +1705,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
-    const end_6 = datepicker("#end_NEX_GDPP_CMIP6", {
+    const end_6 = datepicker("#end_NEX_GDDP_CMIP5", {
       id: 13,
       formatter: (input, date, instance) => {
         const value = date
@@ -1409,7 +1722,43 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
+    const start_7 = datepicker("#start_NEX_GDDP_CMIP6", {
+      id: 14,
+      formatter: (input, date, instance) => {
+        const value = date
+          .toLocaleDateString("en-GB", {
+            // you can use undefined as first argument
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .split("/")
+          .reverse()
+          .join("-");
 
+        input.value = value; // => '1/1/2099'
+      },
+    });
+    const end_7 = datepicker("#end_NEX_GDDP_CMIP6", {
+      id: 15,
+      formatter: (input, date, instance) => {
+        const value = date
+          .toLocaleDateString("en-GB", {
+            // you can use undefined as first argument
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .split("/")
+          .reverse()
+          .join("-");
+
+        input.value = value; // => '1/1/2099'
+      },
+    });
+
+    start_2.setDate(new Date(2000, 5, 1), true);
+    end_2.setDate(new Date(), true);
     start_6.setDate(new Date(2015, 0, 1), true);
     end_6.setDate(new Date(), true);
     start_5.setDate(new Date(2006, 0, 1), true);
@@ -1473,17 +1822,41 @@ var LIBRARY_OBJECT = (function () {
     $("#GLDASpolycentroid_input").change(function () {
       if (!$("#sameDates_input").is(":checked")) {
         if (this.checked) {
+          console.log("checked");
           $("#GLDASpolycentroid_id_block").removeClass("h-0");
           $("#GLDASpolycentroid_id_block").addClass("max-h-fit");
           $("#GLDASpolycentroid_id_block").removeClass("overflow-hidden");
           $("#GLDASpolycentroid_id_block").addClass("ease-in");
           $("#GLDASpolycentroid_id_block").addClass("duration-700");
         } else {
+          console.log("not checked");
+
           $("#GLDASpolycentroid_id_block").removeClass("max-h-fit");
           $("#GLDASpolycentroid_id_block").addClass("h-0");
           $("#GLDASpolycentroid_id_block").addClass("overflow-hidden");
           $("#GLDASpolycentroid_id_block").removeClass("ease-in");
           $("#GLDASpolycentroid_id_block").removeClass("duration-700");
+        }
+      }
+    });
+
+    $("#GPM_NRT_input").change(function () {
+      if (!$("#sameDates_input").is(":checked")) {
+        if (this.checked) {
+          console.log("checked");
+          $("#GPM_NRT_id_block").removeClass("h-0");
+          $("#GPM_NRT_id_block").addClass("max-h-fit");
+          $("#GPM_NRT_id_block").removeClass("overflow-hidden");
+          $("#GPM_NRT_id_block").addClass("ease-in");
+          $("#GPM_NRT_id_block").addClass("duration-700");
+        } else {
+          console.log("not checked");
+
+          $("#GPM_NRT_id_block").removeClass("max-h-fit");
+          $("#GPM_NRT_id_block").addClass("h-0");
+          $("#GPM_NRT_id_block").addClass("overflow-hidden");
+          $("#GPM_NRT_id_block").removeClass("ease-in");
+          $("#GPM_NRT_id_block").removeClass("duration-700");
         }
       }
     });
@@ -1542,35 +1915,35 @@ var LIBRARY_OBJECT = (function () {
       }
     });
 
-    $("#NEXT_GDPPswat_input").change(function () {
+    $("#NEX_GDDP_CMIP5_input").change(function () {
       if (this.checked) {
-        $("#NEXT_GDPPswat_id_block").removeClass("h-0");
-        $("#NEXT_GDPPswat_id_block").addClass("max-h-fit");
-        $("#NEXT_GDPPswat_id_block").removeClass("overflow-hidden");
-        $("#NEXT_GDPPswat_id_block").addClass("ease-in");
-        $("#NEXT_GDPPswat_id_block").addClass("duration-700");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("h-0");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("max-h-fit");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("ease-in");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("duration-700");
       } else {
-        $("#NEXT_GDPPswat_id_block").removeClass("max-h-fit");
-        $("#NEXT_GDPPswat_id_block").addClass("h-0");
-        $("#NEXT_GDPPswat_id_block").addClass("overflow-hidden");
-        $("#NEXT_GDPPswat_id_block").removeClass("ease-in");
-        $("#NEXT_GDPPswat_id_block").removeClass("duration-700");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("max-h-fit");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("h-0");
+        $("#NEX_GDDP_CMIP5_id_block").addClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("ease-in");
+        $("#NEX_GDDP_CMIP5_id_block").removeClass("duration-700");
       }
     });
 
-    $("#NEX_GDPP_CMIP6_input").change(function () {
+    $("#NEX_GDDP_CMIP6_input").change(function () {
       if (this.checked) {
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("h-0");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("max-h-fit");
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("overflow-hidden");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("ease-in");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("duration-700");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("h-0");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("max-h-fit");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("ease-in");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("duration-700");
       } else {
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("max-h-fit");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("h-0");
-        $("#NEX_GDPP_CMIP6_id_block").addClass("overflow-hidden");
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("ease-in");
-        $("#NEX_GDPP_CMIP6_id_block").removeClass("duration-700");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("max-h-fit");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("h-0");
+        $("#NEX_GDDP_CMIP6_id_block").addClass("overflow-hidden");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("ease-in");
+        $("#NEX_GDDP_CMIP6_id_block").removeClass("duration-700");
       }
     });
     $("#sameDates_input").change(function () {
@@ -1594,6 +1967,14 @@ var LIBRARY_OBJECT = (function () {
         $("#GPMpolyCentroid_id_block").addClass("overflow-hidden");
         $("#GPMpolyCentroid_id_block").removeClass("ease-in");
         $("#GPMpolyCentroid_id_block").removeClass("duration-700");
+
+        //GPM_NRT_id_block
+        $("#GPM_NRT_id_block").removeClass("max-h-fit");
+        $("#GPM_NRT_id_block").addClass("h-0");
+        $("#GPM_NRT_id_block").addClass("overflow-hidden");
+        $("#GPM_NRT_id_block").removeClass("ease-in");
+        $("#GPM_NRT_id_block").removeClass("duration-700");
+
 
         //GLDASwat_id_block
         $("#GLDASwat_id_block").removeClass("max-h-fit");
@@ -1628,6 +2009,13 @@ var LIBRARY_OBJECT = (function () {
           $("#GPMpolyCentroid_id_block").addClass("ease-in");
           $("#GPMpolyCentroid_id_block").addClass("duration-700");
         }
+        if ($("#GPM_NRT_input").is(":checked")) {
+          $("#GPM_NRT_id_block").removeClass("h-0");
+          $("#GPM_NRT_id_block").addClass("max-h-fit");
+          $("#GPM_NRT_id_block").removeClass("overflow-hidden");
+          $("#GPM_NRT_id_block").addClass("ease-in");
+          $("#GPM_NRT_id_block").addClass("duration-700");
+        }
         if ($("#GLDASwat_input").is(":checked")) {
           $("#GLDASwat_id_block").removeClass("h-0");
           $("#GLDASwat_id_block").addClass("max-h-fit");
@@ -1644,61 +2032,63 @@ var LIBRARY_OBJECT = (function () {
         }
       }
     });
-    $("#NEX_GDPP_CMIP6_slice_select").change(function () {
+    $("#NEX_GDDP_CMIP6_slice_select").change(function () {
+      if ($(this).val() == "historical") {
+        start_7.setMin();
+        start_7.setMax();
+
+        start_7.setDate(new Date(1950, 0, 1), true);
+        start_7.setMin(new Date(1950, 0, 1));
+        start_7.setMax(new Date(2014, 11, 31));
+
+        end_7.setMin();
+        end_7.setMax();
+
+        end_7.setDate(new Date(2014, 11, 31), true);
+        end_7.setMin(new Date(1950, 0, 1));
+        start_7.setMax(new Date(2014, 11, 31));
+
+      } else {
+        start_7.setMin();
+        start_7.setMax();
+
+        start_7.setDate(new Date(2015, 0, 1), true);
+        start_7.setMin(new Date(2015, 0, 1));
+
+        end_7.setMin();
+        end_7.setMax();
+
+        end_7.setDate(new Date(), true);
+        end_7.setMin(new Date());
+      }
+    });
+    $("#NEX_GDDP_CMIP5_slice_select").change(function () {
       if ($(this).val() == "historical") {
         start_6.setMin();
         start_6.setMax();
 
         start_6.setDate(new Date(1950, 0, 1), true);
         start_6.setMin(new Date(1950, 0, 1));
-        start_6.setMax(new Date(2014, 11, 31));
+        start_6.setMax(new Date(2005, 11, 31));
 
         end_6.setMin();
         end_6.setMax();
 
-        end_6.setDate(new Date(2014, 11, 31), true);
+        end_6.setDate(new Date(2005, 11, 31), true);
         end_6.setMin(new Date());
       } else {
         start_6.setMin();
         start_6.setMax();
 
-        start_6.setDate(new Date(2015, 0, 1), true);
-        start_6.setMin(new Date(2015, 0, 1));
+        start_6.setDate(new Date(2006, 0, 1), true);
+
+        start_6.setMin(new Date(2006, 0, 1));
 
         end_6.setMin();
         end_6.setMax();
 
         end_6.setDate(new Date(), true);
         end_6.setMin(new Date());
-      }
-    });
-    $("#NEXT_GDPPswat_slice_select").change(function () {
-      if ($(this).val() == "historical") {
-        start_5.setMin();
-        start_6.setMax();
-
-        start_5.setDate(new Date(1950, 0, 1), true);
-        start_5.setMin(new Date(1950, 0, 1));
-        start_5.setMax(new Date(2005, 11, 31));
-
-        end_5.setMin();
-        end_5.setMax();
-
-        end_5.setDate(new Date(2005, 11, 31), true);
-        end_5.setMin(new Date());
-      } else {
-        start_5.setMin();
-        start_5.setMax();
-
-        start_5.setDate(new Date(2006, 0, 1), true);
-
-        start_5.setMin(new Date(2006, 0, 1));
-
-        end_5.setMin();
-        end_5.setMax();
-
-        end_5.setDate(new Date(), true);
-        end_5.setMin(new Date());
       }
     });
   });
