@@ -10,10 +10,6 @@ requirements:
     channels:
       - conda-forge
     packages:
-      # - r-nasaaccess
-      # - r-remotes
-      # - r-emayili
-      # - r-codetools
       - geoserver-rest
 
 post:

@@ -8,7 +8,7 @@ class nasaaccess(TethysAppBase):
     """
 
     name = "NASAaccess"
-    index = "nasaaccess:home"
+    index = "home"
     icon = "nasaaccess/images/nasaaccess.png"
     package = "nasaaccess"
     root_url = "nasaaccess"
@@ -17,50 +17,51 @@ class nasaaccess(TethysAppBase):
     tags = "NASA, Hydrology, Climate, Weather, GPM, TRMM, GLDAS, CMIP5, CMIP6"
     enable_feedback = False
     feedback_emails = []
+    controller_modules = [ "controllers", "ajax_controllers"]
 
-    def url_maps(self):
-        """
-        Add controllers
-        """
-        UrlMap = url_map_maker(self.root_url)
+    # def url_maps(self):
+    #     """
+    #     Add controllers
+    #     """
+    #     UrlMap = url_map_maker(self.root_url)
 
-        url_maps = (
-            UrlMap(
-                name="home", url="nasaaccess", controller="nasaaccess.controllers.home"
-            ),
-            UrlMap(
-                name="download_files",
-                url="run/",
-                controller="nasaaccess.ajax_controllers.run_nasaaccess",
-            ),
-            UrlMap(
-                name="upload_shapefiles",
-                url="nasaaccess/upload_shp",
-                controller="nasaaccess.ajax_controllers.upload_shapefiles",
-            ),
-            UrlMap(
-                name="upload_tiffiles",
-                url="nasaaccess/upload_dem",
-                controller="nasaaccess.ajax_controllers.upload_tiffiles",
-            ),
-            UrlMap(
-                name="download",
-                url="nasaaccess/download",
-                controller="nasaaccess.ajax_controllers.download_data",
-            ),
-            UrlMap(
-                name="plot",
-                url="nasaaccess/plot",
-                controller="nasaaccess.ajax_controllers.plot_data",
-            ),
-            UrlMap(
-                name="getValues",
-                url="nasaaccess/getValues",
-                controller="nasaaccess.ajax_controllers.getValues",
-            ),
-        )
+    #     url_maps = (
+    #         UrlMap(
+    #             name="home", url="nasaaccess", controller="nasaaccess.controllers.home"
+    #         ),
+    #         UrlMap(
+    #             name="download_files",
+    #             url="run/",
+    #             controller="nasaaccess.ajax_controllers.run_nasaaccess",
+    #         ),
+    #         UrlMap(
+    #             name="upload_shapefiles",
+    #             url="nasaaccess/upload_shp",
+    #             controller="nasaaccess.ajax_controllers.upload_shapefiles",
+    #         ),
+    #         UrlMap(
+    #             name="upload_tiffiles",
+    #             url="nasaaccess/upload_dem",
+    #             controller="nasaaccess.ajax_controllers.upload_tiffiles",
+    #         ),
+    #         UrlMap(
+    #             name="download",
+    #             url="nasaaccess/download",
+    #             controller="nasaaccess.ajax_controllers.download_data",
+    #         ),
+    #         UrlMap(
+    #             name="plot",
+    #             url="nasaaccess/plot",
+    #             controller="nasaaccess.ajax_controllers.plot_data",
+    #         ),
+    #         UrlMap(
+    #             name="getValues",
+    #             url="nasaaccess/getValues",
+    #             controller="nasaaccess.ajax_controllers.getValues",
+    #         ),
+    #     )
 
-        return url_maps
+    #     return url_maps
 
     ## custom settings ##
     def custom_settings(self):
