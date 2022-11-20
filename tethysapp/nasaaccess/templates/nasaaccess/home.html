@@ -32,8 +32,8 @@
 {% endblock %}
 
 {% block header_buttons %}
-  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
-    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+  <div class="header-button glyphicon-button" data-bs-toggle="tooltip" data-placement="bottom" title="Help">
+    <a data-bs-toggle="modal" data-bs-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
   </div>
 {% endblock %}
 
@@ -541,7 +541,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="help-modal-label"><strong>Welcome to NASAaccess</strong></h5>
         </div>
         <div class="modal-body">
@@ -596,8 +596,8 @@
                 
               </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">OK</button>
         </div>
       </div>
     </div>
@@ -608,7 +608,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="download-modal-label">Download Data</h5>
         </div>
         <div class="modal-body">
@@ -620,13 +620,13 @@
                 <div class="flex justify-start items-center space-x-4 mt-2">
                   <label for="access_code">Access Code: </label>
                   <input type="text" id="access_code_input" name="access_code" class="border border-green-500 rounded-lg">
-                  <button id= "submit_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-dismiss="modal">Download</button>
+                  <button id= "submit_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-bs-dismiss="modal">Download</button>
                 </div>
             </form>
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
@@ -638,7 +638,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h5 class="modal-title" id="plot-modal-label">Plot Data</h5>
       </div>
       <div class="modal-body">
@@ -650,13 +650,13 @@
               <div class="flex justify-start items-center space-x-4 mt-2">
                 <label for="access_code">Access Code: </label>
                 <input type="text" id="access_code_input2" name="access_code" class="border border-green-500 rounded-lg">
-                <button id= "plot_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-dismiss="modal">Plot</button>
+                <button id= "plot_access_code" type="button" class="bg-green-900	text-zinc-50 flex justify-center items-center p-2 rounded-lg" data-bs-dismiss="modal">Plot</button>
               </div>
           </form>
 
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -668,7 +668,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="cont-modal-label">Contact Information</h5>
         </div>
         <div class="modal-body">
@@ -689,7 +689,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" id="submit_form">Submit</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
@@ -700,7 +700,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="shp-modal-label">Upload New Shapefile</h5>
         </div>
         <div class="modal-body">
@@ -716,7 +716,7 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="bg-red-600 text-zinc-50 p-3 rounded-lg" data-dismiss="modal">Cancel</button>
+          <button type="button" class="bg-red-600 text-zinc-50 p-3 rounded-lg" data-bs-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
@@ -727,7 +727,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title" id="dem-modal-label">Upload New DEM file</h5>
         </div>
         <div class="modal-body">
@@ -742,7 +742,7 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="bg-red-600 text-zinc-50 p-3 rounded-lg" data-dismiss="modal">Cancel</button>
+          <button type="button" class="bg-red-600 text-zinc-50 p-3 rounded-lg" data-bs-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
