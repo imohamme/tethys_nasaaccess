@@ -24,6 +24,8 @@ section {
 .form {
   position: relative;
   margin: auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 table {
