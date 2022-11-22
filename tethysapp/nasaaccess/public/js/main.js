@@ -1516,6 +1516,7 @@ var LIBRARY_OBJECT = (function () {
 
     const start_1 = datepicker("#start_GLDASpolycentroid", {
       id: 2,
+      // position: 'tl',
       formatter: (input, date, instance) => {
         const value = date
           .toLocaleDateString("en-GB", {
@@ -1531,6 +1532,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
+
     const end_1 = datepicker("#end_GLDASpolycentroid", {
       id: 3,
       formatter: (input, date, instance) => {

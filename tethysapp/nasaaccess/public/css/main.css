@@ -76,3 +76,6 @@ table {
 /* #app-content-wrapper #app-content #app-navigation .nav {
   overflow: scroll;
 } */
+.qs-datepicker-container{
+  left: 0px !important;
+}
