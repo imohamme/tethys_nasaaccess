@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from tethys_sdk.gizmos import SelectInput
+from tethys_sdk.routing import controller
 
 from .app import nasaaccess
 # from .config import geoserver
@@ -47,6 +48,7 @@ geoserver = {
     "URI": geoserver_URI,
 }
 
+@controller(name='home', url='nasaaccess')
 def home(request):
     """
     Controller for the app home page.
