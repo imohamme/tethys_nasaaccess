@@ -70,9 +70,13 @@ var LIBRARY_OBJECT = (function () {
    *                    PRIVATE FUNCTION IMPLEMENTATIONS
    *************************************************************************/
   showPlot = function () {
-    $("#map").addClass("h-[48rem]");
+    $("#map").addClass("h-64");
     $("#map").removeClass("h-full");
     $("#graphs__panel").removeClass("hidden");
+    // $("#graphs__panel").addClass("h-screen");
+
+    // $("#time__series").addClass("h-screen");
+
     setTimeout(function () {
       map.updateSize();
     }, 200);
