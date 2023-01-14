@@ -8,7 +8,7 @@ class nasaaccess(TethysAppBase):
     """
 
     name = "NASAaccess"
-    index = "nasaaccess:home"
+    index = "home"
     icon = "nasaaccess/images/nasaaccess.png"
     package = "nasaaccess"
     root_url = "nasaaccess"
@@ -17,102 +17,59 @@ class nasaaccess(TethysAppBase):
     tags = "NASA, Hydrology, Climate, Weather, GPM, TRMM, GLDAS, CMIP5, CMIP6"
     enable_feedback = False
     feedback_emails = []
-
-    def url_maps(self):
-        """
-        Add controllers
-        """
-        UrlMap = url_map_maker(self.root_url)
-
-        url_maps = (
-            UrlMap(
-                name="home", url="nasaaccess", controller="nasaaccess.controllers.home"
-            ),
-            UrlMap(
-                name="download_files",
-                url="run/",
-                controller="nasaaccess.ajax_controllers.run_nasaaccess",
-            ),
-            UrlMap(
-                name="upload_shapefiles",
-                url="nasaaccess/upload_shp",
-                controller="nasaaccess.ajax_controllers.upload_shapefiles",
-            ),
-            UrlMap(
-                name="upload_tiffiles",
-                url="nasaaccess/upload_dem",
-                controller="nasaaccess.ajax_controllers.upload_tiffiles",
-            ),
-            UrlMap(
-                name="download",
-                url="nasaaccess/download",
-                controller="nasaaccess.ajax_controllers.download_data",
-            ),
-            UrlMap(
-                name="plot",
-                url="nasaaccess/plot",
-                controller="nasaaccess.ajax_controllers.plot_data",
-            ),
-            UrlMap(
-                name="getValues",
-                url="nasaaccess/getValues",
-                controller="nasaaccess.ajax_controllers.getValues",
-            ),
-        )
-
-        return url_maps
+    controller_modules = [ "controllers", "ajax_controllers"]
 
     ## custom settings ##
-    def custom_settings(self):
-        """
-        Example custom_settings method.
-        """
-        custom_settings = (
-            CustomSetting(
-                name="data_path",
-                type=CustomSetting.TYPE_STRING,
-                description="Data Directory for Downloads",
-                required=False,
-            ),
-            CustomSetting(
-                name="nasaaccess_R",
-                type=CustomSetting.TYPE_STRING,
-                description="R interpreter",
-                required=False,
-            ),
-            CustomSetting(
-                name="nasaaccess_script",
-                type=CustomSetting.TYPE_STRING,
-                description="Path to the nasaaccess R script file",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_workspace",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver Workspace",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_URI",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver URI",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_user",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver User",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_password",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver Password",
-                required=False,
-            ),
-        )
+    # def custom_settings(self):
+    #     """
+    #     Example custom_settings method.
+    #     """
+    #     custom_settings = (
+    #         CustomSetting(
+    #             name="data_path",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Data Directory for Downloads",
+    #             required=False,
+    #         ),
+    #         CustomSetting(
+    #             name="nasaaccess_R",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="R interpreter",
+    #             required=False,
+    #         ),
+    #         CustomSetting(
+    #             name="nasaaccess_script",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Path to the nasaaccess R script file",
+    #             required=False,
+    #         ),
+    #         CustomSetting(
+    #             name="geoserver_workspace",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver Workspace",
+    #             required=False,
+    #         ),
+    #         CustomSetting(
+    #             name="geoserver_URI",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver URI",
+    #             required=False,
+    #         ),
+    #         CustomSetting(
+    #             name="geoserver_user",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver User",
+    #             required=False,
+    #         ),
+    #         CustomSetting(
+    #             name="geoserver_password",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver Password",
+    #             required=False,
+    #         ),
+    #     )
 
-        return custom_settings
+    #     return custom_settings
 
     def spatial_dataset_service_settings(self):
         """

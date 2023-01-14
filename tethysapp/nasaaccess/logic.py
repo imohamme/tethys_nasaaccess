@@ -4,7 +4,6 @@ import random
 import string
 import subprocess
 
-import requests
 from geo.Geoserver import Geoserver
 
 from .app import nasaaccess as app

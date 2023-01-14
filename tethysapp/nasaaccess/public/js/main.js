@@ -70,9 +70,13 @@ var LIBRARY_OBJECT = (function () {
    *                    PRIVATE FUNCTION IMPLEMENTATIONS
    *************************************************************************/
   showPlot = function () {
-    $("#map").addClass("h-[48rem]");
+    $("#map").addClass("h-64");
     $("#map").removeClass("h-full");
     $("#graphs__panel").removeClass("hidden");
+    // $("#graphs__panel").addClass("h-screen");
+
+    // $("#time__series").addClass("h-screen");
+
     setTimeout(function () {
       map.updateSize();
     }, 200);
@@ -1516,6 +1520,7 @@ var LIBRARY_OBJECT = (function () {
 
     const start_1 = datepicker("#start_GLDASpolycentroid", {
       id: 2,
+      // position: 'tl',
       formatter: (input, date, instance) => {
         const value = date
           .toLocaleDateString("en-GB", {
@@ -1531,6 +1536,7 @@ var LIBRARY_OBJECT = (function () {
         input.value = value; // => '1/1/2099'
       },
     });
+
     const end_1 = datepicker("#end_GLDASpolycentroid", {
       id: 3,
       formatter: (input, date, instance) => {

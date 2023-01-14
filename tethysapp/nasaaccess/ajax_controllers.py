@@ -9,6 +9,8 @@ from django.http import FileResponse, JsonResponse
 from .logic import nasaaccess_run, upload_dem, upload_shapefile
 from .app import nasaaccess as app
 
+from tethys_sdk.routing import controller
+
 try:
     data_path = app.get_custom_setting("data_path")
 except Exception as e:
@@ -16,6 +18,7 @@ except Exception as e:
     print("Please specify the custom settings")
     data_path = ""   
 
+@controller(name='download_files', url='nasaaccess/run')
 def run_nasaaccess(request):
 
     """
@@ -57,7 +60,7 @@ def run_nasaaccess(request):
 
     return JsonResponse({"Error": error_now})
 
-
+@controller(name='upload_shapefiles', url='nasaaccess/upload_shp')
 def upload_shapefiles(request):
 
     """
@@ -94,7 +97,7 @@ def upload_shapefiles(request):
     checker = upload_shapefile(filename, shp_path_directory)
     return JsonResponse({"file": f"{filename}","checker":checker})
 
-
+@controller(name='upload_tiffiles', url='nasaaccess/upload_dem')
 def upload_tiffiles(request):
     """
     Controller to upload new DEM files
@@ -131,7 +134,7 @@ def upload_tiffiles(request):
     checker = upload_dem(filename, dem_path_directory)
     return JsonResponse({"file": f"{filename}", "checker":checker})
 
-
+@controller(name='download', url='nasaaccess/download')
 def download_data(request):
     """
     Controller to download data using a unique access code emailed to the user when their data is ready
@@ -165,6 +168,7 @@ def download_data(request):
 
     return JsonResponse({"error": "There was an error during the response"})
 
+@controller(name='getValues', url='nasaaccess/getValues')
 
 def getValues(request):
     return_obj = {}
@@ -248,7 +252,7 @@ def getValues(request):
 
     return JsonResponse(return_obj)
 
-
+@controller(name='plot', url='nasaaccess/plot')
 def plot_data(request):
     """
     Controller to download data using a unique access code emailed to the user when their data is ready
