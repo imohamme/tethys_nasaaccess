@@ -20,10 +20,21 @@ except Exception as e:
 
 @controller(name='download_files', url='nasaaccess/run')
 def run_nasaaccess(request):
+    """_summary_
 
+    :param request: _description_
+    :type request: _type_
+    :return: _description_
+    :rtype: _type_
+    """    """_summary_
+
+    Args:
+        request (_type_): _description_
+
+    Returns:
+        _type_: _description_
     """
-    Controller to call nasaaccess R functions.
-    """
+
     # Get selected parameters and pass them into nasaccess R scripts
     error_now = ""
     try:
