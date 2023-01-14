@@ -19,101 +19,57 @@ class nasaaccess(TethysAppBase):
     feedback_emails = []
     controller_modules = [ "controllers", "ajax_controllers"]
 
-    # def url_maps(self):
+    ## custom settings ##
+    # def custom_settings(self):
     #     """
-    #     Add controllers
+    #     Example custom_settings method.
     #     """
-    #     UrlMap = url_map_maker(self.root_url)
-
-    #     url_maps = (
-    #         UrlMap(
-    #             name="home", url="nasaaccess", controller="nasaaccess.controllers.home"
+    #     custom_settings = (
+    #         CustomSetting(
+    #             name="data_path",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Data Directory for Downloads",
+    #             required=False,
     #         ),
-    #         UrlMap(
-    #             name="download_files",
-    #             url="run/",
-    #             controller="nasaaccess.ajax_controllers.run_nasaaccess",
+    #         CustomSetting(
+    #             name="nasaaccess_R",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="R interpreter",
+    #             required=False,
     #         ),
-    #         UrlMap(
-    #             name="upload_shapefiles",
-    #             url="nasaaccess/upload_shp",
-    #             controller="nasaaccess.ajax_controllers.upload_shapefiles",
+    #         CustomSetting(
+    #             name="nasaaccess_script",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Path to the nasaaccess R script file",
+    #             required=False,
     #         ),
-    #         UrlMap(
-    #             name="upload_tiffiles",
-    #             url="nasaaccess/upload_dem",
-    #             controller="nasaaccess.ajax_controllers.upload_tiffiles",
+    #         CustomSetting(
+    #             name="geoserver_workspace",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver Workspace",
+    #             required=False,
     #         ),
-    #         UrlMap(
-    #             name="download",
-    #             url="nasaaccess/download",
-    #             controller="nasaaccess.ajax_controllers.download_data",
+    #         CustomSetting(
+    #             name="geoserver_URI",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver URI",
+    #             required=False,
     #         ),
-    #         UrlMap(
-    #             name="plot",
-    #             url="nasaaccess/plot",
-    #             controller="nasaaccess.ajax_controllers.plot_data",
+    #         CustomSetting(
+    #             name="geoserver_user",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver User",
+    #             required=False,
     #         ),
-    #         UrlMap(
-    #             name="getValues",
-    #             url="nasaaccess/getValues",
-    #             controller="nasaaccess.ajax_controllers.getValues",
+    #         CustomSetting(
+    #             name="geoserver_password",
+    #             type=CustomSetting.TYPE_STRING,
+    #             description="Geoserver Password",
+    #             required=False,
     #         ),
     #     )
 
-    #     return url_maps
-
-    ## custom settings ##
-    def custom_settings(self):
-        """
-        Example custom_settings method.
-        """
-        custom_settings = (
-            CustomSetting(
-                name="data_path",
-                type=CustomSetting.TYPE_STRING,
-                description="Data Directory for Downloads",
-                required=False,
-            ),
-            CustomSetting(
-                name="nasaaccess_R",
-                type=CustomSetting.TYPE_STRING,
-                description="R interpreter",
-                required=False,
-            ),
-            CustomSetting(
-                name="nasaaccess_script",
-                type=CustomSetting.TYPE_STRING,
-                description="Path to the nasaaccess R script file",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_workspace",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver Workspace",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_URI",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver URI",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_user",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver User",
-                required=False,
-            ),
-            CustomSetting(
-                name="geoserver_password",
-                type=CustomSetting.TYPE_STRING,
-                description="Geoserver Password",
-                required=False,
-            ),
-        )
-
-        return custom_settings
+    #     return custom_settings
 
     def spatial_dataset_service_settings(self):
         """
