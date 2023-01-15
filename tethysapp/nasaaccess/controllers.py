@@ -63,7 +63,8 @@ def home(request):
     error_str = ""
     try:
         engine_geo = nasaaccess.get_spatial_dataset_service("ADPC", as_engine=True)
-        REST_URL = engine_geo.endpoint
+        # REST_URL = engine_geo.endpoint
+        REST_URL=engine_geo.get_wms_endpoint().replace("wms","rest")
         layers__all = engine_geo.list_stores(WORKSPACE, True)
         print(layers__all)
         if layers__all["success"] is True:
