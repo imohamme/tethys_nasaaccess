@@ -16,7 +16,7 @@ RUN apt-get clean && apt-get update --allow-releaseinfo-change -qq && apt-get -y
 RUN mkdir -p $HOME/.config/pip && echo "[global]\nquiet = True" > $HOME/.config/pip/pip.conf
 
 # # Clone repository
-RUN mkdir /tethys_apps && cd /tethys_apps && git clone https://github.com/BYU-Hydroinformatics/tethys_nasaaccess.git
+RUN mkdir ${TETHYS_HOME}/tethys_apps && cd ${TETHYS_HOME}/tethys_apps && git clone https://github.com/BYU-Hydroinformatics/tethys_nasaaccess.git
 
 RUN mkdir -p ${TETHYS_PERSIST}/keys
 # ###########
@@ -31,7 +31,7 @@ RUN ${CONDA_HOME}/envs/tethys/bin/mamba install --yes -c conda-forge r-base==4.0
 
 
 # install requirements with mamba ##
-RUN /bin/bash -c "cd /tethys_apps/tethys_nasaaccess \
+RUN /bin/bash -c "cd ${TETHYS_HOME}/tethys_apps/tethys_nasaaccess \
   ;${CONDA_HOME}/envs/tethys/bin/mamba install --yes --file requirements.txt -c conda-forge"
 
 
@@ -42,7 +42,7 @@ RUN cp /opt/conda/envs/tethys/bin/pip /usr/bin
 RUN cp /opt/conda/envs/tethys/bin/pip3 /usr/bin
 
 
-RUN /bin/bash -c "cd /tethys_apps/tethys_nasaaccess \
+RUN /bin/bash -c "cd ${TETHYS_HOME}/tethys_apps/tethys_nasaaccess \
   ; ${CONDA_HOME}/envs/tethys/bin/tethys install -N -w -v"
 
 RUN /bin/bash -c "${CONDA_HOME}/envs/tethys/bin/pip install psycopg2==2.8.6"
@@ -73,19 +73,19 @@ EXPOSE 80
 # ADD THE EXTRA MIDDLEWARE 
 ##########################
 
-ADD custom_middleware.py /usr/lib/tethys/tethys/tethys_portal/
+ADD custom_middleware.py ${TETHYS_HOME}/tethys/tethys_portal/
 
 ###################
 # ADD THE DATA PATH 
 ###################
 
-RUN mkdir -p $HOME/data_nasa
+RUN mkdir -p ${TETHYS_HOME}/data_nasa
 
 ######################################################
 # CHANGE THE PROXY TIME REPLACING THE NGINX TEMPLATE #
 ######################################################
 
-ADD nginx /usr/lib/tethys/tethys/tethys_cli/gen_templates/
+ADD nginx ${TETHYS_HOME}/tethys/tethys_cli/gen_templates/
 
 
 ################
