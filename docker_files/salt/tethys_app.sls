@@ -112,7 +112,7 @@ Set_Custom_Settings:
     - name: >
         tethys app_settings set nasaaccess data_path {{ TETHYS_HOME }}/data_nasa &
         tethys app_settings set nasaaccess nasaaccess_R {{ CONDA_HOME }}/envs/{{ CONDA_ENV_NAME }}/bin/Rscript &
-        tethys app_settings set nasaaccess nasaaccess_script {{ TETHYS_HOME }}/tethys_nasaaccess/nasaaccess/scripts/nasaaccess.R &
+        tethys app_settings set nasaaccess nasaaccess_script {{ TETHYS_HOME }}/tethys_apps/tethys_nasaaccess/tethysapp/nasaaccess/scripts/nasaaccess.R &
         tethys app_settings set nasaaccess geoserver_workspace {{ GEOSERVER_WORKSPACE }} & 
         tethys app_settings set nasaaccess geoserver_URI {{ GEOSERVER_URI }} & 
         tethys app_settings set nasaaccess geoserver_user {{ TETHYS_GS_USERNAME }} & 
