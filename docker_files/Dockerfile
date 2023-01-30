@@ -95,6 +95,9 @@ ADD nginx ${TETHYS_HOME}/tethys/tethys_cli/gen_templates/
 ## Be sure to be inside the docker_files folder ##
 ADD /salt/ /srv/salt/
 
+## Create the authentication
+RUN /bin/bash -c "touch ${HOME}/.netrc && echo machine ${NAS_SERVER} login ${NASA_USER} password ${NASA_PASSWORD} >> ${HOME}/.netrc"
+RUN touch $HOME/.urs_cookies
 # #####################################
 # # ADDITIONAL DATABASE CONFIGURATION #
 # #####################################
