@@ -1102,6 +1102,8 @@ var LIBRARY_OBJECT = (function () {
       data: data,
       dataType: "json",
       success: function (data) {
+        
+
         updateLegend();
         removeLayersFunctions();
 
