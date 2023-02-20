@@ -1,0 +1,50 @@
+version: '3.2'
+services:
+  db:
+    image: postgis/postgis:latest
+    restart: always
+    networks:
+      - 'internal'
+      - 'external'
+    ports:
+      - '5432:5432'
+    env_file:
+      - ./helpful_files/db.env
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+  geoserver:
+    image: tethysplatform/geoserver:latest
+    restart: always
+    networks:
+      - 'internal'
+      - 'external'
+    ports:
+      - '8181:8181'
+      - '8081-8084:8081-8084'
+
+    env_file:
+      - ./helpful_files/geoserver.env
+    volumes:
+      - ./data/geoserver:/var/geoserver/data
+
+  web:
+    # image: gioelkin/nasaacess:2.0.1
+    build: .
+    restart: always
+    depends_on:
+      - 'db'
+    networks:
+      - 'internal'
+      - 'external'
+    ports:
+      - '80:80'
+    env_file:
+      - ./helpful_files/tethys_mockup.env
+    volumes:
+      # - ./data/tethys:/var/lib/tethys_persist
+      - ./logs/tethys:/var/log/tethys
+networks:
+  internal:
+    internal: true
+  external:

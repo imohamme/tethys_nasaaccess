@@ -13,3 +13,7 @@
 .flake8
 .DS_Store
 temp
+/docker_files/data
+/docker_files/logs
+/docs/_build
+/docs/_static

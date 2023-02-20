@@ -19,51 +19,7 @@ class nasaaccess(TethysAppBase):
     feedback_emails = []
     controller_modules = [ "controllers", "ajax_controllers"]
 
-    # def url_maps(self):
-    #     """
-    #     Add controllers
-    #     """
-    #     UrlMap = url_map_maker(self.root_url)
-
-    #     url_maps = (
-    #         UrlMap(
-    #             name="home", url="nasaaccess", controller="nasaaccess.controllers.home"
-    #         ),
-    #         UrlMap(
-    #             name="download_files",
-    #             url="run/",
-    #             controller="nasaaccess.ajax_controllers.run_nasaaccess",
-    #         ),
-    #         UrlMap(
-    #             name="upload_shapefiles",
-    #             url="nasaaccess/upload_shp",
-    #             controller="nasaaccess.ajax_controllers.upload_shapefiles",
-    #         ),
-    #         UrlMap(
-    #             name="upload_tiffiles",
-    #             url="nasaaccess/upload_dem",
-    #             controller="nasaaccess.ajax_controllers.upload_tiffiles",
-    #         ),
-    #         UrlMap(
-    #             name="download",
-    #             url="nasaaccess/download",
-    #             controller="nasaaccess.ajax_controllers.download_data",
-    #         ),
-    #         UrlMap(
-    #             name="plot",
-    #             url="nasaaccess/plot",
-    #             controller="nasaaccess.ajax_controllers.plot_data",
-    #         ),
-    #         UrlMap(
-    #             name="getValues",
-    #             url="nasaaccess/getValues",
-    #             controller="nasaaccess.ajax_controllers.getValues",
-    #         ),
-    #     )
-
-    #     return url_maps
-
-    ## custom settings ##
+    # custom settings ##
     def custom_settings(self):
         """
         Example custom_settings method.

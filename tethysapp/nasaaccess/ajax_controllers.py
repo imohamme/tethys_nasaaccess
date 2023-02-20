@@ -20,10 +20,21 @@ except Exception as e:
 
 @controller(name='download_files', url='nasaaccess/run')
 def run_nasaaccess(request):
+    """_summary_
 
+    :param request: _description_
+    :type request: _type_
+    :return: _description_
+    :rtype: _type_
+    """    """_summary_
+
+    Args:
+        request (_type_): _description_
+
+    Returns:
+        _type_: _description_
     """
-    Controller to call nasaaccess R functions.
-    """
+
     # Get selected parameters and pass them into nasaccess R scripts
     error_now = ""
     try:
@@ -207,7 +218,7 @@ def getValues(request):
 
         new_path = os.path.join(unique_path, "GPMswat", "precipitationMaster.txt")
 
-    if func_name == "NEX_GDPPswat":
+    if func_name == "NEX_GDDP_CMIP5":
         pre_path = os.path.join(unique_path, "NEXGDPP")
         new_path = os.path.join(unique_path, "NEXGDPP", "prGrid_Master.txt")
 
@@ -219,7 +230,7 @@ def getValues(request):
     if os.path.exists(new_path):
         path_file = os.path.join(pre_path, f"{file}.txt")
         mypd = pd.read_csv(path_file)
-        if func_name == "NEX_GDPPswat" or func_name == "NEX_GDPP_CMIP6" or func_name == "GPM_NRT" or func_name == "GPMswat" or func_name == "GPMpolyCentroid":
+        if func_name == "NEX_GDDP_CMIP5" or func_name == "NEX_GDPP_CMIP6" or func_name == "GPM_NRT" or func_name == "GPMswat" or func_name == "GPMpolyCentroid":
             new_pd = mypd.reset_index(drop=True)
         else:
             new_pd = mypd.reset_index()
@@ -293,34 +304,40 @@ def plot_data(request):
         if os.path.exists(gldaspolycentroid_path):
             # print('GLDASpolyCentroid')
             data_master_1 = pd.read_csv(gldaspolycentroid_path)
+            data_master_1 = data_master_1.where(data_master_1.notnull(), -999999)
             response_obj["GLDASpolyCentroid"] = data_master_1.to_dict("index")
 
         if os.path.exists(gpnnrt_path):
             # print('GPM_NRT')
             data_master_1 = pd.read_csv(gpnnrt_path)
+            data_master_1 = data_master_1.where(data_master_1.notnull(), -999999)
             response_obj['GPM_NRT'] = data_master_1.to_dict('index')
 
         if os.path.exists(gldasswat_path):
             # print('GLDASwat')
             data_master_1 = pd.read_csv(gldasswat_path)
+            data_master_1 = data_master_1.where(data_master_1.notnull(), -999999)
             response_obj["GLDASwat"] = data_master_1.to_dict("index")
 
         if os.path.exists(gpmpolycentroid_path):
             # print('GPMpolyCentroid')
             data_master_1 = pd.read_csv(gpmpolycentroid_path)
+            data_master_1 = data_master_1.where(data_master_1.notnull(), -999999)
             response_obj["GPMpolyCentroid"] = data_master_1.to_dict("index")
 
         if os.path.exists(gpmswat_path):
             # print('GPMswat')
             data_master_1 = pd.read_csv(gpmswat_path)
+            data_master_1 = data_master_1.where(data_master_1.notnull(), -999999)
             response_obj["GPMswat"] = data_master_1.to_dict("index")
 
         if os.path.exists(nextgdpp_path):
-            # print('NEXGDPP')
             data_master_1 = pd.read_csv(nextgdpp_path)
-            response_obj["NEX_GDPPswat"] = data_master_1.to_dict("index")
+            data_master_1 = data_master_1.where(data_master_1.notnull(), -999999)
+            response_obj["NEX_GDDP_CMIP5"] = data_master_1.to_dict("index")
         if os.path.exists(nexgdppcmip6_path):
             # print('NEX_GDPP_CMIP6')
             data_master_1 = pd.read_csv(nexgdppcmip6_path)
+            data_master_1 = data_master_1.where(data_master_1.notnull(), -999999)
             response_obj["NEX_GDPP_CMIP6"] = data_master_1.to_dict("index")
     return JsonResponse(response_obj)

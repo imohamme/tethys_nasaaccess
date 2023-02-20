@@ -32,9 +32,14 @@
 {% endblock %}
 
 {% block header_buttons %}
+
+
+<div class= 'header-button glyphicon-button tool_tip_h' data-bs-toggle= 'tooltip' data-placement='bottom' title= 'Show/Hide Graphs Panel'> <input id="sG-switch" type="checkbox" data-toggle="toggle" data-on='<i class="bi bi-reception-4"></i>' data-off='<i class="bi bi-reception-4"></i>' data-size="mini" data-onstyle = "danger"></input></div>
+
   <div class="header-button glyphicon-button" data-bs-toggle="tooltip" data-placement="bottom" title="Help">
     <a data-bs-toggle="modal" data-bs-target="#help-modal"><i class="bi bi-question"></i></a>
   </div>
+
 {% endblock %}
 
 {% block app_navigation_items %}
@@ -518,8 +523,8 @@
 {% block app_content %}
   <div class="flex flex-col flex-1 h-full">
     <div id="map" class="flex-1 h-full w-full"></div>
-    <div class="flex absolute w-full justify-end">
-      <table id="tableLegend" class="flex flex-col opacity-70 p-4 bg-slate-200 w-1/4 hidden"></table>
+    <div class="flex absolute w-1/8 bottom-3/4">
+      <table id="tableLegend" class="flex flex-col opacity-70 p-4 bg-slate-200 w-full hidden"></table>
     </div>
 
     <div id="graphs__panel" class="flex-1 relative hidden w-full pt-1.5">
