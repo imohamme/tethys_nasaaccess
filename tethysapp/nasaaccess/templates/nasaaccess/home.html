@@ -567,29 +567,30 @@
             </p>
             <br>
             <p><strong>How to work with NASAaccess Tethys App:</strong></p>
+            <br>
             <ul class="list-group">
               
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Select a watershed or upload your own
-                <span class="text-base px-5 bg-gray-200 text-gray-600 rounded-full font-bold">must be a polygon shapefile or json file in a WGS 84 geographic projection</span>
+              <li class="list-group-item flex flex-col space-y-3">
+                <p>Select a watershed or upload your own</p>
+                <p class="text-xs font-bold italic">**Must be a polygon shapefile or json file in a WGS 84 geographic projection</p>
+              </li>
+              <br>
+              <li class="list-group-item flex flex-col space-y-3">
+                <p>Select a digital elevation model (DEM) or upload your own</p> 
+                <p class="text-xs font-bold italic">**Must be a TIFF file in a WGS-84 geographic projection</p>
               </li>
               <br>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                Select a digital elevation model (DEM) or upload your own
-                <span class="text-base px-5 bg-gray-200 text-gray-600 rounded-full font-bold">must be a TIFF file in a WGS-84 geographic projection</span>
+                Select at least one of the NASAaccess functions (e.g., GPMpolyCentroid )
               </li>
-              <br>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Select at least one of the NASAaccess functions (e.g., <a style="font-style: oblique;">GPMpolyCentroid</a>)
+              <li class="list-group-item">
+                Click <button type="button" class="bg-cyan-900 text-zinc-50 p-2 rounded-lg inline-block text-xs" >Run</button> and then provide an email address for the app to contact you when the data preparation is ready and then click <button class="inline-block bg-green-900	text-zinc-50 items-center p-2 rounded-lg text-xs">Submit</button>
               </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Click <button type="button" class="bg-cyan-900 text-zinc-50 p-2 rounded-lg inline-block" >Run</button> and then provide an email address for the app to contact you when the data preparation is ready and then click <button class="btn btn-primary p-2 text-zinc-50 inline-block">Submit</button>
+              <li class="list-group-item">
+                Once your request is finished (i.e., you have received an email from NASAaccess stating your data has been processed and it has an access code) then click <button type="button" class="inline-block bg-green-900	text-zinc-50 items-center p-2 rounded-lg text-xs" >Download</button> and provide your access code to download the data to your desired location.
               </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Once your request is finished (i.e., you have received an email from NASAaccess stating your data has been processed and it has an access code) then click <button type="button" class="inline-block bg-green-900	text-zinc-50 items-center p-2 rounded-lg" >Download</button> and provide your access code to download the data to your desired location.
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Click <button type="button" class="inline-block bg-indigo-900	text-zinc-50 items-center p-2 rounded-lg">Plot</button> and provide your access code to start visualizing your data!
+              <li class="list-group-item">
+                Click <button type="button" class="inline-block bg-indigo-900	text-zinc-50 items-center p-2 rounded-lg text-xs">Plot</button> and provide your access code to start visualizing your data!
               </li>
             </ul>                
             
