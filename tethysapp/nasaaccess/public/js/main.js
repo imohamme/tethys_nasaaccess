@@ -72,38 +72,39 @@ var LIBRARY_OBJECT = (function () {
    *                    PRIVATE FUNCTION IMPLEMENTATIONS
    *************************************************************************/
   showPlot = function () {
-    $('#sG-switch').bootstrapToggle('on');
     $("#map").addClass("h-64");
     $("#map").removeClass("h-full");
     $("#graphs__panel").removeClass("hidden");
-    // $("#graphs__panel").addClass("h-screen");
+    if($('#sG-switch').prop('checked') == false){
+      $('#sG-switch').bootstrapToggle('on');
+    }
 
-    // $("#time__series").addClass("h-screen");
-    map.updateSize();
-
+    window.setTimeout(function () {
+      map.updateSize();
+    }, 350);
   };
 
   hidePlot = function () {
-    $('#sG-switch').bootstrapToggle('off');
     $("#map").removeClass("h-64");
     $("#map").addClass("h-full");
     $("#graphs__panel").addClass("hidden");
-    map.updateSize();
+    if($('#sG-switch').prop('checked') == true){
+      $('#sG-switch').bootstrapToggle('off');
+    }
+    window.setTimeout(function () {
+      map.updateSize();
+    }, 350);
   };
 
 
   activate_deactivate_graphs = function(){
-    
     try{
       let actual_state=$(this).prop('checked');
-  
       if(actual_state){
         showPlot()
       }
-  
       else{
         hidePlot()
-
       }
     }
     catch(e){
@@ -1241,7 +1242,6 @@ var LIBRARY_OBJECT = (function () {
   getValues = function () {
     map.on("singleclick", function (evt) {
       evt.stopPropagation();
-
       var feature = map.forEachFeatureAtPixel(
         evt.pixel,
         function (feature2, layer) {
