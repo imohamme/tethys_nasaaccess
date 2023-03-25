@@ -27,7 +27,7 @@ RUN mkdir -p ${TETHYS_PERSIST}/keys
 
 RUN ${CONDA_HOME}/envs/tethys/bin/conda install -n base -c conda-forge mamba
 
-RUN ${CONDA_HOME}/envs/tethys/bin/mamba install --yes -c conda-forge r-base==4.0.*
+RUN ${CONDA_HOME}/envs/tethys/bin/mamba install --yes -c conda-forge r-base
 
 
 # install requirements with mamba ##
@@ -95,9 +95,6 @@ ADD nginx ${TETHYS_HOME}/tethys/tethys_cli/gen_templates/
 ## Be sure to be inside the docker_files folder ##
 ADD /salt/ /srv/salt/
 
-## Create the authentication
-RUN /bin/bash -c "touch ${HOME}/.netrc && echo machine ${NAS_SERVER} login ${NASA_USER} password ${NASA_PASSWORD} >> ${HOME}/.netrc"
-RUN touch $HOME/.urs_cookies
 # #####################################
 # # ADDITIONAL DATABASE CONFIGURATION #
 # #####################################

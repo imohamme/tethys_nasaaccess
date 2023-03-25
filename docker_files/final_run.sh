@@ -1,5 +1,7 @@
 #!bin/bash
 
+## Write the authentication please the authentication
+
 SUB='rds.amazonaws.com'
 if [[ $TETHYS_DB_HOST =~ .*"$SUB".* ]]; then
 	echo 'Running the external database configuration . . .'
