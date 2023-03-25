@@ -64,23 +64,56 @@ var LIBRARY_OBJECT = (function () {
     getIconLegend,
     removeLayersFunctions,
     updateLegend,
-    showPlot;
+    showPlot,
+    hidePlot,
+    activate_deactivate_graphs;
 
   /************************************************************************
    *                    PRIVATE FUNCTION IMPLEMENTATIONS
    *************************************************************************/
   showPlot = function () {
+    $('#sG-switch').bootstrapToggle('on');
     $("#map").addClass("h-64");
     $("#map").removeClass("h-full");
     $("#graphs__panel").removeClass("hidden");
     // $("#graphs__panel").addClass("h-screen");
 
     // $("#time__series").addClass("h-screen");
+    map.updateSize();
 
-    setTimeout(function () {
-      map.updateSize();
-    }, 200);
   };
+
+  hidePlot = function () {
+    $('#sG-switch').bootstrapToggle('off');
+    $("#map").removeClass("h-64");
+    $("#map").addClass("h-full");
+    $("#graphs__panel").addClass("hidden");
+    map.updateSize();
+  };
+
+
+  activate_deactivate_graphs = function(){
+    
+    try{
+      let actual_state=$(this).prop('checked');
+  
+      if(actual_state){
+        showPlot()
+      }
+  
+      else{
+        hidePlot()
+
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+  
+  
+  };
+
+
 
   //Get a CSRF cookie for request
   getCookie = function (name) {
@@ -1102,6 +1135,8 @@ var LIBRARY_OBJECT = (function () {
       data: data,
       dataType: "json",
       success: function (data) {
+        
+
         updateLegend();
         removeLayersFunctions();
 
@@ -2097,6 +2132,8 @@ var LIBRARY_OBJECT = (function () {
         end_6.setMin(new Date());
       }
     });
+    $('#sG-switch').change(activate_deactivate_graphs);
+
   });
 
   return public_interface;

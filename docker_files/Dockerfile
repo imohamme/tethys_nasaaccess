@@ -27,7 +27,7 @@ RUN mkdir -p ${TETHYS_PERSIST}/keys
 
 RUN ${CONDA_HOME}/envs/tethys/bin/conda install -n base -c conda-forge mamba
 
-RUN ${CONDA_HOME}/envs/tethys/bin/mamba install --yes -c conda-forge r-base==4.0.*
+RUN ${CONDA_HOME}/envs/tethys/bin/mamba install --yes -c conda-forge r-base
 
 
 # install requirements with mamba ##
