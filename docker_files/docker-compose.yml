@@ -42,7 +42,7 @@ services:
     env_file:
       - ./helpful_files/tethys_mockup.env
     volumes:
-      # - ./data/tethys:/var/lib/tethys_persist
+      - ./data/tethys:/var/lib/tethys_persist
       - ./logs/tethys:/var/log/tethys
 networks:
   internal:
