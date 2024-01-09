@@ -48,9 +48,7 @@ def run_nasaaccess(request):
         dem = request.POST.get("dem")
         email = request.POST.get("email")
         # user_workspace = os.path.join(nasaaccess.get_user_workspace(request.user).path)
-        app_workspace_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "workspaces", "app_workspace"
-        )
+        app_workspace_path = app.get_app_workspace().path
 
         os.chmod(app_workspace_path, 0o777)
         result = nasaaccess_run(
@@ -80,9 +78,7 @@ def upload_shapefiles(request):
     files = request.FILES.getlist("files")
 
     # create new dir or check dir for shapefiles
-    app_workspace_path = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "workspaces", "app_workspace"
-    )
+    app_workspace_path = app.get_app_workspace().path
     shp_path = os.path.join(app_workspace_path, "shapefiles")
 
     if not os.path.exists(shp_path):
@@ -116,9 +112,7 @@ def upload_tiffiles(request):
     files = request.FILES.getlist("files")
     print(files)
     # create new dir or check dir for shapefiles
-    app_workspace_path = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)), "workspaces", "app_workspace"
-    )
+    app_workspace_path = app.get_app_workspace().path
 
     dem_path = os.path.join(app_workspace_path, "DEMfiles")
     if not os.path.exists(dem_path):
